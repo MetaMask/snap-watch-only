@@ -1,28 +1,35 @@
 {
-  "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example Snap",
+  "version": "1.0.0",
+  "description": "A keyring for watch-only accounts.",
+  "proposedName": "MetaMask Snap Keyring Watch-Only",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "git+https://github.com/k-g-j/snap-simple-keyring-watch-only.git"
   },
   "source": {
-    "shasum": "IgmLa9j7q8fAStRzmp9l/r1to0jAA9TxWRQjf3ghA+Y=",
+    "shasum": "IJlBBIojpBroKrMH0Mi8PbcrQ3TZtH8dZsthjYyF7X0=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "snap",
+        "packageName": "snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
   },
   "initialPermissions": {
     "snap_dialog": {},
+    "endowment:keyring": {
+      "allowedOrigins": [
+        "https://metamask.github.io",
+        "http://localhost:8000"
+      ]
+    },
     "endowment:rpc": {
-      "dapps": true,
-      "snaps": false
-    }
+      "dapps": true
+    },
+    "snap_manageAccounts": {},
+    "snap_manageState": {}
   },
   "manifestVersion": "0.1"
 }

@@ -1,10 +1,13 @@
-import { useContext } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { MetamaskActions, MetaMaskContext } from '../hooks';
-import { connectSnap, getThemePreference, getSnap } from '../utils';
+import React, { useContext } from 'react';
+import semver from 'semver';
+import styled from 'styled-components';
+
 import { HeaderButtons } from './Buttons';
-import { SnapLogo } from './SnapLogo';
-import { Toggle } from './Toggle';
+import snapPackageInfo from '../../../snap/package.json';
+import packageInfo from '../../package.json';
+import { defaultSnapOrigin } from '../config';
+import { MetamaskActions, MetaMaskContext } from '../hooks';
+import { connectSnap, getSnap } from '../utils';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -12,7 +15,8 @@ const HeaderWrapper = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 2.4rem;
-  border-bottom: 1px solid ${(props) => props.theme.colors.border.default};
+  padding-left: 5%;
+  padding-right: 5%;
 `;
 
 const Title = styled.p`
@@ -37,13 +41,21 @@ const RightContainer = styled.div`
   align-items: center;
 `;
 
-export const Header = ({
-  handleToggleClick,
-}: {
-  handleToggleClick(): void;
-}) => {
-  const theme = useTheme();
+const VersionStyle = styled.p`
+  margin-top: 1.2rem;
+  font-size: 1.6rem;
+  margin: auto;
+  padding-right: 2rem;
+  color: ${({ theme }) => theme.colors.text?.muted};
+`;
+
+export const Header = () => {
   const [state, dispatch] = useContext(MetaMaskContext);
+
+  const updateAvailable = Boolean(
+    state?.installedSnap &&
+      semver.gt(snapPackageInfo.version, state.installedSnap?.version),
+  );
 
   const handleConnectClick = async () => {
     try {
@@ -54,23 +66,57 @@ export const Header = ({
         type: MetamaskActions.SetInstalled,
         payload: installedSnap,
       });
-    } catch (e) {
-      console.error(e);
-      dispatch({ type: MetamaskActions.SetError, payload: e });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: MetamaskActions.SetError, payload: error });
     }
   };
+
+  /**
+   * Component that displays the dapp and snap versions.
+   *
+   * @returns A component that displays the dapp and snap versions.
+   */
+  const Version = () => {
+    return (
+      <VersionStyle>
+        <div>
+          <b>Dapp version: </b>
+          {packageInfo.version}
+        </div>
+
+        <div>
+          <b>Snap version (expected): </b>
+          {snapPackageInfo.version}
+        </div>
+
+        {state.installedSnap ? (
+          <div>
+            <b>Snap version (installed): </b> {state.installedSnap?.version}
+          </div>
+        ) : (
+          <div>
+            <b>Snap version (to install): </b> {snapPackageInfo.version}
+          </div>
+        )}
+
+        {defaultSnapOrigin.startsWith('local') && `(from ${defaultSnapOrigin})`}
+      </VersionStyle>
+    );
+  };
+
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <SnapLogo color={theme.colors.icon.default} size={36} />
-        <Title>template-snap</Title>
+        <Title>Watch-Only Snap</Title>
       </LogoWrapper>
       <RightContainer>
-        <Toggle
-          onToggle={handleToggleClick}
-          defaultChecked={getThemePreference()}
+        <Version />
+        <HeaderButtons
+          state={state}
+          onConnectClick={handleConnectClick}
+          updateAvailable={updateAvailable}
         />
-        <HeaderButtons state={state} onConnectClick={handleConnectClick} />
       </RightContainer>
     </HeaderWrapper>
   );

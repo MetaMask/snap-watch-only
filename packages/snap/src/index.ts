@@ -1,33 +1,80 @@
-import { OnRpcRequestHandler } from '@metamask/snaps-types';
-import { panel, text } from '@metamask/snaps-ui';
+import {
+  handleKeyringRequest,
+  MethodNotSupportedError,
+} from '@metamask/keyring-api';
+import type {
+  OnKeyringRequestHandler,
+  OnRpcRequestHandler,
+} from '@metamask/snaps-types';
+
+import { WatchOnlyKeyring } from './keyring';
+import { InternalMethod, originPermissions } from './permissions';
+import { getState } from './stateManagement';
+
+let keyring: WatchOnlyKeyring;
 
 /**
- * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
- *
- * @param args - The request handler args as object.
- * @param args.origin - The origin of the request, e.g., the website that
- * invoked the snap.
- * @param args.request - A validated JSON-RPC request object.
- * @returns The result of `snap_dialog`.
- * @throws If the request method is not valid for this snap.
+ * Return the keyring instance. If it doesn't exist, create it.
  */
-export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
-  switch (request.method) {
-    case 'hello':
-      return snap.request({
-        method: 'snap_dialog',
-        params: {
-          type: 'Confirmation',
-          content: panel([
-            text(`Hello, **${origin}**!`),
-            text('This custom confirmation is just for display purposes.'),
-            text(
-              'But you can edit the snap source code to make it do something, if you want to!',
-            ),
-          ]),
-        },
-      });
-    default:
-      throw new Error('Method not found.');
+async function getKeyring(): Promise<WatchOnlyKeyring> {
+  if (!keyring) {
+    const state = await getState();
+    if (!keyring) {
+      keyring = new WatchOnlyKeyring(state);
+    }
   }
+  return keyring;
+}
+
+/**
+ * Verify if the caller can call the requested method.
+ *
+ * @param origin - Caller origin.
+ * @param method - Method being called.
+ * @returns True if the caller is allowed to call the method, false otherwise.
+ */
+function hasPermission(origin: string, method: string): boolean {
+  return originPermissions.get(origin)?.includes(method) ?? false;
+}
+
+export const onRpcRequest: OnRpcRequestHandler = async ({
+  origin,
+  request,
+}) => {
+  // Check if origin is allowed to call method.
+  if (!hasPermission(origin, request.method)) {
+    throw new Error(
+      `Origin '${origin}' is not allowed to call '${request.method}'`,
+    );
+  }
+
+  // Handle custom methods.
+  switch (request.method) {
+    case InternalMethod.ToggleSyncApprovals: {
+      return (await getKeyring()).toggleSyncApprovals();
+    }
+
+    case InternalMethod.IsSynchronousMode: {
+      return (await getKeyring()).isSynchronousMode();
+    }
+
+    default: {
+      throw new MethodNotSupportedError(request.method);
+    }
+  }
+};
+
+export const onKeyringRequest: OnKeyringRequestHandler = async ({
+  origin,
+  request,
+}) => {
+  // Check if origin is allowed to call method.
+  if (!hasPermission(origin, request.method)) {
+    throw new Error(
+      `Origin'${origin}' is not allowed to call '${request.method}'`,
+    );
+  }
+
+  // Handle keyring methods.
+  return handleKeyringRequest(await getKeyring(), request);
 };

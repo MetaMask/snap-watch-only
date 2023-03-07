@@ -1,5 +1,6 @@
+import snapPackageInfo from '../../../snap/package.json';
 import { defaultSnapOrigin } from '../config';
-import { GetSnapsResponse, Snap } from '../types';
+import type { GetSnapsResponse, Snap } from '../types';
 
 /**
  * Get the installed snaps in MetaMask.
@@ -20,7 +21,9 @@ export const getSnaps = async (): Promise<GetSnapsResponse> => {
  */
 export const connectSnap = async (
   snapId: string = defaultSnapOrigin,
-  params: Record<'version' | string, unknown> = {},
+  params: Record<'version' | string, unknown> = {
+    version: snapPackageInfo.version,
+  },
 ) => {
   await window.ethereum.request({
     method: 'wallet_requestSnaps',
@@ -44,8 +47,8 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
       (snap) =>
         snap.id === defaultSnapOrigin && (!version || snap.version === version),
     );
-  } catch (e) {
-    console.log('Failed to obtain installed snap', e);
+  } catch (error) {
+    console.log('Failed to obtain installed snap', error);
     return undefined;
   }
 };
@@ -57,7 +60,10 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
 export const sendHello = async () => {
   await window.ethereum.request({
     method: 'wallet_invokeSnap',
-    params: { snapId: defaultSnapOrigin, request: { method: 'hello' } },
+    params: {
+      snapId: defaultSnapOrigin,
+      request: { method: 'snap.internal.hello' },
+    },
   });
 };
 

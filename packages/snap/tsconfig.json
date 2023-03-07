@@ -1,4 +1,16 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src"]
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@metamask/*": ["../../../*/src"]
+    },
+    "types": ["node", "jest", "mocha", "chai"]
+  },
+  "include": ["src", "snap.config.ts"],
 }

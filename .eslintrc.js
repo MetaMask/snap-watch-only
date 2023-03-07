@@ -1,44 +1,44 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    sourceType: 'module',
-  },
 
   extends: ['@metamask/eslint-config'],
 
   overrides: [
     {
-      files: ['**/*.js'],
+      files: ['*.ts', '*.tsx'],
+      extends: ['@metamask/eslint-config-typescript'],
+      rules: {
+        // This prevents using Node.js and/or browser specific globals. We
+        // currently use both in our codebase, so this rule is disabled.
+        'no-restricted-globals': 'off',
+        'spaced-comment': ['error', 'always', { markers: ['/'] }],
+      },
+    },
+
+    {
+      files: ['*.js', '*.jsx', '*.cjs'],
       extends: ['@metamask/eslint-config-nodejs'],
     },
 
     {
-      files: ['**/*.{ts,tsx}'],
-      extends: ['@metamask/eslint-config-typescript'],
-      rules: {
-        '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
-      },
-    },
-
-    {
-      files: ['**/*.test.ts', '**/*.test.js'],
-      extends: ['@metamask/eslint-config-jest'],
-      rules: {
-        '@typescript-eslint/no-shadow': [
-          'error',
-          { allow: ['describe', 'expect', 'it'] },
-        ],
-      },
+      files: ['*.test.ts', '*.test.js'],
+      extends: [
+        '@metamask/eslint-config-jest',
+        '@metamask/eslint-config-nodejs',
+      ],
     },
   ],
 
+  rules: {
+    // This is necessary to run eslint on Windows and not get a thousand CRLF errors
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+  },
+
   ignorePatterns: [
+    '!.eslintrc.js',
     '!.prettierrc.js',
-    '**/!.eslintrc.js',
-    '**/dist*/',
-    '**/*__GENERATED__*',
-    '**/build',
-    '**/public',
-    '**/.cache',
+    'dist/',
+    'docs/',
+    '.yarn/',
   ],
 };
