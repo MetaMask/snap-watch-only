@@ -7,12 +7,12 @@ import { MethodButton } from './Buttons';
 import { CopyableItem } from './CopyableItem';
 import {
   AccountContainer,
-  AccountTitleContainer,
-  AccountTitle,
-  AccountTitleIconContainer,
   AccountRow,
   AccountRowTitle,
   AccountRowValue,
+  AccountTitle,
+  AccountTitleContainer,
+  AccountTitleIconContainer,
 } from './styledComponents';
 
 export const Account = ({
@@ -58,6 +58,8 @@ export const Account = ({
           </AccountRow>
           <AccountRow>
             <AccountRowTitle>Account Supported Methods</AccountRowTitle>
+            !account.methods.length && (
+            <AccountRowValue>Watch Only Account</AccountRowValue>)
             <ul style={{ padding: '0px 0px 0px 16px' }}>
               {account.methods.map((method, methodIndex) => (
                 <AccountRowValue
