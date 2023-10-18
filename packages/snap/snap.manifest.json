@@ -7,7 +7,7 @@
     "url": "git+https://github.com/k-g-j/snap-simple-keyring-watch-only.git"
   },
   "source": {
-    "shasum": "8mmW4pgwE8fH62mtLgb8+OGT1Twdu7Y0c1tkF8RZ4fc=",
+    "shasum": "",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
