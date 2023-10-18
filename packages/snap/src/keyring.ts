@@ -11,14 +11,14 @@ import type {
   KeyringRequest,
   SubmitRequestResponse,
 } from '@metamask/keyring-api';
-import {emitSnapKeyringEvent, EthAccountType,} from '@metamask/keyring-api';
-import {KeyringEvent} from '@metamask/keyring-api/dist/events';
-import {type Json} from '@metamask/utils';
-import {Buffer} from 'buffer';
-import {v4 as uuid} from 'uuid';
+import { emitSnapKeyringEvent, EthAccountType } from '@metamask/keyring-api';
+import { KeyringEvent } from '@metamask/keyring-api/dist/events';
+import { type Json } from '@metamask/utils';
+import { Buffer } from 'buffer';
+import { v4 as uuid } from 'uuid';
 
-import {saveState} from './stateManagement';
-import {isEvmChain, isUniqueAddress, throwError,} from './util';
+import { saveState } from './stateManagement';
+import { isEvmChain, isUniqueAddress, throwError } from './util';
 import packageInfo from '../package.json';
 
 export type KeyringState = {
@@ -53,7 +53,7 @@ export class SimpleKeyring implements Keyring {
   async createAccount(
     options: Record<string, Json> = {},
   ): Promise<KeyringAccount> {
-    const {privateKey, address} = this.#getKeyPair(
+    const { privateKey, address } = this.#getKeyPair(
       options?.privateKey as string | undefined,
     );
 
@@ -82,8 +82,8 @@ export class SimpleKeyring implements Keyring {
         ],
         type: EthAccountType.Eoa,
       };
-      await this.#emitEvent(KeyringEvent.AccountCreated, {account});
-      this.#state.wallets[account.id] = {account, privateKey};
+      await this.#emitEvent(KeyringEvent.AccountCreated, { account });
+      this.#state.wallets[account.id] = { account, privateKey };
       await this.#saveState();
       return account;
     } catch (error) {
@@ -120,7 +120,7 @@ export class SimpleKeyring implements Keyring {
 
   async deleteAccount(id: string): Promise<void> {
     try {
-      await this.#emitEvent(KeyringEvent.AccountDeleted, {id});
+      await this.#emitEvent(KeyringEvent.AccountDeleted, { id });
       delete this.#state.wallets[id];
       await this.#saveState();
     } catch (error) {
@@ -145,9 +145,9 @@ export class SimpleKeyring implements Keyring {
   }
 
   async approveRequest(id: string): Promise<void> {
-    const {request} =
-    this.#state.pendingRequests[id] ??
-    throwError(`Request '${id}' not found`);
+    // const { request } =
+    //   this.#state.pendingRequests[id] ??
+    //   throwError(`Request '${id}' not found`);
 
     // const result = this.#handleSigningRequest(
     //   request.method,
@@ -155,8 +155,10 @@ export class SimpleKeyring implements Keyring {
     // );
 
     await this.#removePendingRequest(id);
-    await this.#emitEvent(KeyringEvent.RequestRejected, {id});
-    throwError("Signing is not supported in this watch-only version of the snap.")
+    await this.#emitEvent(KeyringEvent.RequestRejected, { id });
+    throwError(
+      'Signing is not supported in this watch-only version of the snap.',
+    );
   }
 
   async rejectRequest(id: string): Promise<void> {
@@ -165,7 +167,16 @@ export class SimpleKeyring implements Keyring {
     }
 
     await this.#removePendingRequest(id);
-    await this.#emitEvent(KeyringEvent.RequestRejected, {id});
+    await this.#emitEvent(KeyringEvent.RequestRejected, { id });
+  }
+
+  async toggleSyncApprovals(): Promise<void> {
+    this.#state.useSyncApprovals = !this.#state.useSyncApprovals;
+    await this.#saveState();
+  }
+
+  isSynchronousMode(): boolean {
+    return this.#state.useSyncApprovals;
   }
 
   async #removePendingRequest(id: string): Promise<void> {
@@ -198,7 +209,8 @@ export class SimpleKeyring implements Keyring {
       pending: true,
       redirect: {
         url: dappUrl,
-        message: 'Redirecting to Watch-Only Snap Simple Keyring to sign transaction',
+        message:
+          'Redirecting to Watch-Only Snap Simple Keyring to sign transaction',
       },
     };
   }
@@ -212,34 +224,9 @@ export class SimpleKeyring implements Keyring {
     //   pending: false,
     //   result: signature,
     // };
-    throwError("Signing is not supported in this watch-only version of the snap.")
-  }
-
-  #getWalletByAddress(address: string): Wallet {
-    const match = Object.values(this.#state.wallets).find(
-      (wallet) =>
-        wallet.account.address.toLowerCase() === address.toLowerCase(),
+    throwError(
+      'Signing is not supported in this watch-only version of the snap.',
     );
-
-    return match ?? throwError(`Account '${address}' not found`);
-  }
-
-  #getKeyPair(privateKey?: string): {
-    privateKey: string;
-    address: string;
-  } {
-    const privateKeyBuffer = privateKey
-      ? toBuffer(addHexPrefix(privateKey))
-      : Buffer.from(crypto.getRandomValues(new Uint8Array(32)));
-
-    if (!isValidPrivate(privateKeyBuffer)) {
-      throw new Error('Invalid private key');
-    }
-
-    const address = toChecksumAddress(
-      Address.fromPrivateKey(privateKeyBuffer).toString(),
-    );
-    return {privateKey: privateKeyBuffer.toString('hex'), address};
   }
 
   // #handleSigningRequest(method: string, params: Json): Json {
@@ -359,6 +346,33 @@ export class SimpleKeyring implements Keyring {
   //   return concatSig(toBuffer(signature.v), signature.r, signature.s);
   // }
 
+  #getWalletByAddress(address: string): Wallet {
+    const match = Object.values(this.#state.wallets).find(
+      (wallet) =>
+        wallet.account.address.toLowerCase() === address.toLowerCase(),
+    );
+
+    return match ?? throwError(`Account '${address}' not found`);
+  }
+
+  #getKeyPair(privateKey?: string): {
+    privateKey: string;
+    address: string;
+  } {
+    const privateKeyBuffer = privateKey
+      ? toBuffer(addHexPrefix(privateKey))
+      : Buffer.from(crypto.getRandomValues(new Uint8Array(32)));
+
+    if (!isValidPrivate(privateKeyBuffer)) {
+      throw new Error('Invalid private key');
+    }
+
+    const address = toChecksumAddress(
+      Address.fromPrivateKey(privateKeyBuffer).toString(),
+    );
+    return { privateKey: privateKeyBuffer.toString('hex'), address };
+  }
+
   async #saveState(): Promise<void> {
     await saveState(this.#state);
   }
@@ -368,14 +382,5 @@ export class SimpleKeyring implements Keyring {
     data: Record<string, Json>,
   ): Promise<void> {
     await emitSnapKeyringEvent(snap, event, data);
-  }
-
-  async toggleSyncApprovals(): Promise<void> {
-    this.#state.useSyncApprovals = !this.#state.useSyncApprovals;
-    await this.#saveState();
-  }
-
-  isSynchronousMode(): boolean {
-    return this.#state.useSyncApprovals;
   }
 }
