@@ -16,7 +16,7 @@ export const originPermissions = new Map<string, string[]>([
       KeyringRpcMethod.DeleteAccount,
       KeyringRpcMethod.ListRequests,
       KeyringRpcMethod.GetRequest,
-      KeyringRpcMethod.SubmitRequest,
+      // KeyringRpcMethod.SubmitRequest,
       KeyringRpcMethod.RejectRequest,
     ],
   ],
@@ -33,7 +33,7 @@ export const originPermissions = new Map<string, string[]>([
       KeyringRpcMethod.ExportAccount,
       KeyringRpcMethod.ListRequests,
       KeyringRpcMethod.GetRequest,
-      KeyringRpcMethod.ApproveRequest,
+      // KeyringRpcMethod.ApproveRequest,
       KeyringRpcMethod.RejectRequest,
       // Custom methods
       InternalMethod.ToggleSyncApprovals,
@@ -53,7 +53,7 @@ export const originPermissions = new Map<string, string[]>([
       KeyringRpcMethod.ExportAccount,
       KeyringRpcMethod.ListRequests,
       KeyringRpcMethod.GetRequest,
-      KeyringRpcMethod.ApproveRequest,
+      // KeyringRpcMethod.ApproveRequest,
       KeyringRpcMethod.RejectRequest,
       // Custom methods
       InternalMethod.ToggleSyncApprovals,
