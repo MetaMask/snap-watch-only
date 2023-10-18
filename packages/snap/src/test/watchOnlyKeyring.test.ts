@@ -38,7 +38,7 @@ describe('SimpleKeyring', () => {
       result: null,
       error: {
         code: -32601,
-        message: 'Method not found',
+        message: 'Signing is not supported in this watch-only account snap.',
         data: null,
       },
     });

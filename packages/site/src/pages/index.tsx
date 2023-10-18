@@ -18,7 +18,7 @@ import {
   StyledBox,
 } from '../components/styledComponents';
 import { defaultSnapOrigin } from '../config';
-import { MetaMaskContext, MetamaskActions } from '../hooks';
+import { MetamaskActions, MetaMaskContext } from '../hooks';
 import { InputType } from '../types';
 import type { KeyringState } from '../utils';
 import {
@@ -46,7 +46,7 @@ const Index = () => {
   // Is not a good practice to store sensitive data in the state of
   // a component but for this case it should be ok since this is an
   // internal development and testing tool.
-  const [privateKey, setPrivateKey] = useState<string | null>();
+  const [address, setAddress] = useState<string | null>();
   const [accountId, setAccountId] = useState<string | null>();
   const [requestId, setRequestId] = useState<string | null>(null);
   // const [accountPayload, setAccountPayload] =
@@ -86,9 +86,9 @@ const Index = () => {
     return newAccount;
   };
 
-  const importAccount = async () => {
+  const importWatchOnlyAccount = async () => {
     const newAccount = await client.createAccount({
-      privateKey: privateKey as string,
+      address: address as string,
     });
     const accounts = await client.listAccounts();
     setSnapState({
@@ -143,24 +143,23 @@ const Index = () => {
       successMessage: 'Account created',
     },
     {
-      name: 'Import account',
-      description: 'Import an account using a private key',
+      name: 'Import Watch-Only Account',
+      description: 'Import a watch-only account from a public address',
       inputs: [
         {
-          id: 'import-account-private-key',
-          title: 'Private key',
-          value: privateKey,
+          id: 'import-account-public-address',
+          title: 'Public Address',
+          value: address,
           type: InputType.TextField,
-          placeholder:
-            'E.g. 0000000000000000000000000000000000000000000000000000000000000000',
-          onChange: (event: any) => setPrivateKey(event.currentTarget.value),
+          placeholder: 'E.g. 0xda1D3...7d891',
+          onChange: (event: any) => setAddress(event.currentTarget.value),
         },
       ],
       action: {
-        callback: async () => await importAccount(),
-        label: 'Import Account',
+        callback: async () => await importWatchOnlyAccount(),
+        label: 'Import Watch-Only Account',
       },
-      successMessage: 'Account imported',
+      successMessage: 'Watch-Only Account imported',
     },
     {
       name: 'Get account',
@@ -338,8 +337,8 @@ const Index = () => {
             <DividerTitle>Methods</DividerTitle>
             <Accordion items={accountManagementMethods} />
             <Divider />
-            <DividerTitle>Request Methods</DividerTitle>
-            <Accordion items={requestMethods} />
+            {/* <DividerTitle>Request Methods</DividerTitle>*/}
+            {/* <Accordion items={requestMethods} />*/}
             <Divider />
           </Grid>
           <Grid item xs={4} sm={2} md={1}>

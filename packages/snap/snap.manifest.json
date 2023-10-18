@@ -7,7 +7,7 @@
     "url": "git+https://github.com/MetaMask/snap-simple-keyring.git"
   },
   "source": {
-    "shasum": "iH3PuNsjCG/nNyoMQTx5mtHgXzhAwjk9+NCBMnvvahQ=",
+    "shasum": "McwkN3gk0LTqmCtm4v1oC7lDL6O+dXi55S0RCm0SDN4=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
