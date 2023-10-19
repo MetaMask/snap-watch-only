@@ -117,7 +117,7 @@ information about how they work.
      while review is underway.
 6. Squash & Merge the release.
 
-   - [ ]  This should trigger the
+   * This should trigger the
      [`action-publish-release`](https://github.com/MetaMask/action-publish-release)
      workflow to tag the final release commit and publish the release on
      GitHub.
