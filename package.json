@@ -1,7 +1,7 @@
 {
   "name": "@metamask/snap-simple-keyring-watch-only",
   "version": "1.0.1",
-  "private": true,
+  "private": false,
   "description": "A simple keyring snap for watch-only accounts that integrates with MetaMask accounts.",
   "keywords": [
     "metamask",
