@@ -1,16 +1,29 @@
-export const personalSign = async (message: string, from: string) => {
+export const getCurrentAccount = async () => {
+  const accounts = (await window.ethereum.request({
+    method: 'eth_accounts',
+  })) as string[];
+  if (!accounts || accounts.length === 0) {
+    throw new Error('No accounts available');
+  }
+  return accounts[0];
+};
+
+export const personalSign = async (message: string) => {
+  const from = await getCurrentAccount();
   const encoder = new TextEncoder();
   const messageAsUint8Array = encoder.encode(message);
   const msgHex = `0x${Array.from(messageAsUint8Array)
     .map((byte) => byte.toString(16).padStart(2, '0'))
     .join('')}`;
+
   return await window.ethereum.request({
     method: 'personal_sign',
     params: [msgHex, from, 'Example password'],
   });
 };
 
-export const signTypedDataV4 = async (contents: string, from: string) => {
+export const signTypedDataV4 = async (contents: string) => {
+  const from = await getCurrentAccount();
   const chainId = await window.ethereum.request({ method: 'eth_chainId' });
   const msgParams = {
     domain: {
