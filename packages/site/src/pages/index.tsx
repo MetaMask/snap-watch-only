@@ -27,6 +27,7 @@ import {
   isSynchronousMode,
   toggleSynchronousApprovals,
 } from '../utils';
+import { personalSign, signTypedDataV4 } from '../utils/sign';
 
 const snapId = defaultSnapOrigin;
 
@@ -48,7 +49,10 @@ const Index = () => {
   // internal development and testing tool.
   const [address, setAddress] = useState<string | null>();
   const [accountId, setAccountId] = useState<string | null>();
-  const [requestId, setRequestId] = useState<string | null>(null);
+  const [personalSignMsg, setPersonalSignMsg] = useState<string | null>(null);
+  const [signTypedDataV4Msg, setSignTypedDataV4Msg] = useState<string | null>(
+    null,
+  );
   // const [accountPayload, setAccountPayload] =
   //   useState<Pick<KeyringAccount, 'name' | 'options'>>();
   const client = new KeyringSnapRpcClient(snapId, window.ethereum);
@@ -223,87 +227,63 @@ const Index = () => {
     },
   ];
 
-  // Disabled request methods
-
-  // const requestMethods = [
-  //   {
-  //     name: 'Get request',
-  //     description: 'Get a pending request by ID',
-  //     inputs: [
-  //       {
-  //         id: 'get-request-request-id',
-  //         title: 'Request ID',
-  //         type: InputType.TextField,
-  //         placeholder: 'E.g. e5156958-16ad-4d5d-9dcd-6a8ba1d34906',
-  //         onChange: (event: any) => setRequestId(event.currentTarget.value),
-  //       },
-  //     ],
-  //     action: {
-  //       enabled: Boolean(requestId),
-  //       callback: async () => await client.getRequest(requestId as string),
-  //       label: 'Get Request',
-  //     },
-  //   },
-  //   {
-  //     name: 'List requests',
-  //     description: 'List pending requests',
-  //     action: {
-  //       disabled: false,
-  //       callback: async () => {
-  //         const requests = await client.listRequests();
-  //         setSnapState({
-  //           ...snapState,
-  //           pendingRequests: requests,
-  //         });
-  //         return requests;
-  //       },
-  //       label: 'List Requests',
-  //     },
-  //   },
-  //   {
-  //     name: 'Approve request',
-  //     description: 'Approve a pending request by ID',
-  //     inputs: [
-  //       {
-  //         id: 'approve-request-request-id',
-  //         title: 'Request ID',
-  //         type: InputType.TextField,
-  //         placeholder: 'E.g. 6fcbe1b5-f250-452c-8114-683dfa5ea74d',
-  //         onChange: (event: any) => {
-  //           setRequestId(event.currentTarget.value);
-  //         },
-  //       },
-  //     ],
-  //     action: {
-  //       disabled: !requestId,
-  //       callback: async () => await client.approveRequest(requestId as string),
-  //       label: 'Approve Request',
-  //     },
-  //     successMessage: 'Request approved',
-  //   },
-  //   {
-  //     name: 'Reject request',
-  //     description: 'Reject a pending request by ID',
-  //     inputs: [
-  //       {
-  //         id: 'reject-request-request-id',
-  //         title: 'Request ID',
-  //         type: InputType.TextField,
-  //         placeholder: 'E.g. 424ad2ee-56cf-493e-af82-cee79c591117',
-  //         onChange: (event: any) => {
-  //           setRequestId(event.currentTarget.value);
-  //         },
-  //       },
-  //     ],
-  //     action: {
-  //       disabled: !requestId,
-  //       callback: async () => await client.rejectRequest(requestId as string),
-  //       label: 'Reject Request',
-  //     },
-  //     successMessage: 'Request Rejected',
-  //   },
-  // ];
-
+  const signMethods = [
+    {
+      name: 'Personal Sign',
+      description: 'Sign a message using `personal_sign`',
+      inputs: [
+        {
+          id: 'personal-sign-message',
+          title: 'Message',
+          type: InputType.TextField,
+          placeholder: 'E.g. Example "personal_sign" message',
+          onChange: (event: any) =>
+            setPersonalSignMsg(event.currentTarget.value),
+        },
+      ],
+      action: {
+        enabled: Boolean(personalSignMsg),
+        callback: async () => {
+          if (snapState.accounts[0]?.address === undefined) {
+            throw new Error('No accounts available');
+          }
+          await personalSign(
+            personalSignMsg as string,
+            snapState.accounts[0].address,
+          );
+        },
+        label: 'Personal Sign Message',
+      },
+    },
+    {
+      name: 'Sign Typed Data V4',
+      description: 'Sign a message using `eth_signTypedData_v4`',
+      inputs: [
+        {
+          id: 'typed-data-v4-message',
+          title: 'Contents',
+          type: InputType.TextField,
+          placeholder: 'E.g. Message contents for typed data V4',
+          onChange: (event: any) => {
+            setSignTypedDataV4Msg(event.currentTarget.value);
+          },
+        },
+      ],
+      action: {
+        enabled: Boolean(signTypedDataV4Msg),
+        callback: async () => {
+          if (snapState.accounts[0]?.address === undefined) {
+            throw new Error('No accounts available');
+          }
+          await signTypedDataV4(
+            signTypedDataV4Msg as string,
+            snapState.accounts[0].address,
+          );
+        },
+        label: 'Sign Typed Data',
+      },
+    },
+  ];
   return (
     <Container>
       <CardContainer>
@@ -339,8 +319,8 @@ const Index = () => {
             <DividerTitle>Methods</DividerTitle>
             <Accordion items={accountManagementMethods} />
             <Divider />
-            {/* <DividerTitle>Request Methods</DividerTitle>*/}
-            {/* <Accordion items={requestMethods} />*/}
+            <DividerTitle>Sign Methods</DividerTitle>
+            <Accordion items={signMethods} />
             <Divider />
           </Grid>
           <Grid item xs={4} sm={2} md={1}>
@@ -363,5 +343,4 @@ const Index = () => {
     </Container>
   );
 };
-
 export default Index;
