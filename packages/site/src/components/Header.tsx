@@ -24,6 +24,7 @@ const Title = styled.p`
   font-weight: bold;
   margin: 0;
   margin-left: 1.2rem;
+
   ${({ theme }) => theme.mediaQueries.small} {
     display: none;
   }
@@ -108,7 +109,7 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <Title>🔑 Snap Simple Keyring</Title>
+        <Title>🔑 Snap Simple Keyring Watch-Only</Title>
       </LogoWrapper>
       <RightContainer>
         <Version />

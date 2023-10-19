@@ -223,84 +223,86 @@ const Index = () => {
     },
   ];
 
-  const requestMethods = [
-    {
-      name: 'Get request',
-      description: 'Get a pending request by ID',
-      inputs: [
-        {
-          id: 'get-request-request-id',
-          title: 'Request ID',
-          type: InputType.TextField,
-          placeholder: 'E.g. e5156958-16ad-4d5d-9dcd-6a8ba1d34906',
-          onChange: (event: any) => setRequestId(event.currentTarget.value),
-        },
-      ],
-      action: {
-        enabled: Boolean(requestId),
-        callback: async () => await client.getRequest(requestId as string),
-        label: 'Get Request',
-      },
-    },
-    {
-      name: 'List requests',
-      description: 'List pending requests',
-      action: {
-        disabled: false,
-        callback: async () => {
-          const requests = await client.listRequests();
-          setSnapState({
-            ...snapState,
-            pendingRequests: requests,
-          });
-          return requests;
-        },
-        label: 'List Requests',
-      },
-    },
-    {
-      name: 'Approve request',
-      description: 'Approve a pending request by ID',
-      inputs: [
-        {
-          id: 'approve-request-request-id',
-          title: 'Request ID',
-          type: InputType.TextField,
-          placeholder: 'E.g. 6fcbe1b5-f250-452c-8114-683dfa5ea74d',
-          onChange: (event: any) => {
-            setRequestId(event.currentTarget.value);
-          },
-        },
-      ],
-      action: {
-        disabled: !requestId,
-        callback: async () => await client.approveRequest(requestId as string),
-        label: 'Approve Request',
-      },
-      successMessage: 'Request approved',
-    },
-    {
-      name: 'Reject request',
-      description: 'Reject a pending request by ID',
-      inputs: [
-        {
-          id: 'reject-request-request-id',
-          title: 'Request ID',
-          type: InputType.TextField,
-          placeholder: 'E.g. 424ad2ee-56cf-493e-af82-cee79c591117',
-          onChange: (event: any) => {
-            setRequestId(event.currentTarget.value);
-          },
-        },
-      ],
-      action: {
-        disabled: !requestId,
-        callback: async () => await client.rejectRequest(requestId as string),
-        label: 'Reject Request',
-      },
-      successMessage: 'Request Rejected',
-    },
-  ];
+  // Disabled request methods
+
+  // const requestMethods = [
+  //   {
+  //     name: 'Get request',
+  //     description: 'Get a pending request by ID',
+  //     inputs: [
+  //       {
+  //         id: 'get-request-request-id',
+  //         title: 'Request ID',
+  //         type: InputType.TextField,
+  //         placeholder: 'E.g. e5156958-16ad-4d5d-9dcd-6a8ba1d34906',
+  //         onChange: (event: any) => setRequestId(event.currentTarget.value),
+  //       },
+  //     ],
+  //     action: {
+  //       enabled: Boolean(requestId),
+  //       callback: async () => await client.getRequest(requestId as string),
+  //       label: 'Get Request',
+  //     },
+  //   },
+  //   {
+  //     name: 'List requests',
+  //     description: 'List pending requests',
+  //     action: {
+  //       disabled: false,
+  //       callback: async () => {
+  //         const requests = await client.listRequests();
+  //         setSnapState({
+  //           ...snapState,
+  //           pendingRequests: requests,
+  //         });
+  //         return requests;
+  //       },
+  //       label: 'List Requests',
+  //     },
+  //   },
+  //   {
+  //     name: 'Approve request',
+  //     description: 'Approve a pending request by ID',
+  //     inputs: [
+  //       {
+  //         id: 'approve-request-request-id',
+  //         title: 'Request ID',
+  //         type: InputType.TextField,
+  //         placeholder: 'E.g. 6fcbe1b5-f250-452c-8114-683dfa5ea74d',
+  //         onChange: (event: any) => {
+  //           setRequestId(event.currentTarget.value);
+  //         },
+  //       },
+  //     ],
+  //     action: {
+  //       disabled: !requestId,
+  //       callback: async () => await client.approveRequest(requestId as string),
+  //       label: 'Approve Request',
+  //     },
+  //     successMessage: 'Request approved',
+  //   },
+  //   {
+  //     name: 'Reject request',
+  //     description: 'Reject a pending request by ID',
+  //     inputs: [
+  //       {
+  //         id: 'reject-request-request-id',
+  //         title: 'Request ID',
+  //         type: InputType.TextField,
+  //         placeholder: 'E.g. 424ad2ee-56cf-493e-af82-cee79c591117',
+  //         onChange: (event: any) => {
+  //           setRequestId(event.currentTarget.value);
+  //         },
+  //       },
+  //     ],
+  //     action: {
+  //       disabled: !requestId,
+  //       callback: async () => await client.rejectRequest(requestId as string),
+  //       label: 'Reject Request',
+  //     },
+  //     successMessage: 'Request Rejected',
+  //   },
+  // ];
 
   return (
     <Container>
