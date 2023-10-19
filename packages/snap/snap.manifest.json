@@ -7,12 +7,12 @@
     "url": "git+https://github.com/k-g-j/snap-simple-keyring-watch-only.git"
   },
   "source": {
-    "shasum": "yNaO0fe6xjsWWzzsPAVKH8lGpkgpWGivbQRLeAyW9BQ=",
+    "shasum": "NDjNr3c+TII5tly4iUryOa5X34ToeYz0NYLOYVBlLgM=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "@metamask/snap-simple-keyring-watch-only-snap",
+        "packageName": "snap-simple-keyring-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }

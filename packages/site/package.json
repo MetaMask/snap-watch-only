@@ -1,5 +1,5 @@
 {
-  "name": "@metamask/snap-simple-keyring-watch-only-site",
+  "name": "snap-simple-keyring-watch-only-site",
   "version": "1.0.0",
   "private": true,
   "license": "(MIT-0 OR Apache-2.0)",
