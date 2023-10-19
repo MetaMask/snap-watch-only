@@ -111,7 +111,7 @@ information about how they work.
      correctly formatted.
 5. Review and QA the release.
 
-   - If changes are made to the base branch, the release branch will need to be
+   * If changes are made to the base branch, the release branch will need to be
      updated with these changes and review/QA will need to restart again. As
      such, it's probably best to avoid merging other PRs into the base branch
      while review is underway.
