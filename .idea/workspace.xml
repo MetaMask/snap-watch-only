@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38c13d6c-9417-43d7-a083-caff6e93a1c8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/site/src/utils/sign.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/site/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/utils/sign.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/utils/sign.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/snap/snap.manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/snap.manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/src/keyring.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/keyring.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/snap/src/permissions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/permissions.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +154,7 @@
       <workItem from="1697650639688" duration="3329000" />
       <workItem from="1697655559061" duration="2563000" />
       <workItem from="1697664962145" duration="3179000" />
-      <workItem from="1697669300144" duration="13178000" />
+      <workItem from="1697669300144" duration="15372000" />
     </task>
     <servers />
   </component>

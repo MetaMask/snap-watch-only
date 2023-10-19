@@ -230,7 +230,7 @@ const Index = () => {
   const signMethods = [
     {
       name: 'Personal Sign',
-      description: 'Sign a message using `personal_sign`',
+      description: 'Sign a message using "personal_sign"',
       inputs: [
         {
           id: 'personal-sign-message',
@@ -243,21 +243,13 @@ const Index = () => {
       ],
       action: {
         enabled: Boolean(personalSignMsg),
-        callback: async () => {
-          if (snapState.accounts[0]?.address === undefined) {
-            throw new Error('No accounts available');
-          }
-          await personalSign(
-            personalSignMsg as string,
-            snapState.accounts[0].address,
-          );
-        },
+        callback: async () => await personalSign(personalSignMsg as string),
         label: 'Personal Sign Message',
       },
     },
     {
       name: 'Sign Typed Data V4',
-      description: 'Sign a message using `eth_signTypedData_v4`',
+      description: 'Sign a message using "eth_signTypedData_v4"',
       inputs: [
         {
           id: 'typed-data-v4-message',
@@ -271,16 +263,9 @@ const Index = () => {
       ],
       action: {
         enabled: Boolean(signTypedDataV4Msg),
-        callback: async () => {
-          if (snapState.accounts[0]?.address === undefined) {
-            throw new Error('No accounts available');
-          }
-          await signTypedDataV4(
-            signTypedDataV4Msg as string,
-            snapState.accounts[0].address,
-          );
-        },
-        label: 'Sign Typed Data',
+        callback: async () =>
+          await signTypedDataV4(signTypedDataV4Msg as string),
+        label: 'Sign Typed Data V4',
       },
     },
   ];

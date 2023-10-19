@@ -214,7 +214,11 @@ export class SimpleKeyring implements Keyring {
     request: KeyringRequest,
   ): Promise<SubmitRequestResponse> {
     throwError(
-      `Signing for request '${request.id}' is not supported for this watch-only account snap.`,
+      `Signing is not supported for this watch-only account snap.\n Request: ${JSON.stringify(
+        request,
+        null,
+        2,
+      )}`,
     );
   }
 
