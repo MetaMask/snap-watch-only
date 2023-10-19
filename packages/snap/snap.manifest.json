@@ -1,18 +1,18 @@
 {
   "version": "1.0.1",
   "description": "An example of a key management snap for a simple keyring for watch-only accounts.",
-  "proposedName": "MetaMask Watch-Only Simple Snap Keyring",
+  "proposedName": "MetaMask Simple Snap Keyring Watch-Only",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MetaMask/snap-simple-keyring.git"
+    "url": "git+https://github.com/k-g-j/snap-simple-keyring-watch-only.git"
   },
   "source": {
-    "shasum": "JJuH3SHje684h9wZVe1onEa2HVCPrkPRlp01z5c95Cs=",
+    "shasum": "0aAM60eI3IPi31V6znsz9kS+Zmo4TrhmZKzgCv9gbKE=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "@metamask/snap-simple-keyring-snap",
+        "packageName": "@metamask/snap-simple-keyring-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }

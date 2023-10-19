@@ -137,7 +137,7 @@ const Index = () => {
 
   const accountManagementMethods = [
     {
-      name: 'Create account',
+      name: 'Create watch-only account',
       description: 'Create a new account',
       inputs: [],
       action: {
@@ -147,7 +147,7 @@ const Index = () => {
       successMessage: 'Account created',
     },
     {
-      name: 'Import Watch-Only Account',
+      name: 'Import watch-only account',
       description: 'Import a watch-only account from a public address',
       inputs: [
         {
@@ -163,7 +163,7 @@ const Index = () => {
         callback: async () => await importWatchOnlyAccount(),
         label: 'Import Watch-Only Account',
       },
-      successMessage: 'Watch-Only Account imported',
+      successMessage: 'Watch-only account imported',
     },
     {
       name: 'Get account',
@@ -246,6 +246,7 @@ const Index = () => {
         callback: async () => await personalSign(personalSignMsg as string),
         label: 'Personal Sign Message',
       },
+      successMessage: 'Personal message signed',
     },
     {
       name: 'Sign Typed Data V4',
@@ -267,6 +268,7 @@ const Index = () => {
           await signTypedDataV4(signTypedDataV4Msg as string),
         label: 'Sign Typed Data V4',
       },
+      successMessage: 'Typed data V4 signed',
     },
   ];
   return (

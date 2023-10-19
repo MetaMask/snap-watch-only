@@ -1,20 +1,20 @@
 {
-  "name": "@metamask/snap-simple-keyring-snap",
+  "name": "@metamask/snap-simple-keyring-watch-only-snap",
   "version": "1.0.1",
-  "description": "A simple keyring snap that integrates with MetaMask accounts.",
+  "description": "A simple keyring snap for watch-only accounts that integrates with MetaMask accounts.",
   "keywords": [
     "metamask",
     "snap",
     "keyring",
     "account"
   ],
-  "homepage": "https://github.com/MetaMask/snap-simple-keyring#readme",
+  "homepage": "https://github.com/k-g-j/snap-simple-keyring-watch-only#readme",
   "bugs": {
-    "url": "https://github.com/MetaMask/snap-simple-keyring/issues"
+    "url": "https://github.com/k-g-j/snap-simple-keyring-watch-only/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MetaMask/snap-simple-keyring.git"
+    "url": "git+https://github.com/k-g-j/snap-simple-keyring-watch-only.git"
   },
   "license": "(MIT-0 OR Apache-2.0)",
   "main": "dist/bundle.js",
