@@ -1,10 +1,10 @@
-import { SimpleKeyring } from '../keyring';
+import { WatchOnlyKeyring } from '../keyring';
 
 describe('SimpleKeyring', () => {
-  let keyring: SimpleKeyring;
+  let keyring: WatchOnlyKeyring;
 
   beforeEach(() => {
-    keyring = new SimpleKeyring({
+    keyring = new WatchOnlyKeyring({
       wallets: {
         '0x1': {
           account: {

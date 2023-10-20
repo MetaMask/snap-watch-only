@@ -32,7 +32,7 @@ export type Wallet = {
   privateKey: string;
 };
 
-export class SimpleKeyring implements Keyring {
+export class WatchOnlyKeyring implements Keyring {
   #state: KeyringState;
 
   constructor(state: KeyringState) {
