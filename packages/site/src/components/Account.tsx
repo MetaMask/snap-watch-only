@@ -1,7 +1,7 @@
 import { type KeyringAccount } from '@metamask/keyring-api';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { MethodButton } from './Buttons';
 import { CopyableItem } from './CopyableItem';
@@ -14,6 +14,7 @@ import {
   AccountTitleContainer,
   AccountTitleIconContainer,
 } from './styledComponents';
+import { lookupName } from '../utils';
 
 export const Account = ({
   account,
@@ -23,11 +24,28 @@ export const Account = ({
   handleDelete: (accountId: string) => Promise<void>;
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [ensName, setEnsName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getEnsName = async () => {
+      try {
+        const name = await lookupName(account.address);
+        setEnsName(name);
+      } catch (error) {
+        console.error('Error fetching ENS name:', error);
+      }
+    };
+    getEnsName().catch((error) => console.error(error));
+  }, [account.address]);
 
   return (
     <AccountContainer>
       <AccountTitleContainer>
-        <AccountTitle>{account.address}</AccountTitle>
+        {ensName ? (
+          <AccountTitle>{ensName}</AccountTitle>
+        ) : (
+          <AccountTitle>{account.address}</AccountTitle>
+        )}
         <AccountTitleIconContainer>
           {isCollapsed ? (
             <ExpandMoreIcon

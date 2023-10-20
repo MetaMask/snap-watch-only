@@ -60,13 +60,6 @@ export class SimpleKeyring implements Keyring {
       ({ address } = this.#getKeyPair(undefined));
     } else if (options?.address) {
       // Import watch-only account from public address.
-
-      // Possible TODO: Check if address is valid checksum address.
-      // if (!isValidChecksumAddress(options.address as Hex)) {
-      //   throw new Error(
-      //     `Invalid checksum address: ${options.address as string}`,
-      //   );
-      // }
       address = toChecksumAddress(options.address as string);
     } else {
       throw new Error('Unsupported account creation options');
