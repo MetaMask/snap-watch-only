@@ -20,6 +20,7 @@ import {
 import { defaultSnapOrigin } from '../config';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
 import { InputType } from '../types';
+import type { ManagementMethod } from '../types/inputs';
 import type { KeyringState } from '../utils';
 import {
   connectSnap,
@@ -45,9 +46,6 @@ const initialState: {
 const Index = () => {
   const [state, dispatch] = useContext(MetaMaskContext);
   const [snapState, setSnapState] = useState<KeyringState>(initialState);
-  // Is not a good practice to store sensitive data in the state of
-  // a component but for this case it should be ok since this is an
-  // internal development and testing tool.
   const [address, setAddress] = useState<string | null>();
   const [accountId, setAccountId] = useState<string | null>();
   const [personalSignMsg, setPersonalSignMsg] = useState<string | null>(null);
@@ -136,7 +134,7 @@ const Index = () => {
     });
   }, [snapState]);
 
-  const accountManagementMethods = [
+  const accountManagementMethods: ManagementMethod[] = [
     {
       name: 'Create watch-only account',
       description: 'Create a new account',
@@ -235,7 +233,7 @@ const Index = () => {
     },
   ];
 
-  const signMethods = [
+  const signMethods: ManagementMethod[] = [
     {
       name: 'Personal Sign',
       description: 'Sign a message using "personal_sign"',

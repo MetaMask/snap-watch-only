@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import styled from 'styled-components';
 
 import { Method } from './Method';
 import { StyledBox } from './styledComponents';
+import type { ManagementMethod } from '../types/inputs';
 
 const AccordionContainer = styled.div`
   width: 100%;
@@ -32,7 +33,11 @@ const AccordionContent = styled.div`
   padding: 0px 32px;
 `;
 
-export const Accordion = ({ items }: any) => {
+type AccordionProps = {
+  items: ManagementMethod[];
+};
+
+export const Accordion: React.FC<AccordionProps> = ({ items }) => {
   const [activeIndexes, setActiveIndexes] = useState<number[]>([]);
 
   const toggleAccordion = (index: number) => {
