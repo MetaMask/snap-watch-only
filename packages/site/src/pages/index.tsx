@@ -25,6 +25,7 @@ import {
   connectSnap,
   getSnap,
   isSynchronousMode,
+  resolveName,
   toggleSynchronousApprovals,
 } from '../utils';
 import { personalSign, signTypedDataV4 } from '../utils/sign';
@@ -152,11 +153,18 @@ const Index = () => {
       inputs: [
         {
           id: 'import-account-public-address',
-          title: 'Public Address',
+          title: 'Public Address or ENS Name',
           value: address,
           type: InputType.TextField,
-          placeholder: 'E.g. 0xda1D3...7d891',
-          onChange: (event: any) => setAddress(event.currentTarget.value),
+          placeholder: 'E.g. 0xda1D3...7d891 or example.eth',
+          onChange: async (event: any) => {
+            const addressInput = event.currentTarget.value;
+            setAddress(addressInput);
+            if (addressInput.endsWith('.eth')) {
+              const checkSumAddr = await resolveName(addressInput);
+              setAddress(checkSumAddr);
+            }
+          },
         },
       ],
       action: {

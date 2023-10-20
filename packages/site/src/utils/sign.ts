@@ -1,3 +1,9 @@
+/**
+ * Get the current account from the injected provider.
+ *
+ * @returns The current account.
+ * @throws If no accounts are available.
+ */
 export const getCurrentAccount = async () => {
   const accounts = (await window.ethereum.request({
     method: 'eth_accounts',
@@ -8,6 +14,11 @@ export const getCurrentAccount = async () => {
   return accounts[0];
 };
 
+/**
+ * Sign a message using the personal_sign method.
+ *
+ * @param message - The message to sign.
+ */
 export const personalSign = async (message: string) => {
   const from = await getCurrentAccount();
   const encoder = new TextEncoder();
@@ -22,6 +33,11 @@ export const personalSign = async (message: string) => {
   });
 };
 
+/**
+ * Sign a message using the eth_signTypedData_v4 method.
+ *
+ * @param contents - The contents to sign.
+ */
 export const signTypedDataV4 = async (contents: string) => {
   const from = await getCurrentAccount();
   const chainId = await window.ethereum.request({ method: 'eth_chainId' });
