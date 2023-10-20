@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="38c13d6c-9417-43d7-a083-caff6e93a1c8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/components/Accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/components/Accordion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/pages/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/types/inputs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/types/inputs.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/snap.manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/snap.manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/src/keyring.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/keyring.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/src/test/watchOnlyKeyring.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/test/watchOnlyKeyring.test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +164,8 @@
       <workItem from="1697755775871" duration="2783000" />
       <workItem from="1697758568163" duration="517000" />
       <workItem from="1697759150355" duration="3653000" />
-      <workItem from="1697771191349" duration="1625000" />
+      <workItem from="1697771191349" duration="2277000" />
+      <workItem from="1697821702557" duration="1381000" />
     </task>
     <servers />
   </component>
