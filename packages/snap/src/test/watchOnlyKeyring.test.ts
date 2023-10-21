@@ -29,6 +29,7 @@ describe('WatchOnlyKeyring', () => {
       useSyncApprovals: false,
     };
     keyring = new WatchOnlyKeyring(state);
+    // Todo - try to pass in snap ID
     await installSnap();
   });
 

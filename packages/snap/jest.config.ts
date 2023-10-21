@@ -1,12 +1,8 @@
 const config = {
   verbose: true,
-  preset: '@metamask/snaps-jest',
+  presets: '@metamask/snaps-jest',
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
-  },
-  globals: {
-    ethereum: {},
-    snap: {},
   },
   coverageThreshold: {
     global: {
