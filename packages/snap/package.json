@@ -47,6 +47,7 @@
     "@metamask/snaps-types": "^3.0.0",
     "@metamask/utils": "^8.1.0",
     "jest-environment-node": "^29.7.0",
+    "jest-it-up": "^3.0.0",
     "ts-node": "^10.9.1",
     "uuid": "^9.0.0"
   },
@@ -61,7 +62,7 @@
     "@metamask/snaps-cli": "^3.0.0",
     "@metamask/snaps-jest": "^2.0.0",
     "@types/jest": "^29.5.6",
-    "@types/node": "^20.6.2",
+    "@types/node": "^20.8.7",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "depcheck": "^1.4.6",

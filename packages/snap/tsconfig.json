@@ -6,6 +6,7 @@
   },
   "include": [
     "src/",
-    "snap.config.ts"
+    "snap.config.ts",
+    "jest.config.ts"
   ]
 }
