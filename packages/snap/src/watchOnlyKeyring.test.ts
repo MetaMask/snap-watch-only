@@ -80,7 +80,6 @@ describe('WatchOnlyKeyring', () => {
   describe('createAccount', () => {
     it('should create a new account without options', async () => {
       const newAccount = await keyring.createAccount();
-
       expect(typeof newAccount.address).toBe('string');
       expect(newAccount.address.length).toBeGreaterThan(2);
       expect(newAccount.address.startsWith('0x')).toBe(true);
