@@ -6,14 +6,12 @@ const config = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  testEnvironment: 'node',
   globals: {
     crypto: {
       // eslint-disable-next-line no-restricted-globals
       getRandomValues: (arr: string | any[]) =>
         nodeCrypto.randomBytes(arr.length),
     },
-    snap: {},
   },
   coverageThreshold: {
     global: {

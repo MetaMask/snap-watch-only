@@ -7,9 +7,8 @@
     <list default="true" id="38c13d6c-9417-43d7-a083-caff6e93a1c8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/snap/jest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/jest.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/src/stateManagement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/stateManagement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/src/test/watchOnlyKeyring.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/test/watchOnlyKeyring.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,35 +50,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.CodyProjectSettingsMigration": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "code.cleanup.on.save": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs.jest.jest_package": "/Users/katejohnson/Documents/snap-simple-keyring-watch-only/node_modules/react-scripts",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "/Users/katejohnson/Documents/snap-simple-keyring-watch-only/node_modules/prettier",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
-    "ts.external.directory.path": "/Users/katejohnson/Documents/snap-simple-keyring-watch-only/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyProjectSettingsMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;/Users/katejohnson/Documents/snap-simple-keyring-watch-only/node_modules/react-scripts&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/katejohnson/Documents/snap-simple-keyring-watch-only/node_modules/prettier&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.eslint&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/katejohnson/Documents/snap-simple-keyring-watch-only/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -94,25 +93,65 @@
       <recent name="$PROJECT_DIR$/packages/site/src/utils/ens.ts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/packages/snap" />
       <recent name="$PROJECT_DIR$/packages/snap/src" />
+      <recent name="$PROJECT_DIR$/packages/snap" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.WatchOnlyKeyring.should throw error when deleting a nonexistent account">
+  <component name="RunManager" selected="Jest.WatchOnlyKeyring.createAccount">
     <configuration name="WatchOnlyKeyring" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <config-file value="$PROJECT_DIR$/packages/snap/jest.config.ts" />
       <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
       <working-dir value="$PROJECT_DIR$/packages/snap" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/packages/snap/src/test/watchOnlyKeyring.test.ts" />
+      <test-file value="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" />
       <test-names>
         <test-name value="WatchOnlyKeyring" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="WatchOnlyKeyring.should delete an account correctly" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="WatchOnlyKeyring.createAccount" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/packages/snap" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" />
+      <test-names>
+        <test-name value="WatchOnlyKeyring" />
+        <test-name value="createAccount" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="WatchOnlyKeyring.createAccount.should create an account and return the account" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/packages/snap" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" />
+      <test-names>
+        <test-name value="WatchOnlyKeyring" />
+        <test-name value="createAccount" />
+        <test-name value="should create an account and return the account" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="WatchOnlyKeyring.createAccount.should send a request to create an account and return the response (1)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/packages/snap" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" />
+      <test-names>
+        <test-name value="WatchOnlyKeyring" />
+        <test-name value="createAccount" />
+        <test-name value="should send a request to create an account and return the response" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="WatchOnlyKeyring.createAccount.should send a request to create an account and return the response" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
       <working-dir value="$PROJECT_DIR$/packages/snap" />
@@ -121,20 +160,8 @@
       <test-file value="$PROJECT_DIR$/packages/snap/src/test/watchOnlyKeyring.test.ts" />
       <test-names>
         <test-name value="WatchOnlyKeyring" />
-        <test-name value="should delete an account correctly" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="WatchOnlyKeyring.should throw error when deleting a nonexistent account" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/packages/snap" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/packages/snap/src/test/watchOnlyKeyring.test.ts" />
-      <test-names>
-        <test-name value="WatchOnlyKeyring" />
-        <test-name value="should throw error when deleting a nonexistent account" />
+        <test-name value="createAccount" />
+        <test-name value="should send a request to create an account and return the response" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -151,11 +178,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Jest.WatchOnlyKeyring.createAccount" />
+      <item itemvalue="Jest.WatchOnlyKeyring.createAccount.should create an account and return the account" />
+      <item itemvalue="Jest.WatchOnlyKeyring.createAccount.should send a request to create an account and return the response" />
+      <item itemvalue="Jest.WatchOnlyKeyring.createAccount.should send a request to create an account and return the response (1)" />
+      <item itemvalue="Jest.WatchOnlyKeyring" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.WatchOnlyKeyring.should throw error when deleting a nonexistent account" />
-        <item itemvalue="Jest.WatchOnlyKeyring.should delete an account correctly" />
+        <item itemvalue="Jest.WatchOnlyKeyring.createAccount" />
         <item itemvalue="Jest.WatchOnlyKeyring" />
+        <item itemvalue="Jest.WatchOnlyKeyring.createAccount.should create an account and return the account" />
+        <item itemvalue="Jest.WatchOnlyKeyring.createAccount.should send a request to create an account and return the response (1)" />
+        <item itemvalue="Jest.WatchOnlyKeyring.createAccount.should send a request to create an account and return the response" />
       </list>
     </recent_temporary>
   </component>
@@ -205,6 +241,9 @@
       <workItem from="1697849308364" duration="723000" />
       <workItem from="1697855996330" duration="227000" />
       <workItem from="1697859544775" duration="4315000" />
+      <workItem from="1697864834372" duration="145000" />
+      <workItem from="1697917422792" duration="114000" />
+      <workItem from="1697918619614" duration="12072000" />
     </task>
     <servers />
   </component>
