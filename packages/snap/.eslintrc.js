@@ -9,6 +9,13 @@ module.exports = {
         'import/no-nodejs-modules': ['error', { allow: ['buffer', 'crypto'] }],
       },
     },
+    {
+      files: ['*.test.ts', '*.test.js'],
+      extends: [
+        '@metamask/eslint-config-jest',
+        '@metamask/eslint-config-nodejs',
+      ],
+    },
   ],
 
   ignorePatterns: ['!.eslintrc.js', 'dist/'],
