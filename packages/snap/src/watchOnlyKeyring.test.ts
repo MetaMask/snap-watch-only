@@ -1,9 +1,5 @@
 import { expect } from '@jest/globals';
-import type {
-  KeyringAccount,
-  KeyringRequest,
-  KeyringResponse,
-} from '@metamask/keyring-api';
+import type { KeyringAccount } from '@metamask/keyring-api';
 
 import type { KeyringState } from './keyring';
 import { WatchOnlyKeyring } from './keyring';
@@ -13,12 +9,12 @@ describe('WatchOnlyKeyring', () => {
     send: jest.fn(),
   };
 
-  const accountId = '49116980-0712-4fa5-b045-e4294f1d440e';
+  const id = '49116980-0712-4fa5-b045-e4294f1d440e';
   const state: KeyringState = {
     wallets: {
-      [accountId]: {
+      [id]: {
         account: {
-          id: accountId,
+          id,
           address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
           type: 'eip155:eoa',
           options: {},
@@ -38,8 +34,8 @@ describe('WatchOnlyKeyring', () => {
 
   describe('constructor', () => {
     it('should initialize with provided state', async () => {
-      expect(await keyring.getAccount(accountId)).toStrictEqual(
-        state.wallets[accountId]?.account,
+      expect(await keyring.getAccount(id)).toStrictEqual(
+        state.wallets[id]?.account,
       );
       expect(await keyring.listRequests()).toStrictEqual([]);
       expect(keyring.isSynchronousMode()).toBe(false);
@@ -48,7 +44,6 @@ describe('WatchOnlyKeyring', () => {
 
   describe('getAccount', () => {
     it('should get an account by ID', async () => {
-      const id = '49116980-0712-4fa5-b045-e4294f1d440e';
       const expectedResponse = {
         id: '49116980-0712-4fa5-b045-e4294f1d440e',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
@@ -83,7 +78,7 @@ describe('WatchOnlyKeyring', () => {
   });
 
   describe('createAccount', () => {
-    it.only('should create a new account without options', async () => {
+    it('should create a new account without options', async () => {
       const newAccount = await keyring.createAccount();
 
       expect(typeof newAccount.address).toBe('string');
@@ -122,7 +117,7 @@ describe('WatchOnlyKeyring', () => {
   describe('updateAccount', () => {
     it('should update an account', async () => {
       const account: KeyringAccount = {
-        id: '49116980-0712-4fa5-b045-e4294f1d440e',
+        id,
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         options: { updated: true },
         methods: [],
@@ -152,7 +147,6 @@ describe('WatchOnlyKeyring', () => {
 
   describe('deleteAccount', () => {
     it('should delete an account', async () => {
-      const id = '49116980-0712-4fa5-b045-e4294f1d440e';
       const response = await keyring.deleteAccount(id);
       expect(response).toBeUndefined();
       await expect(await keyring.getAccount(id)).rejects.toThrow(
@@ -179,114 +173,82 @@ describe('WatchOnlyKeyring', () => {
 
   describe('listRequests', () => {
     it('should be empty', async () => {
-      const expectedResponse: KeyringRequest[] = [
-        {
-          id: '71621d8d-62a4-4bf4-97cc-fb8f243679b0',
-          scope: 'eip155:1',
-          account: '46b5ccd3-4786-427c-89d2-cef626dffe9b',
-          request: {
-            method: 'personal_sign',
-            params: ['0xe9a74aacd7df8112911ca93260fc5a046f8a64ae', '0x0'],
-          },
-        },
-      ];
-
-      mockSender.send.mockResolvedValue(expectedResponse);
       const response = await keyring.listRequests();
-      expect(mockSender.send).toHaveBeenCalledWith({
-        jsonrpc: '2.0',
-        id: expect.any(String),
-        method: 'keyring_listRequests',
-      });
-      expect(response).toStrictEqual(expectedResponse);
+      expect(response).toStrictEqual([]);
     });
   });
 
   describe('getRequest', () => {
     it('should throw an error for a nonexistent request', async () => {
-      const id = '71621d8d-62a4-4bf4-97cc-fb8f243679b0';
-      const expectedResponse: KeyringRequest = {
-        id,
-        scope: 'eip155:1',
-        account: '46b5ccd3-4786-427c-89d2-cef626dffe9b',
-        request: {
-          method: 'personal_sign',
-          params: ['0xe9a74aacd7df8112911ca93260fc5a046f8a64ae', '0x0'],
-        },
-      };
-
-      mockSender.send.mockResolvedValue(expectedResponse);
-      const response = await keyring.getRequest(id);
-      expect(mockSender.send).toHaveBeenCalledWith({
-        jsonrpc: '2.0',
-        id: expect.any(String),
-        method: 'keyring_getRequest',
-        params: { id },
-      });
-      expect(response).toStrictEqual(expectedResponse);
+      await expect(await keyring.getRequest(id)).rejects.toThrow(
+        "Request '71621d8d-62a4-4bf4-97cc-fb8f243679b0' not found",
+      );
     });
   });
 
   describe('submitRequest', () => {
     it('should throw an error for signing not supported', async () => {
-      const request: KeyringRequest = {
-        id: '71621d8d-62a4-4bf4-97cc-fb8f243679b0',
-        scope: 'eip155:1',
-        account: '46b5ccd3-4786-427c-89d2-cef626dffe9b',
+      let result = await keyring.submitRequest({
+        id,
         request: {
-          method: 'personal_sign',
-          params: ['0xe9a74aacd7df8112911ca93260fc5a046f8a64ae', '0x0'],
+          method: 'eth_personalSign',
+          params: [{ from: '0x1', to: '0x2', value: '0x0' }],
         },
-      };
-      const expectedResponse: KeyringResponse = {
-        pending: true,
-        redirect: {
-          message: 'Please continue to the dapp',
-          url: 'https://example.com',
-        },
-      };
-
-      mockSender.send.mockResolvedValue(expectedResponse);
-      const response = await keyring.submitRequest(request);
-      expect(mockSender.send).toHaveBeenCalledWith({
-        jsonrpc: '2.0',
-        id: expect.any(String),
-        method: 'keyring_submitRequest',
-        params: request,
+        scope: '',
+        account: '',
       });
-      expect(response).toStrictEqual(expectedResponse);
+
+      expect(result).toStrictEqual({
+        pending: false,
+        result: null,
+        error: {
+          code: -32601,
+          message: 'Signing is not supported in this watch-only account snap.',
+          data: null,
+        },
+      });
+
+      result = await keyring.submitRequest({
+        id,
+        request: {
+          method: 'eth_signTypedData_v4',
+          params: [{ from: '0x1', to: '0x2', value: '0x0' }],
+        },
+        scope: '',
+        account: '',
+      });
+      expect(result).toStrictEqual({
+        pending: false,
+        result: null,
+        error: {
+          code: -32601,
+          message: 'Signing is not supported in this watch-only account snap.',
+          data: null,
+        },
+      });
     });
   });
 
   describe('approveRequest', () => {
     it('should throw an error for signing not supported', async () => {
-      const id = '71621d8d-62a4-4bf4-97cc-fb8f243679b0';
-
-      mockSender.send.mockResolvedValue(null);
       const response = await keyring.approveRequest(id);
-      expect(mockSender.send).toHaveBeenCalledWith({
-        jsonrpc: '2.0',
-        id: expect.any(String),
-        method: 'keyring_approveRequest',
-        params: { id, data: {} },
+      expect(response).toStrictEqual({
+        pending: false,
+        result: null,
+        error: {
+          code: -32601,
+          message: 'Signing is not supported in this watch-only account snap.',
+          data: null,
+        },
       });
-      expect(response).toBeUndefined();
     });
   });
 
   describe('rejectRequest', () => {
     it('should remove a pending request', async () => {
-      const id = '71621d8d-62a4-4bf4-97cc-fb8f243679b0';
-
-      mockSender.send.mockResolvedValue(null);
       const response = await keyring.rejectRequest(id);
-      expect(mockSender.send).toHaveBeenCalledWith({
-        jsonrpc: '2.0',
-        id: expect.any(String),
-        method: 'keyring_rejectRequest',
-        params: { id },
-      });
       expect(response).toBeUndefined();
+      expect(await keyring.listRequests()).toStrictEqual([]);
     });
   });
 
