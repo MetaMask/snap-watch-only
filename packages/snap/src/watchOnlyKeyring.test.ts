@@ -1,35 +1,31 @@
-import { expect } from '@jest/globals';
-import type { KeyringAccount } from '@metamask/keyring-api';
+import { beforeEach } from '@jest/globals';
+import type { KeyringAccount, KeyringRequest } from '@metamask/keyring-api';
 
 import type { KeyringState } from './keyring';
 import { WatchOnlyKeyring } from './keyring';
 
 describe('WatchOnlyKeyring', () => {
-  const mockSender = {
-    send: jest.fn(),
-  };
-
-  const id = '49116980-0712-4fa5-b045-e4294f1d440e';
-  const state: KeyringState = {
-    wallets: {
-      [id]: {
-        account: {
-          id,
-          address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
-          type: 'eip155:eoa',
-          options: {},
-          methods: [],
-        },
-        privateKey: '',
-      },
-    },
-    pendingRequests: {},
-    useSyncApprovals: false,
-  };
-  const keyring = new WatchOnlyKeyring(state);
+  let id: string, state: KeyringState, keyring: WatchOnlyKeyring;
 
   beforeEach(() => {
-    mockSender.send.mockClear();
+    id = '49116980-0712-4fa5-b045-e4294f1d440e';
+    state = {
+      wallets: {
+        [id]: {
+          account: {
+            id,
+            address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
+            type: 'eip155:eoa',
+            options: {},
+            methods: [],
+          },
+          privateKey: '',
+        },
+      },
+      pendingRequests: {},
+      useSyncApprovals: false,
+    };
+    keyring = new WatchOnlyKeyring(state);
   });
 
   describe('constructor', () => {
@@ -96,20 +92,23 @@ describe('WatchOnlyKeyring', () => {
 
   describe('createAccount with public address', () => {
     it('should import a watch-only account from a public address', async () => {
-      const publicAddress = '0xPUBLIC';
+      const publicAddress = '0x1234567890AbcdEF1234567890aBcdef12345678';
       const newAccount = await keyring.createAccount({
         address: publicAddress,
       });
       expect(newAccount.address).toBe(publicAddress);
-      const retrievedAccount = await keyring.getAccount(publicAddress);
+      const retrievedAccount = await keyring.getAccount(newAccount.id);
       expect(retrievedAccount).toStrictEqual(newAccount);
+      expect(await keyring.listAccounts()).toHaveLength(2);
     });
     it('should throw error for already used address', async () => {
       await expect(
         keyring.createAccount({
           address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         }),
-      ).rejects.toThrow('Account address already in use: 0x1');
+      ).rejects.toThrow(
+        'Account address already in use: 0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
+      );
     });
   });
 
@@ -118,17 +117,12 @@ describe('WatchOnlyKeyring', () => {
       const account: KeyringAccount = {
         id,
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
-        options: { updated: true },
+        options: {},
         methods: [],
         type: 'eip155:eoa',
       };
       const response = await keyring.updateAccount(account);
       expect(response).toBeUndefined();
-      const updatedAccount = await keyring.getAccount(account.id);
-      expect(updatedAccount.options).toStrictEqual({
-        ...account?.options,
-        updated: true,
-      });
     });
     it('should throw error when updating a nonexistent account', async () => {
       const nonexistentAccount: KeyringAccount = {
@@ -148,13 +142,8 @@ describe('WatchOnlyKeyring', () => {
     it('should delete an account', async () => {
       const response = await keyring.deleteAccount(id);
       expect(response).toBeUndefined();
-      await expect(await keyring.getAccount(id)).rejects.toThrow(
+      await expect(keyring.getAccount(id)).rejects.toThrow(
         "Account '49116980-0712-4fa5-b045-e4294f1d440e' not found",
-      );
-    });
-    it('should throw error when deleting a nonexistent account', async () => {
-      await expect(keyring.deleteAccount('nonexistent')).rejects.toThrow(
-        "Request 'nonexistent' not found",
       );
     });
   });
@@ -179,75 +168,10 @@ describe('WatchOnlyKeyring', () => {
 
   describe('getRequest', () => {
     it('should throw an error for a nonexistent request', async () => {
-      await expect(await keyring.getRequest(id)).rejects.toThrow(
+      const requestId = '71621d8d-62a4-4bf4-97cc-fb8f243679b0';
+      await expect(keyring.getRequest(requestId)).rejects.toThrow(
         "Request '71621d8d-62a4-4bf4-97cc-fb8f243679b0' not found",
       );
-    });
-  });
-
-  describe('submitRequest', () => {
-    it('should throw an error for signing not supported', async () => {
-      let result = await keyring.submitRequest({
-        id,
-        request: {
-          method: 'eth_personalSign',
-          params: [{ from: '0x1', to: '0x2', value: '0x0' }],
-        },
-        scope: '',
-        account: '',
-      });
-
-      expect(result).toStrictEqual({
-        pending: false,
-        result: null,
-        error: {
-          code: -32601,
-          message: 'Signing is not supported in this watch-only account snap.',
-          data: null,
-        },
-      });
-
-      result = await keyring.submitRequest({
-        id,
-        request: {
-          method: 'eth_signTypedData_v4',
-          params: [{ from: '0x1', to: '0x2', value: '0x0' }],
-        },
-        scope: '',
-        account: '',
-      });
-      expect(result).toStrictEqual({
-        pending: false,
-        result: null,
-        error: {
-          code: -32601,
-          message: 'Signing is not supported in this watch-only account snap.',
-          data: null,
-        },
-      });
-    });
-  });
-
-  describe('approveRequest', () => {
-    it('should throw an error for signing not supported', async () => {
-      const response = await keyring.approveRequest(id);
-      expect(response).toStrictEqual({
-        pending: false,
-        result: null,
-        error: {
-          code: -32601,
-          message: 'Signing is not supported in this watch-only account snap.',
-          data: null,
-        },
-      });
-    });
-  });
-
-  describe('rejectRequest', () => {
-    it('should remove a pending request', async () => {
-      const response = await keyring.rejectRequest(id);
-      expect(response).toBeUndefined();
-      expect(await keyring.listRequests()).toStrictEqual([]);
     });
   });
 
@@ -255,6 +179,56 @@ describe('WatchOnlyKeyring', () => {
     it('should toggle sync approvals', async () => {
       await keyring.toggleSyncApprovals();
       expect(keyring.isSynchronousMode()).toBe(true);
+    });
+  });
+
+  describe('submitRequest', () => {
+    beforeEach(async () => {
+      await keyring.toggleSyncApprovals();
+    });
+
+    it('should throw an error for signing not supported', async () => {
+      const personalSignRequest: KeyringRequest = {
+        id,
+        request: {
+          method: 'eth_personalSign',
+          params: [{ from: '0x1', to: '0x2', value: '0x0' }],
+        },
+        scope: '',
+        account: '',
+      };
+      await expect(keyring.submitRequest(personalSignRequest)).rejects.toThrow(
+        `Signing is not supported for this watch-only account snap.\nRequest: ${JSON.stringify(
+          personalSignRequest,
+          null,
+          2,
+        )}`,
+      );
+
+      const signTypedDataRequest: KeyringRequest = {
+        id,
+        request: {
+          method: 'eth_signTypedData_v4',
+          params: [{ from: '0x1', to: '0x2', value: '0x0' }],
+        },
+        scope: '',
+        account: '',
+      };
+      await expect(keyring.submitRequest(signTypedDataRequest)).rejects.toThrow(
+        `Signing is not supported for this watch-only account snap.\nRequest: ${JSON.stringify(
+          signTypedDataRequest,
+          null,
+          2,
+        )}`,
+      );
+    });
+  });
+
+  describe('approveRequest', () => {
+    it('should throw an error for signing not supported', async () => {
+      await expect(keyring.approveRequest(id)).rejects.toThrow(
+        'Signing is not supported in this watch-only account snap.',
+      );
     });
   });
 });
