@@ -32,7 +32,6 @@ export async function getState(): Promise<KeyringState> {
  * @param state - New snap state.
  */
 export async function saveState(state: KeyringState) {
-  console.log(snap);
   await snap.request({
     method: 'snap_manageState',
     params: { operation: 'update', newState: state },
