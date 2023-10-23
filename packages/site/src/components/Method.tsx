@@ -42,7 +42,8 @@ const TextField = styled.input`
   background: transparent;
   border-radius: 5px;
   box-sizing: border-box;
-  border: 1px solid #bbc0c5;
+  border: 1px solid ${(props) => props.theme.colors.border?.default};
+  color: ${(props) => props.theme.colors.text?.default};
 `;
 
 const CopyableContainer = styled.div`
