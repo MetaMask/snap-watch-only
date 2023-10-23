@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38c13d6c-9417-43d7-a083-caff6e93a1c8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/jest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/jest.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/src/keyring.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/keyring.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/tsconfig.json" afterDir="false" />
-    </list>
+    <list default="true" id="38c13d6c-9417-43d7-a083-caff6e93a1c8" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -253,7 +247,7 @@
       <workItem from="1697917422792" duration="114000" />
       <workItem from="1697918619614" duration="12072000" />
       <workItem from="1698020054320" duration="1415000" />
-      <workItem from="1698026033187" duration="5559000" />
+      <workItem from="1698026033187" duration="5867000" />
     </task>
     <servers />
   </component>
