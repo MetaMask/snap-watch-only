@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="38c13d6c-9417-43d7-a083-caff6e93a1c8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/snap.manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/snap.manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/snap/src/stateManagement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/stateManagement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/jest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/jest.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/snap/src/keyring.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/keyring.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/snap/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/snap/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,11 +94,13 @@
       <recent name="$PROJECT_DIR$/packages/site/src/utils/ens.ts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/packages/snap/src" />
       <recent name="$PROJECT_DIR$/packages/snap" />
+      <recent name="$PROJECT_DIR$/packages/snap/src" />
+      <recent name="$PROJECT_DIR$/packages" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Jest.WatchOnlyKeyring">
     <configuration name="WatchOnlyKeyring" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -113,6 +111,66 @@
       <test-names>
         <test-name value="WatchOnlyKeyring" />
       </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="WatchOnlyKeyring.approveRequest" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/snap" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" />
+      <test-names>
+        <test-name value="WatchOnlyKeyring" />
+        <test-name value="approveRequest" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="WatchOnlyKeyring.rejectRequest" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/snap" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" />
+      <test-names>
+        <test-name value="WatchOnlyKeyring" />
+        <test-name value="rejectRequest" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="WatchOnlyKeyring.submitRequest" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/snap" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" />
+      <test-names>
+        <test-name value="WatchOnlyKeyring" />
+        <test-name value="submitRequest" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="WatchOnlyKeyring.submitRequest.should throw an error for signing not supported" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/snap" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/packages/snap/src/watchOnlyKeyring.test.ts" />
+      <test-names>
+        <test-name value="WatchOnlyKeyring" />
+        <test-name value="submitRequest" />
+        <test-name value="should throw an error for signing not supported" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <envs />
+      <scope-kind value="ALL" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
@@ -128,9 +186,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Jest.WatchOnlyKeyring" />
+      <item itemvalue="Jest.WatchOnlyKeyring.approveRequest" />
+      <item itemvalue="Jest.WatchOnlyKeyring.rejectRequest" />
+      <item itemvalue="Jest.WatchOnlyKeyring.submitRequest" />
+      <item itemvalue="Jest.WatchOnlyKeyring.submitRequest.should throw an error for signing not supported" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Jest.WatchOnlyKeyring" />
+        <item itemvalue="Jest.WatchOnlyKeyring.approveRequest" />
+        <item itemvalue="Jest.WatchOnlyKeyring.submitRequest" />
+        <item itemvalue="Jest.WatchOnlyKeyring.rejectRequest" />
+        <item itemvalue="Jest.WatchOnlyKeyring.submitRequest.should throw an error for signing not supported" />
       </list>
     </recent_temporary>
   </component>
@@ -183,7 +252,8 @@
       <workItem from="1697864834372" duration="145000" />
       <workItem from="1697917422792" duration="114000" />
       <workItem from="1697918619614" duration="12072000" />
-      <workItem from="1698020054320" duration="1277000" />
+      <workItem from="1698020054320" duration="1415000" />
+      <workItem from="1698026033187" duration="5559000" />
     </task>
     <servers />
   </component>
@@ -204,5 +274,8 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/snap_simple_keyring_watch_only$watchOnlyKeyring_test_ts.info" NAME="watchOnlyKeyring.test.ts Coverage Results" MODIFIED="1698029013692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -8,9 +8,13 @@ const config = {
   },
   globals: {
     crypto: {
-      // eslint-disable-next-line no-restricted-globals
       getRandomValues: (arr: string | any[]) =>
         nodeCrypto.randomBytes(arr.length),
+    },
+    snap: {
+      request: (request: any) => {
+        return request;
+      },
     },
   },
   coverageThreshold: {
