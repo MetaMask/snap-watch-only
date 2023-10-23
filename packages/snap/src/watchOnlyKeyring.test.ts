@@ -1,4 +1,3 @@
-import { beforeEach, expect } from '@jest/globals';
 import type { KeyringAccount, KeyringRequest } from '@metamask/keyring-api';
 
 import type { KeyringState } from './keyring';
