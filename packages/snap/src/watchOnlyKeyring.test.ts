@@ -1,4 +1,4 @@
-import { beforeEach } from '@jest/globals';
+import { beforeEach, expect } from '@jest/globals';
 import type { KeyringAccount, KeyringRequest } from '@metamask/keyring-api';
 
 import type { KeyringState } from './keyring';
@@ -79,10 +79,8 @@ describe('WatchOnlyKeyring', () => {
       expect(typeof newAccount.address).toBe('string');
       expect(newAccount.address.length).toBeGreaterThan(2);
       expect(newAccount.address.startsWith('0x')).toBe(true);
-
       expect(typeof newAccount.id).toBe('string');
       expect(newAccount.id.length).toBeGreaterThan(0);
-
       expect(newAccount.methods).toStrictEqual([]);
       expect(newAccount.type).toBe('eip155:eoa');
       expect(newAccount.options).toStrictEqual({});
@@ -99,6 +97,7 @@ describe('WatchOnlyKeyring', () => {
       expect(newAccount.address).toBe(publicAddress);
       const retrievedAccount = await keyring.getAccount(newAccount.id);
       expect(retrievedAccount).toStrictEqual(newAccount);
+      expect(retrievedAccount.methods).toStrictEqual([]);
       expect(await keyring.listAccounts()).toHaveLength(2);
     });
     it('should throw error for already used address', async () => {
@@ -205,7 +204,7 @@ describe('WatchOnlyKeyring', () => {
         )}`,
       );
 
-      const signTypedDataRequest: KeyringRequest = {
+      const signTypedDataV4Request: KeyringRequest = {
         id,
         request: {
           method: 'eth_signTypedData_v4',
@@ -214,9 +213,11 @@ describe('WatchOnlyKeyring', () => {
         scope: '',
         account: '',
       };
-      await expect(keyring.submitRequest(signTypedDataRequest)).rejects.toThrow(
+      await expect(
+        keyring.submitRequest(signTypedDataV4Request),
+      ).rejects.toThrow(
         `Signing is not supported for this watch-only account snap.\nRequest: ${JSON.stringify(
-          signTypedDataRequest,
+          signTypedDataV4Request,
           null,
           2,
         )}`,
