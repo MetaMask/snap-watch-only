@@ -312,9 +312,9 @@ const Index = () => {
             <DividerTitle>Methods</DividerTitle>
             <Accordion items={accountManagementMethods} />
             <Divider />
-            <DividerTitle>Sign Methods</DividerTitle>
-            <Accordion items={signMethods} />
-            <Divider />
+            {/* <DividerTitle>Sign Methods</DividerTitle>*/}
+            {/* <Accordion items={signMethods} />*/}
+            {/* <Divider />*/}
           </Grid>
           <Grid item xs={4} sm={2} md={1}>
             <Divider />
