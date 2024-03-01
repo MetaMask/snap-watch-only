@@ -2,7 +2,6 @@ import {
   addHexPrefix,
   Address,
   isValidPrivate,
-  toBuffer,
   toChecksumAddress,
 } from '@ethereumjs/util';
 import type {
@@ -13,12 +12,12 @@ import type {
 } from '@metamask/keyring-api';
 import { emitSnapKeyringEvent, EthAccountType } from '@metamask/keyring-api';
 import { KeyringEvent } from '@metamask/keyring-api/dist/events';
-import { type Json } from '@metamask/utils';
+import { hexToBytes, type Json } from '@metamask/utils';
 import { Buffer } from 'buffer';
 import { v4 as uuid } from 'uuid';
 
 import { saveState } from './stateManagement';
-import { isEvmChain, isUniqueAddress, throwError } from './util';
+import { isEvmChain, isUniqueAddress, runSensitive, throwError } from './util';
 import packageInfo from '../package.json';
 
 export type KeyringState = {
@@ -228,9 +227,15 @@ export class WatchOnlyKeyring implements Keyring {
     privateKey: string;
     address: string;
   } {
-    const privateKeyBuffer = privateKey
-      ? toBuffer(addHexPrefix(privateKey))
-      : Buffer.from(crypto.getRandomValues(new Uint8Array(32)));
+    const privateKeyBuffer: Buffer = runSensitive(
+      () =>
+        privateKey
+          ? Buffer.from(hexToBytes(addHexPrefix(privateKey)))
+          : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore - available in snaps
+            Buffer.from(crypto.getRandomValues(new Uint8Array(32))),
+      'Invalid private key',
+    );
 
     if (!isValidPrivate(privateKeyBuffer)) {
       throw new Error('Invalid private key');
