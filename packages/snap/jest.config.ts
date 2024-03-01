@@ -1,30 +1,13 @@
-import * as nodeCrypto from 'crypto';
-
-const config = {
-  verbose: true,
-  preset: '@metamask/snaps-jest',
+module.exports = {
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(t|j)sx?$': 'ts-jest',
   },
-  globals: {
-    crypto: {
-      getRandomValues: (arr: string | any[]) =>
-        nodeCrypto.randomBytes(arr.length),
-    },
-    snap: {
-      request: (request: any) => {
-        return request;
-      },
-    },
-  },
-  coverageThreshold: {
-    global: {
-      branches: 0,
-      functions: 0,
-      lines: 0,
-      statements: 0,
-    },
-  },
+  testTimeout: 20000,
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/test/',
+    'src/types/',
+    'contracts',
+    'artifacts',
+  ],
 };
-
-export default config;

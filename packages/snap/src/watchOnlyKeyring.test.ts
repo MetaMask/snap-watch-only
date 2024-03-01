@@ -3,11 +3,22 @@ import type { KeyringAccount, KeyringRequest } from '@metamask/keyring-api';
 import type { KeyringState } from './keyring';
 import { WatchOnlyKeyring } from './keyring';
 
+const id = 'ea747116-767c-4117-a347-0c3f7b19cc5a';
+
+jest.mock('uuid', () => ({
+  v4: () => id,
+}));
+
+// @ts-expect-error Mocking Snap global object
+global.snap = {
+  request: jest.fn(),
+  emitEvent: jest.fn(),
+};
+
 describe('WatchOnlyKeyring', () => {
-  let id: string, state: KeyringState, keyring: WatchOnlyKeyring;
+  let state: KeyringState, keyring: WatchOnlyKeyring;
 
   beforeEach(() => {
-    id = '49116980-0712-4fa5-b045-e4294f1d440e';
     state = {
       wallets: {
         [id]: {
