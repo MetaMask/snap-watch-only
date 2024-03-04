@@ -1,11 +1,9 @@
 import Grid from '@mui/material/Grid';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import { AlertBanner, AlertType } from './AlertBanner';
-import { MethodButton } from './Buttons';
-import { CopyableItem } from './CopyableItem';
 import { InputType } from '../types';
+import { MethodButton } from './Buttons';
 
 const StyledDescription = styled.p`
   font-size: 14px;
@@ -46,11 +44,6 @@ const TextField = styled.input`
   color: ${(props) => props.theme.colors.text?.default};
 `;
 
-const CopyableContainer = styled.div`
-  width: 95%;
-  margin: 0px 2.5% 8px 8px;
-`;
-
 export type MethodProps = {
   description: string;
   inputs: {
@@ -69,16 +62,7 @@ export type MethodProps = {
   failureMessage?: string;
 };
 
-export const Method = ({
-  description,
-  inputs,
-  action,
-  successMessage,
-  failureMessage,
-}: MethodProps) => {
-  const [response, setResponse] = useState<unknown>();
-  const [error, setError] = useState<unknown>();
-
+export const Method = ({ description, inputs, action }: MethodProps) => {
   const inputSwitch = (props: any) => {
     switch (props.type) {
       case InputType.TextField:
@@ -134,40 +118,17 @@ export const Method = ({
       {action && (
         <MethodButton
           onClick={async () => {
-            setResponse(undefined);
-            setError(undefined);
             try {
               // eslint-disable-next-line id-length
-              const r = await action.callback();
-              setResponse(r === undefined ? null : r);
+              await action.callback();
               // eslint-disable-next-line id-length
             } catch (e: any) {
-              setError(e);
+              console.error(e);
             }
           }}
           disable={action.disabled}
           label={action.label}
         />
-      )}
-
-      {response !== undefined && (
-        <CopyableContainer>
-          <AlertBanner
-            title={successMessage ?? 'Successful request'}
-            alertType={AlertType.Success}
-          />
-          <CopyableItem value={JSON.stringify(response, null, 2)} />
-        </CopyableContainer>
-      )}
-
-      {error !== undefined && (
-        <CopyableContainer>
-          <AlertBanner
-            title={failureMessage ?? 'Error request'}
-            alertType={AlertType.Failure}
-          />
-          <CopyableItem value={JSON.stringify(error, null, 2)} />
-        </CopyableContainer>
       )}
     </Grid>
   );
