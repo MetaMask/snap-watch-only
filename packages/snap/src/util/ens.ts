@@ -1,5 +1,7 @@
 import { ethers } from 'ethers';
 
+import { logger } from './logger';
+
 /**
  * Resolve ENS name to Ethereum address.
  *
@@ -7,11 +9,11 @@ import { ethers } from 'ethers';
  * @returns Ethereum address.
  */
 export const resolveName = async (name: string): Promise<string | null> => {
-  const provider = new ethers.BrowserProvider(window.ethereum);
+  const provider = new ethers.BrowserProvider(ethereum);
   try {
     return await provider.resolveName(name);
   } catch (error) {
-    console.error('Failed to resolve ENS name:', error);
+    logger.error('Failed to resolve ENS name:', error);
     return null;
   }
 };
@@ -22,11 +24,11 @@ export const resolveName = async (name: string): Promise<string | null> => {
  * @returns ENS name or `null` if not found.
  */
 export const lookupName = async (address: string): Promise<string | null> => {
-  const provider = new ethers.BrowserProvider(window.ethereum);
+  const provider = new ethers.BrowserProvider(ethereum);
   try {
     return await provider.lookupAddress(address);
   } catch (error) {
-    console.error('Failed to lookup ENS name:', error);
+    logger.error('Failed to lookup ENS name:', error);
     return null;
   }
 };

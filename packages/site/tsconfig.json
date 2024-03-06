@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "jsx": "react"
-  },
-  "include": ["src/", "gatsby-*.ts", "gatsby-*.tsx"]
-}

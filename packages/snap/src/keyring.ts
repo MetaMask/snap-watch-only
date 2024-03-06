@@ -17,7 +17,12 @@ import { Buffer } from 'buffer';
 import { v4 as uuid } from 'uuid';
 
 import { saveState } from './stateManagement';
-import { isEvmChain, isUniqueAddress, runSensitive, throwError } from './util';
+import {
+  isEvmChain,
+  isUniqueAddress,
+  runSensitive,
+  throwError,
+} from './util/util';
 import packageInfo from '../package.json';
 
 export type KeyringState = {

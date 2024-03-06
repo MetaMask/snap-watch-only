@@ -3818,9 +3818,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snap-simple-keyring-watch-only-site@workspace:packages/site":
+"@metamask/snap-watch-only-site@workspace:packages/site":
   version: 0.0.0-use.local
-  resolution: "@metamask/snap-simple-keyring-watch-only-site@workspace:packages/site"
+  resolution: "@metamask/snap-watch-only-site@workspace:packages/site"
   dependencies:
     "@emotion/react": ^11.11.1
     "@emotion/styled": ^11.11.0
