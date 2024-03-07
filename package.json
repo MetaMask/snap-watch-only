@@ -2,7 +2,7 @@
   "name": "snap-watch-only",
   "version": "1.0.0",
   "private": true,
-  "description": "A keyring snap for watch-only accounts that integrates with MetaMask accounts.",
+  "description": "Monitor public addresses or ENS domains directly in MetaMask with this Watch-Only Snap.",
   "keywords": [
     "metamask",
     "snap",

@@ -1,16 +1,26 @@
 {
-  "name": "@metamask/interactive-ui-example-snap",
+  "name": "@metamask/snap-watch-only-snap",
   "version": "1.0.0",
-  "description": "MetaMask example snap demonstrating the use of interactive UI.",
+  "description": "A keyring snap for watch-only accounts that integrates with MetaMask accounts.",
+  "keywords": [
+    "metamask",
+    "snap",
+    "keyring",
+    "account"
+  ],
+  "homepage": "https://github.com/metamask/snap-watch-only/packages/snap#readme",
+  "bugs": {
+    "url": "https://github.com/metamask/snap-watch-only/packages/snap/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/snaps.git"
+    "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "license": "(MIT-0 OR Apache-2.0)",
-  "sideEffects": false,
-  "main": "./dist/bundle.js",
+  "main": "dist/bundle.js",
   "files": [
     "dist/",
+    "images/",
     "snap.manifest.json"
   ],
   "scripts": {
@@ -18,7 +28,7 @@
     "build:clean": "yarn clean && yarn build",
     "clean": "rimraf \"dist\"",
     "lint": "yarn lint:eslint && yarn lint:misc --check && yarn lint:changelog && yarn lint:dependencies",
-    "lint:changelog": "../../../../scripts/validate-changelog.sh @metamask/interactive-ui-example-snap",
+    "lint:changelog": "../../../../scripts/validate-changelog.sh @metamask/snap-watch-only-snap",
     "lint:ci": "yarn lint",
     "lint:eslint": "eslint . --cache --ext js,ts,jsx,tsx",
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
@@ -50,6 +60,7 @@
     "@metamask/eslint-config-typescript": "^12.1.0",
     "@metamask/snaps-cli": "workspace:^",
     "@metamask/snaps-jest": "workspace:^",
+    "@metamask/snaps-types": "^3.1.0",
     "@swc/core": "1.3.78",
     "@swc/jest": "^0.2.26",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
@@ -80,7 +91,9 @@
   },
   "lavamoat": {
     "allowScripts": {
-      "@swc/core": false
+      "@swc/core": false,
+      "@metamask/snaps-types>@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
+      "@metamask/snaps-types>@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false
     }
   }
 }

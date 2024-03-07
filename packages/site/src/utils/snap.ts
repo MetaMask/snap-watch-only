@@ -1,4 +1,4 @@
-import snapPackageInfo from '../../../snap-interactive-ui/package.json';
+import snapPackageInfo from '../../../snap/package.json';
 import { defaultSnapOrigin } from '../config';
 import type { GetSnapsResponse, Snap } from '../types';
 
