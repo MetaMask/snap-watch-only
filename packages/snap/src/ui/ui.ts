@@ -1,19 +1,17 @@
+import type { Component, Transaction } from '@metamask/snaps-sdk';
 import {
-  ButtonType,
-  ManageStateOperation,
   address,
+  assert,
   button,
-  copyable,
-  form,
+  divider,
   heading,
-  input,
+  ManageStateOperation,
   panel,
   row,
   text,
-  assert,
 } from '@metamask/snaps-sdk';
-import type { Component, Transaction } from '@metamask/snaps-sdk';
 
+import { WATCH_FORM_COMPONENT } from './components';
 import { decodeData } from './ui-utils';
 
 /**
@@ -25,10 +23,7 @@ export async function createInterface(): Promise<string> {
   return await snap.request({
     method: 'snap_createInterface',
     params: {
-      ui: panel([
-        heading('Interactive UI Example Snap'),
-        button({ value: 'Update UI', name: 'update' }),
-      ]),
+      ui: WATCH_FORM_COMPONENT,
     },
   });
 }
@@ -61,7 +56,7 @@ export async function getInsightContent(): Promise<Component> {
  * Update a Snap interface to display the transaction type after fetching
  * the transaction from state.
  *
- * @param id -  The interface ID to update.
+ * @param id - The interface ID to update.
  */
 export async function displayTransactionType(id: string) {
   const snapState = await snap.request({
@@ -99,19 +94,7 @@ export async function showForm(id: string) {
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: panel([
-        heading('Interactive UI Example Snap'),
-        form({
-          name: 'example-form',
-          children: [
-            input({
-              name: 'example-input',
-              placeholder: 'Enter something...',
-            }),
-            button('Submit', ButtonType.Submit, 'submit'),
-          ],
-        }),
-      ]),
+      ui: WATCH_FORM_COMPONENT,
     },
   });
 }
@@ -128,10 +111,27 @@ export async function showResult(id: string, value: string) {
     params: {
       id,
       ui: panel([
-        heading('Interactive UI Example Snap'),
-        text('The submitted value is:'),
-        copyable(value),
+        heading('Success'),
+        divider(),
+        text('You are now watching'),
+        address(value),
       ]),
+    },
+  });
+}
+
+/**
+ * Update a Snap interface to show an error message.
+ *
+ * @param id - The Snap interface ID to update.
+ * @param message - The error message to display.
+ */
+export async function showErrorMessage(id: string, message: string) {
+  await snap.request({
+    method: 'snap_updateInterface',
+    params: {
+      id,
+      ui: panel([heading('Error'), divider(), text(message)]),
     },
   });
 }

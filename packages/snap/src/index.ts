@@ -8,6 +8,7 @@ import type {
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
 import {
+  panel,
   assert,
   ManageStateOperation,
   UserInputEventType,
@@ -22,11 +23,11 @@ import { InternalMethod, originPermissions } from './permissions';
 import { getState } from './stateManagement';
 import {
   createInterface,
-  displayTransactionType,
   getInsightContent,
-  showForm,
+  showErrorMessage,
   showResult,
 } from './ui/ui';
+import { resolveName } from './util';
 
 let keyring: WatchOnlyKeyring;
 
@@ -83,6 +84,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
   }
 
   // Handle custom methods.
+  // noinspection DuplicatedCode
   switch (request.method) {
     case InternalMethod.ToggleSyncApprovals: {
       return (await getKeyring()).toggleSyncApprovals();
@@ -223,39 +225,41 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
  * @see https://docs.metamask.io/snaps/reference/exports/#onuserinput
  */
 export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
-  if (event.type === UserInputEventType.ButtonClickEvent) {
-    switch (event.name) {
-      case 'update':
-        await showForm(id);
-        break;
-
-      case 'transaction-type':
-        await displayTransactionType(id);
-        break;
-
-      case 'go-back':
-        await snap.request({
-          method: 'snap_updateInterface',
-          params: {
-            id,
-            ui: await getInsightContent(),
-          },
-        });
-        break;
-
-      default:
-        break;
-    }
-  }
-
   if (
     event.type === UserInputEventType.FormSubmitEvent &&
-    event.name === 'example-form'
+    event.name === 'address-form'
   ) {
-    const inputValue = event.value['example-input'];
+    const inputValue = event.value['address-input'];
+
+    // TODO: Validate input more thoroughly.
     if (!inputValue) {
-      throw new Error('Input value is required.');
+      await showErrorMessage(id, 'Address or ENS is required');
     }
-    await showResult(id, inputValue);
+    let address = inputValue as string;
+    if (address.endsWith('.eth')) {
+      const ensResolution = await resolveName(address);
+      console.log('ens', ensResolution);
+      if (ensResolution) {
+        address = ensResolution;
+      } else {
+        await showErrorMessage(id, `Could not resolve ENS name: ${address}`);
+        return;
+      }
+    }
+
+    // Add watch only address to keyring.
+    try {
+      await snap.request({
+        method: 'snap_manageState',
+        params: {
+          operation: ManageStateOperation.ClearState,
+          encrypted: false,
+        },
+      });
+      await (await getKeyring()).createAccount({ address });
+      await showResult(id, address);
+    } catch (error) {
+      await showErrorMessage(id, (error as Error).message);
+    }
   }
 };
