@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.packages.json",
+  "compilerOptions": {
+    "baseUrl": "./"
+  },
+  "include": ["./src", "package.json", "tsup.config.ts"],
+  "references": [
+    {
+      "path": "../snaps-sdk"
+    },
+    {
+      "path": "../snaps-utils"
+    }
+  ]
+}

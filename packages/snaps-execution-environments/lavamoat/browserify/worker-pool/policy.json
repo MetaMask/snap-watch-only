@@ -1,0 +1,170 @@
+{
+  "resources": {
+    "@metamask/post-message-stream": {
+      "globals": {
+        "MessageEvent.prototype": true,
+        "WorkerGlobalScope": true,
+        "addEventListener": true,
+        "browser": true,
+        "chrome": true,
+        "location.origin": true,
+        "postMessage": true,
+        "removeEventListener": true
+      },
+      "packages": {
+        "@metamask/utils": true,
+        "readable-stream": true
+      }
+    },
+    "@metamask/rpc-errors": {
+      "packages": {
+        "@metamask/rpc-errors>fast-safe-stringify": true,
+        "@metamask/utils": true
+      }
+    },
+    "@metamask/snaps-sdk": {
+      "globals": {
+        "fetch": true
+      },
+      "packages": {
+        "@metamask/rpc-errors": true,
+        "@metamask/snaps-sdk>fast-xml-parser": true,
+        "@metamask/utils": true,
+        "superstruct": true
+      }
+    },
+    "@metamask/snaps-sdk>fast-xml-parser": {
+      "globals": {
+        "entityName": true,
+        "val": true
+      },
+      "packages": {
+        "@metamask/snaps-sdk>fast-xml-parser>strnum": true
+      }
+    },
+    "@metamask/snaps-utils": {
+      "globals": {
+        "URL": true,
+        "console.error": true,
+        "console.log": true,
+        "console.warn": true,
+        "document.body.appendChild": true,
+        "document.createElement": true
+      },
+      "packages": {
+        "@metamask/rpc-errors": true,
+        "@metamask/snaps-sdk": true,
+        "@metamask/utils": true,
+        "superstruct": true
+      }
+    },
+    "@metamask/utils": {
+      "globals": {
+        "TextDecoder": true,
+        "TextEncoder": true
+      },
+      "packages": {
+        "@metamask/utils>@noble/hashes": true,
+        "@metamask/utils>@scure/base": true,
+        "@metamask/utils>pony-cause": true,
+        "browserify>buffer": true,
+        "depcheck>semver": true,
+        "superstruct": true,
+        "tsup>debug": true
+      }
+    },
+    "@metamask/utils>@noble/hashes": {
+      "globals": {
+        "TextEncoder": true,
+        "crypto": true
+      }
+    },
+    "@metamask/utils>@scure/base": {
+      "globals": {
+        "TextDecoder": true,
+        "TextEncoder": true
+      }
+    },
+    "browserify>browser-pack>safe-buffer": {
+      "packages": {
+        "browserify>buffer": true
+      }
+    },
+    "browserify>buffer": {
+      "globals": {
+        "console": true
+      },
+      "packages": {
+        "browserify>buffer>base64-js": true,
+        "browserify>buffer>ieee754": true
+      }
+    },
+    "browserify>events": {
+      "globals": {
+        "console": true
+      }
+    },
+    "browserify>process": {
+      "globals": {
+        "clearTimeout": true,
+        "setTimeout": true
+      }
+    },
+    "browserify>string_decoder": {
+      "packages": {
+        "browserify>browser-pack>safe-buffer": true
+      }
+    },
+    "depcheck>semver": {
+      "globals": {
+        "console.error": true
+      },
+      "packages": {
+        "browserify>process": true,
+        "depcheck>semver>lru-cache": true
+      }
+    },
+    "depcheck>semver>lru-cache": {
+      "packages": {
+        "depcheck>semver>lru-cache>yallist": true
+      }
+    },
+    "readable-stream": {
+      "packages": {
+        "browserify>browser-resolve": true,
+        "browserify>buffer": true,
+        "browserify>events": true,
+        "browserify>inherits": true,
+        "browserify>process": true,
+        "browserify>string_decoder": true,
+        "readable-stream>util-deprecate": true
+      }
+    },
+    "readable-stream>util-deprecate": {
+      "globals": {
+        "console.trace": true,
+        "console.warn": true,
+        "localStorage": true
+      }
+    },
+    "superstruct": {
+      "globals": {
+        "console.warn": true,
+        "define": true
+      }
+    },
+    "tsup>debug": {
+      "globals": {
+        "console": true,
+        "document": true,
+        "localStorage": true,
+        "navigator": true,
+        "process": true
+      },
+      "packages": {
+        "browserify>process": true,
+        "tsup>debug>ms": true
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@ import {
 } from '@metamask/snaps-sdk';
 import type { Component, Transaction } from '@metamask/snaps-sdk';
 
-import { decodeData } from './utils';
+import { decodeData } from './ui-utils';
 
 /**
  * Initiate a new interface with the starting screen.

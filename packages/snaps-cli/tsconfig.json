@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "composite": true,
+  "compilerOptions": {
+    "baseUrl": "./"
+  },
+  "include": [
+    "./src",
+    "./src/**/*.json",
+    "jest.setup.ts",
+    "package.json",
+    "tsup.config.ts"
+  ],
+  "references": [
+    { "path": "../snaps-utils" },
+    { "path": "../snaps-browserify-plugin" },
+    { "path": "../snaps-webpack-plugin" }
+  ]
+}

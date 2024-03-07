@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "description": "A keyring for watch-only accounts.",
-  "proposedName": "MetaMask Snap Keyring Watch-Only",
+  "description": "A keyring snap for watch-only accounts.",
+  "proposedName": "MetaMask Snap Watch-Only",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/metamask/snap-watch-only.git"
@@ -12,7 +12,7 @@
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "snap-simple-keyring-watch-only-snap",
+        "packageName": "snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
@@ -20,10 +20,7 @@
   "initialPermissions": {
     "snap_dialog": {},
     "endowment:keyring": {
-      "allowedOrigins": [
-        "https://metamask.github.io",
-        "http://localhost:8000"
-      ]
+      "allowedOrigins": ["https://metamask.github.io", "http://localhost:8000"]
     },
     "endowment:rpc": {
       "dapps": true
