@@ -3,7 +3,7 @@ import semver from 'semver';
 import styled from 'styled-components';
 
 import { HeaderButtons } from './Buttons';
-import snapPackageInfo from '../../../snap-interactive-ui/package.json';
+import snapPackageInfo from '../../../snap/package.json';
 import packageInfo from '../../package.json';
 import { defaultSnapOrigin } from '../config';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
@@ -108,7 +108,7 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <Title>Snaps Interactive UI Example</Title>
+        <Title>Watch-Only Snap</Title>
       </LogoWrapper>
       <RightContainer>
         <Version />

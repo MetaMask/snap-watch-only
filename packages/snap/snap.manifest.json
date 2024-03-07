@@ -7,12 +7,12 @@
     "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "jHdR0dA/FuHAE8RSaQSR40lUqBAM9YbQLopZ8VonExA=",
+    "shasum": "TI7I3EFOcv5bSS7Sf/QGN5raPClXGndHKYqAvF6dxHg=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "snap-watch-only-snap",
+        "packageName": "@metamask/snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
@@ -20,12 +20,16 @@
   "initialPermissions": {
     "snap_dialog": {},
     "endowment:keyring": {
-      "allowedOrigins": ["https://metamask.github.io", "http://localhost:8000"]
+      "allowedOrigins": [
+        "https://metamask.github.io",
+        "http://localhost:8000"
+      ]
     },
     "endowment:rpc": {
       "dapps": true
     },
     "snap_manageAccounts": {},
+    "endowment:page-home": {},
     "snap_manageState": {}
   },
   "manifestVersion": "0.1"

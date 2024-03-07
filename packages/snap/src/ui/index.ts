@@ -188,6 +188,6 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     event.name === 'example-form'
   ) {
     const inputValue = event.value['example-input'];
-    await showResult(id, inputValue);
+    await showResult(id, inputValue!);
   }
 };
