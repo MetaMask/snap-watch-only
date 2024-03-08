@@ -1,4 +1,3 @@
-import { expect } from '@jest/globals';
 import { installSnap } from '@metamask/snaps-jest';
 import { address, button, heading, panel, row } from '@metamask/snaps-sdk';
 import { assert } from '@metamask/utils';

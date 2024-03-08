@@ -1,5 +1,8 @@
 import type { Component, Transaction } from '@metamask/snaps-sdk';
 import {
+  ButtonType,
+  form,
+  input,
   address,
   assert,
   button,
@@ -11,7 +14,7 @@ import {
   text,
 } from '@metamask/snaps-sdk';
 
-import { WATCH_FORM_COMPONENT } from './components';
+import { generateWatchFormComponent } from './components';
 import { decodeData } from './ui-utils';
 
 /**
@@ -23,7 +26,7 @@ export async function createInterface(): Promise<string> {
   return await snap.request({
     method: 'snap_createInterface',
     params: {
-      ui: WATCH_FORM_COMPONENT,
+      ui: generateWatchFormComponent(null),
     },
   });
 }
@@ -88,13 +91,14 @@ export async function displayTransactionType(id: string) {
  * Update the interface with a simple form containing an input and a submit button.
  *
  * @param id - The Snap interface ID to update.
+ * @param validationMessage
  */
-export async function showForm(id: string) {
+export async function showForm(id: string, validationMessage: string) {
   await snap.request({
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: WATCH_FORM_COMPONENT,
+      ui: generateWatchFormComponent(validationMessage),
     },
   });
 }

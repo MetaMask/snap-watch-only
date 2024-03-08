@@ -7,7 +7,7 @@
     "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "fA2XmhXkUGxI+5lecAUIqAQqJ3J/u0L6zt46qHLqRgo=",
+    "shasum": "sLb2TwLkwDBX+c0pEHdp0Tp924GtEzRQOuQ7ZCAguXA=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -30,7 +30,8 @@
     },
     "snap_manageAccounts": {},
     "endowment:page-home": {},
-    "snap_manageState": {}
+    "snap_manageState": {},
+    "endowment:ethereum-provider": {}
   },
   "manifestVersion": "0.1"
 }

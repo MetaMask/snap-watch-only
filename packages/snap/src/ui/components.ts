@@ -1,8 +1,8 @@
 import type { Component } from '@metamask/snaps-sdk';
 import {
+  divider,
   button,
   ButtonType,
-  divider,
   form,
   heading,
   input,
@@ -17,19 +17,50 @@ import {
   WATCH_FORM_INSTRUCTIONS,
 } from './content';
 
-export const WATCH_FORM_COMPONENT: Component = panel([
-  heading(WATCH_FORM_HEADER),
-  text(WATCH_FORM_DESCRIPTION),
-  divider(),
-  text(WATCH_FORM_INSTRUCTIONS),
-  form({
-    name: 'address-form',
-    children: [
-      input({
-        name: 'address-input',
-        placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
-      }),
-      button('Watch account', ButtonType.Submit, 'submit'),
-    ],
-  }),
-]);
+/**
+ * Generate the watch form component.
+ *
+ * @param validationMessage - The validation message to display (if any).
+ * @returns The watch form component to display.
+ */
+export function generateWatchFormComponent(
+  validationMessage: string | null,
+): Component {
+  switch (validationMessage) {
+    case null:
+      return panel([
+        heading(WATCH_FORM_HEADER),
+        text(WATCH_FORM_DESCRIPTION),
+        divider(),
+        text(WATCH_FORM_INSTRUCTIONS),
+        form({
+          name: 'address-form',
+          children: [
+            input({
+              name: 'address-input',
+              placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
+            }),
+            button('Watch account', ButtonType.Submit, 'submit'),
+          ],
+        }),
+      ]);
+    default:
+      return panel([
+        heading(WATCH_FORM_HEADER),
+        text(WATCH_FORM_DESCRIPTION),
+        divider(),
+        text(WATCH_FORM_INSTRUCTIONS),
+        form({
+          name: 'address-form',
+          children: [
+            input({
+              name: 'address-input',
+              placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
+            }),
+            button('Watch account', ButtonType.Submit, 'submit'),
+          ],
+        }),
+        text(validationMessage),
+      ]);
+  }
+}
