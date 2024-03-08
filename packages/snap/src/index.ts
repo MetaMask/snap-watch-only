@@ -8,7 +8,6 @@ import type {
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
 import {
-  panel,
   assert,
   ManageStateOperation,
   UserInputEventType,
@@ -25,8 +24,10 @@ import {
   createInterface,
   getInsightContent,
   showErrorMessage,
+  showForm,
   showResult,
 } from './ui/ui';
+import { validateUserInput } from './ui/ui-utils';
 import { resolveName } from './util';
 
 let keyring: WatchOnlyKeyring;
@@ -225,20 +226,29 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
  * @see https://docs.metamask.io/snaps/reference/exports/#onuserinput
  */
 export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
+  // validate input
+  if (
+    event.type === UserInputEventType.InputChangeEvent &&
+    event.name === 'address-input'
+  ) {
+    const inputValue = event.value;
+    const message = await validateUserInput(inputValue);
+    await showForm(id, message);
+  }
+
+  // Handle form submission
   if (
     event.type === UserInputEventType.FormSubmitEvent &&
     event.name === 'address-form'
   ) {
     const inputValue = event.value['address-input'];
 
-    // TODO: Validate input more thoroughly.
     if (!inputValue) {
       await showErrorMessage(id, 'Address or ENS is required');
     }
     let address = inputValue as string;
     if (address.endsWith('.eth')) {
       const ensResolution = await resolveName(address);
-      console.log('ens', ensResolution);
       if (ensResolution) {
         address = ensResolution;
       } else {
@@ -249,13 +259,6 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
 
     // Add watch only address to keyring.
     try {
-      await snap.request({
-        method: 'snap_manageState',
-        params: {
-          operation: ManageStateOperation.ClearState,
-          encrypted: false,
-        },
-      });
       await (await getKeyring()).createAccount({ address });
       await showResult(id, address);
     } catch (error) {
