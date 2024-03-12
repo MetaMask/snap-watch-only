@@ -2,6 +2,9 @@ import { installSnap } from '@metamask/snaps-jest';
 import { address, button, heading, panel, row } from '@metamask/snaps-sdk';
 import { assert } from '@metamask/utils';
 
+// TODO: Fix type errors and replace with dynamic UI tests
+// See: https://app.zenhub.com/workspaces/metamask-accounts-team-v2-64c91cbeaa9d1c00126621fd/issues/gh/metamask/accounts-planning/317
+
 describe('onRpcRequest', () => {
   it('throws an error if the requested method does not exist', async () => {
     const { request } = await installSnap();
