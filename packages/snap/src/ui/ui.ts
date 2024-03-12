@@ -1,14 +1,4 @@
-import type { Component, Transaction } from '@metamask/snaps-sdk';
-import {
-  address,
-  assert,
-  divider,
-  heading,
-  ManageStateOperation,
-  panel,
-  row,
-  text,
-} from '@metamask/snaps-sdk';
+import { address, divider, heading, panel, text } from '@metamask/snaps-sdk';
 import type { Hex } from '@metamask/utils';
 import { add0x, getChecksumAddress } from '@metamask/utils';
 
@@ -26,29 +16,6 @@ export async function createInterface(): Promise<string> {
       ui: generateWatchFormComponent(),
     },
   });
-}
-
-/**
- * Show cannot sign transaction error.
- *
- * @returns The transaction insight content.
- */
-export async function showCannotSignMessage(): Promise<Component> {
-  const snapState = await snap.request({
-    method: 'snap_manageState',
-    params: {
-      operation: ManageStateOperation.GetState,
-    },
-  });
-
-  assert(snapState?.transaction, 'No transaction found in Snap state.');
-
-  const { from } = snapState.transaction as Transaction;
-
-  return panel([
-    row('Watch address:', address(getChecksumAddress(add0x(from)) as Hex)),
-    row('Cannot sign transactions'),
-  ]);
 }
 
 /**

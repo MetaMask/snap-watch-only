@@ -4,7 +4,6 @@ import {
 } from '@metamask/keyring-api';
 import type {
   OnHomePageHandler,
-  OnTransactionHandler,
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
 import {
@@ -22,7 +21,6 @@ import { InternalMethod, originPermissions } from './permissions';
 import { getState } from './stateManagement';
 import {
   createInterface,
-  showCannotSignMessage,
   showErrorMessage,
   showForm,
   showSuccess,
@@ -175,44 +173,6 @@ export const onKeyringRequest: OnKeyringRequestHandler = async ({
  */
 export const onHomePage: OnHomePageHandler = async () => {
   const interfaceId = await createInterface();
-
-  return { id: interfaceId };
-};
-
-/**
- * Handle incoming transactions, sent through the `wallet_sendTransaction`
- * method. This handler decodes the transaction data, and displays the type of
- * transaction in the transaction insights panel.
- *
- * The `onTransaction` handler is different from the `onRpcRequest` handler in
- * that it is called by MetaMask when a transaction is initiated, rather than
- * when a dapp sends a JSON-RPC request. The handler is called before the
- * transaction is signed, so it can be used to display information about the
- * transaction to the user before they sign it.
- *
- * The `onTransaction` handler returns a Snaps interface ID, which is used to
- * retrieve the associated interface components in the transaction insights panel.
- *
- * @param args - The request parameters.
- * @param args.transaction - The transaction object. This contains the
- * transaction parameters, such as the `from`, `to`, `value`, and `data` fields.
- * @returns The transaction insights.
- */
-export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
-  await snap.request({
-    method: 'snap_manageState',
-    params: {
-      operation: ManageStateOperation.UpdateState,
-      newState: { transaction },
-    },
-  });
-
-  const interfaceId = await snap.request({
-    method: 'snap_createInterface',
-    params: {
-      ui: await showCannotSignMessage(),
-    },
-  });
 
   return { id: interfaceId };
 };
