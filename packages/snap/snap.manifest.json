@@ -7,7 +7,7 @@
     "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "1JVR8Je5752UQYpqYAzM8DTLDJlxVGE613b40EsfHLU=",
+    "shasum": "5WXumLl4QUCoPqjXOMxgo9yhDUvhcTTDNVbl07S8YDc=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
