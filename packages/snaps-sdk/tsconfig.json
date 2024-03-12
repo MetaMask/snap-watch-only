@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "composite": true,
-  "compilerOptions": {
-    "baseUrl": "./"
-  },
-  "include": ["./src", "package.json", "tsup.config.ts"]
-}
