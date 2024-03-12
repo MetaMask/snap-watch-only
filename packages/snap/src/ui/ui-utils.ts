@@ -1,52 +1,14 @@
 import { isValidAddress } from '@ethereumjs/util';
 import type { Hex } from '@metamask/utils';
-import { isValidHexAddress, remove0x } from '@metamask/utils';
+import { add0x, isValidHexAddress, remove0x } from '@metamask/utils';
 import { ethers } from 'ethers';
 
 import { logger, lookupName, resolveName } from '../util';
 
-/**
- * The function signatures for the different types of transactions. This is used
- * to determine the type of transaction. This list is not exhaustive, and only
- * contains the most common types of transactions for demonstration purposes.
- */
-const FUNCTION_SIGNATURES = [
-  {
-    name: 'ERC-20',
-    signature: 'a9059cbb',
-  },
-  {
-    name: 'ERC-721',
-    signature: '23b872dd',
-  },
-  {
-    name: 'ERC-1155',
-    signature: 'f242432a',
-  },
-];
-
-/**
- * Decode the transaction data. This checks the signature of the function that
- * is being called, and returns the type of transaction.
- *
- * @param data - The transaction data.
- * @returns The type of transaction, or "Unknown," if the function signature
- * does not match any known signatures.
- */
-export function decodeData(data?: string) {
-  if (data && typeof data === 'string') {
-    const normalisedData = remove0x(data);
-    const signature = normalisedData.slice(0, 8);
-
-    const functionSignature = FUNCTION_SIGNATURES.find(
-      (value) => value.signature === signature,
-    );
-
-    return functionSignature?.name ?? 'Unknown';
-  }
-
-  return 'Unknown';
-}
+export type ValidationResult = {
+  message: string;
+  address?: string;
+};
 
 /**
  * Validate user input as either an Ethereum address or an ENS name and resolve accordingly.
@@ -54,34 +16,39 @@ export function decodeData(data?: string) {
  * @param input - The user input string.
  * @returns A promise that resolves to a validation message with specific address formatting.
  */
-export async function validateUserInput(input: string): Promise<string> {
+export async function validateUserInput(
+  input: string,
+): Promise<ValidationResult> {
   // Ethereum Address Validation and Lookup
   if (input.startsWith('0x')) {
     if (isValidHexAddress(input as Hex) || isValidAddress(input)) {
       // Smart Contract Address Check
       if (await isSmartContractAddress(input)) {
-        return 'Smart contract addresses are not supported yet';
+        return { message: 'Smart contract addresses are not supported yet' };
       }
       // ENS Name Lookup
       const ensName = await lookupName(input);
       if (ensName) {
-        return `**{ensName}**`;
+        return { message: `**${ensName}**`, address: input };
       }
       // Valid Address
-      return `Valid address`;
+      return { message: `Valid address`, address: input };
     }
-    return 'Invalid address';
+    // Invalid Address
+    return { message: 'Invalid address' };
   }
   // ENS Name Resolution
   else if (input.endsWith('.eth')) {
     const address = await resolveName(input);
+    // Valid ENS Name
     if (address) {
-      return formatAddress(address);
+      return { message: formatAddress(address), address };
     }
-    return 'Invalid ENS name';
+    // Invalid ENS Name
+    return { message: 'Invalid ENS name' };
   }
   // Default case for invalid input
-  return 'Invalid input';
+  return { message: 'Invalid input' };
 }
 
 /**
@@ -92,20 +59,19 @@ export async function validateUserInput(input: string): Promise<string> {
  */
 function formatAddress(address: string): string {
   // Remove the 0x prefix for processing
-  const rawAddress = address.slice(2);
+  const rawAddress = remove0x(address as Hex);
   // Split the address into segments
   const segments = rawAddress.match(/.{1,4}/gu);
   if (!segments) {
     return 'Invalid address';
   }
-  // Bold the first and last segment
-  segments[0] = `${segments[0] as string}**`;
+  // Bold the first and last segment and add the 0x prefix to the first segment
+  segments[0] = `**${add0x(segments[0] as string)}**`;
   segments[segments.length - 1] = `**${
     segments[segments.length - 1] as string
   }**`;
-
-  // Reassemble the address with spaces and the 0x prefix
-  return `**0x${segments.join(' ')}`;
+  // Reassemble the address with spaces
+  return `${segments.join(' ')}`;
 }
 
 /**
