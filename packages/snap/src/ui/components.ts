@@ -1,19 +1,20 @@
+import type { Component } from '@metamask/snaps-sdk';
 import {
-  ButtonVariant,
-  divider,
   button,
   ButtonType,
+  ButtonVariant,
+  divider,
   form,
   heading,
   input,
   panel,
   text,
 } from '@metamask/snaps-sdk';
-import type { Component } from '@metamask/snaps-sdk';
 
 import {
   WATCH_FORM_DESCRIPTION,
   WATCH_FORM_HEADER,
+  WATCH_FORM_INPUT_LABEL,
   WATCH_FORM_INPUT_PLACEHOLDER,
   WATCH_FORM_INSTRUCTIONS,
 } from './content';
@@ -39,6 +40,7 @@ export function generateWatchFormComponent(
           children: [
             input({
               name: 'address-input',
+              label: WATCH_FORM_INPUT_LABEL,
               placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
             }),
             button({
@@ -61,6 +63,7 @@ export function generateWatchFormComponent(
           children: [
             input({
               name: 'address-input',
+              label: WATCH_FORM_INPUT_LABEL,
               placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
             }),
             button({

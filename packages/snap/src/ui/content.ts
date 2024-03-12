@@ -8,5 +8,7 @@ export const WATCH_FORM_INSTRUCTIONS =
   'You’ll see it listed alongside the rest of your accounts in a safe, ' +
   'watch-only mode without needing to hold private keys.';
 
+export const WATCH_FORM_INPUT_LABEL = 'Ethereum Address';
+
 export const WATCH_FORM_INPUT_PLACEHOLDER =
   'Enter a public address or ENS name';
