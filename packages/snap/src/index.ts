@@ -26,7 +26,6 @@ import {
   showSuccess,
 } from './ui/ui';
 import { validateUserInput } from './ui/ui-utils';
-import { resolveName } from './util';
 
 let keyring: WatchOnlyKeyring;
 
@@ -186,15 +185,7 @@ export const onHomePage: OnHomePageHandler = async () => {
  * @see https://docs.metamask.io/snaps/reference/exports/#onuserinput
  */
 export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
-  // validate input
-  if (
-    event.type === UserInputEventType.InputChangeEvent &&
-    event.name === 'address-input'
-  ) {
-    const inputValue = event.value;
-    const message = await validateUserInput(inputValue);
-    await showForm(id, message);
-  }
+  let validation;
 
   // Handle form submission
   if (
@@ -205,24 +196,32 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
 
     if (!inputValue) {
       await showErrorMessage(id, 'Address or ENS is required');
-    }
-    let address = inputValue as string;
-    if (address.endsWith('.eth')) {
-      const ensResolution = await resolveName(address);
-      if (ensResolution) {
-        address = ensResolution;
-      } else {
-        await showErrorMessage(id, `Could not resolve ENS name: ${address}`);
-        return;
-      }
+      return;
     }
 
-    // Add watch only address to keyring.
-    try {
-      await (await getKeyring()).createAccount({ address });
-      await showSuccess(id, address);
-    } catch (error) {
-      await showErrorMessage(id, (error as Error).message);
+    validation = await validateUserInput(inputValue);
+
+    if (validation.address) {
+      // Add the watch-only account to the keyring
+      try {
+        await (
+          await getKeyring()
+        ).createAccount({ address: validation.address });
+        await showSuccess(id, validation.address);
+      } catch (error) {
+        await showErrorMessage(id, (error as Error).message);
+      }
+    } else {
+      // Show error message from validation
+      await showErrorMessage(id, validation.message);
     }
+
+    // Handle input change event for UI feedback
+  } else if (
+    event.type === UserInputEventType.InputChangeEvent &&
+    event.name === 'address-input'
+  ) {
+    validation = await validateUserInput(event.value);
+    await showForm(id, validation.message);
   }
 };
