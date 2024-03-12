@@ -22,10 +22,10 @@ import { InternalMethod, originPermissions } from './permissions';
 import { getState } from './stateManagement';
 import {
   createInterface,
-  getInsightContent,
+  showCannotSignMessage,
   showErrorMessage,
   showForm,
-  showResult,
+  showSuccess,
 } from './ui/ui';
 import { validateUserInput } from './ui/ui-utils';
 import { resolveName } from './util';
@@ -85,7 +85,6 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
   }
 
   // Handle custom methods.
-  // noinspection DuplicatedCode
   switch (request.method) {
     case InternalMethod.ToggleSyncApprovals: {
       return (await getKeyring()).toggleSyncApprovals();
@@ -95,6 +94,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
       return (await getKeyring()).isSynchronousMode();
     }
 
+    // Handle UI methods
     case 'dialog': {
       try {
         const interfaceId = await createInterface();
@@ -210,7 +210,7 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   const interfaceId = await snap.request({
     method: 'snap_createInterface',
     params: {
-      ui: await getInsightContent(),
+      ui: await showCannotSignMessage(),
     },
   });
 
@@ -260,7 +260,7 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     // Add watch only address to keyring.
     try {
       await (await getKeyring()).createAccount({ address });
-      await showResult(id, address);
+      await showSuccess(id, address);
     } catch (error) {
       await showErrorMessage(id, (error as Error).message);
     }

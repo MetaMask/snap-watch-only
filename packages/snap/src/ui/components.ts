@@ -1,5 +1,5 @@
-import type { Component } from '@metamask/snaps-sdk';
 import {
+  ButtonVariant,
   divider,
   button,
   ButtonType,
@@ -9,6 +9,7 @@ import {
   panel,
   text,
 } from '@metamask/snaps-sdk';
+import type { Component } from '@metamask/snaps-sdk';
 
 import {
   WATCH_FORM_DESCRIPTION,
@@ -24,10 +25,10 @@ import {
  * @returns The watch form component to display.
  */
 export function generateWatchFormComponent(
-  validationMessage: string | null,
+  validationMessage?: string,
 ): Component {
   switch (validationMessage) {
-    case null:
+    case undefined:
       return panel([
         heading(WATCH_FORM_HEADER),
         text(WATCH_FORM_DESCRIPTION),
@@ -40,7 +41,12 @@ export function generateWatchFormComponent(
               name: 'address-input',
               placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
             }),
-            button('Watch account', ButtonType.Submit, 'submit'),
+            button({
+              variant: ButtonVariant.Primary,
+              value: 'Watch account',
+              name: 'submit',
+              buttonType: ButtonType.Submit,
+            }),
           ],
         }),
       ]);
@@ -57,7 +63,12 @@ export function generateWatchFormComponent(
               name: 'address-input',
               placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
             }),
-            button('Watch account', ButtonType.Submit, 'submit'),
+            button({
+              variant: ButtonVariant.Primary,
+              value: 'Watch account',
+              name: 'submit',
+              buttonType: ButtonType.Submit,
+            }),
           ],
         }),
         text(validationMessage),

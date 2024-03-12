@@ -1,11 +1,7 @@
 import type { Component, Transaction } from '@metamask/snaps-sdk';
 import {
-  ButtonType,
-  form,
-  input,
   address,
   assert,
-  button,
   divider,
   heading,
   ManageStateOperation,
@@ -13,9 +9,10 @@ import {
   row,
   text,
 } from '@metamask/snaps-sdk';
+import type { Hex } from '@metamask/utils';
+import { add0x, getChecksumAddress } from '@metamask/utils';
 
 import { generateWatchFormComponent } from './components';
-import { decodeData } from './ui-utils';
 
 /**
  * Initiate a new interface with the starting screen.
@@ -26,17 +23,17 @@ export async function createInterface(): Promise<string> {
   return await snap.request({
     method: 'snap_createInterface',
     params: {
-      ui: generateWatchFormComponent(null),
+      ui: generateWatchFormComponent(),
     },
   });
 }
 
 /**
- * Create the transaction insights components to display.
+ * Show cannot sign transaction error.
  *
  * @returns The transaction insight content.
  */
-export async function getInsightContent(): Promise<Component> {
+export async function showCannotSignMessage(): Promise<Component> {
   const snapState = await snap.request({
     method: 'snap_manageState',
     params: {
@@ -46,54 +43,21 @@ export async function getInsightContent(): Promise<Component> {
 
   assert(snapState?.transaction, 'No transaction found in Snap state.');
 
-  const { from, to } = snapState.transaction as Transaction;
+  const { from } = snapState.transaction as Transaction;
 
   return panel([
-    row('From', address(from)),
-    row('To', to ? address(to) : text('None')),
-    button({ value: 'See transaction type', name: 'transaction-type' }),
+    row('Watch address:', address(getChecksumAddress(add0x(from)) as Hex)),
+    row('Cannot sign transactions'),
   ]);
 }
 
 /**
- * Update a Snap interface to display the transaction type after fetching
- * the transaction from state.
- *
- * @param id - The interface ID to update.
- */
-export async function displayTransactionType(id: string) {
-  const snapState = await snap.request({
-    method: 'snap_manageState',
-    params: {
-      operation: ManageStateOperation.GetState,
-    },
-  });
-
-  assert(snapState?.transaction, 'No transaction found in Snap state.');
-
-  const transaction = snapState.transaction as Transaction;
-
-  const type = decodeData(transaction.data);
-
-  await snap.request({
-    method: 'snap_updateInterface',
-    params: {
-      id,
-      ui: panel([
-        row('Transaction type', text(type)),
-        button({ value: 'Go back', name: 'go-back' }),
-      ]),
-    },
-  });
-}
-
-/**
- * Update the interface with a simple form containing an input and a submit button.
+ * Update the interface with the watch-only form containing an input and a submit button.
  *
  * @param id - The Snap interface ID to update.
  * @param validationMessage
  */
-export async function showForm(id: string, validationMessage: string) {
+export async function showForm(id: string, validationMessage?: string) {
   await snap.request({
     method: 'snap_updateInterface',
     params: {
@@ -104,12 +68,12 @@ export async function showForm(id: string, validationMessage: string) {
 }
 
 /**
- * Update a Snap interface to show a given value.
+ * Update a Snap interface to show a success message.
  *
  * @param id - The Snap interface ID to update.
  * @param value - The value to display in the UI.
  */
-export async function showResult(id: string, value: string) {
+export async function showSuccess(id: string, value: string) {
   await snap.request({
     method: 'snap_updateInterface',
     params: {
@@ -118,7 +82,7 @@ export async function showResult(id: string, value: string) {
         heading('Success'),
         divider(),
         text('You are now watching'),
-        address(value),
+        address(getChecksumAddress(add0x(value)) as Hex),
       ]),
     },
   });
