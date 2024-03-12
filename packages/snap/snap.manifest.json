@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "description": "A keyring snap for watch-only accounts.",
-  "proposedName": "MetaMask Snap Watch-Only",
+  "description": "Keep an eye on Ethereum addresses or ENS domains right in MetaMask",
+  "proposedName": "Account Watcher",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "cJx4+tJJUreUCZtppZ8i97QVhEg1Ek6f4Tkc3uQ+sDQ=",
+    "shasum": "xf1asbNy7YU5S1xUz8a+jN8HKlBtnBRgG+XRX8tRTDA=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
