@@ -13,15 +13,4 @@
     "types": ["node", "jest", "mocha", "chai"]
   },
   "include": ["src", "snap.config.ts", "./scripts/**/*"],
-  // "references": [
-  //   {
-  //     "path": "../../../snaps-sdk"
-  //   },
-  //   {
-  //     "path": "../../../snaps-jest"
-  //   },
-  //   {
-  //     "path": "../../../snaps-cli"
-  //   }
-  // ]
 }
