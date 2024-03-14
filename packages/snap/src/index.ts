@@ -91,38 +91,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
       return (await getKeyring()).isSynchronousMode();
     }
 
-    // Handle UI methods
-    case 'dialog': {
-      try {
-        const interfaceId = await createInterface();
-
-        await snap.request({
-          method: 'snap_manageState',
-          params: {
-            operation: ManageStateOperation.UpdateState,
-            newState: { interfaceId },
-            encrypted: false,
-          },
-        });
-
-        return await snap.request({
-          method: 'snap_dialog',
-          params: {
-            type: 'confirmation',
-            id: interfaceId,
-          },
-        });
-      } finally {
-        await snap.request({
-          method: 'snap_manageState',
-          params: {
-            operation: ManageStateOperation.ClearState,
-            encrypted: false,
-          },
-        });
-      }
-    }
-
+    // Handle getting interface state
     case 'getState': {
       const snapState = await snap.request({
         method: 'snap_manageState',
