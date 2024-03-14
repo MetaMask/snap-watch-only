@@ -17,6 +17,7 @@ export const resolveName = async (name: string): Promise<string | null> => {
     return null;
   }
 };
+
 /**
  * Lookup ENS name.
  *
