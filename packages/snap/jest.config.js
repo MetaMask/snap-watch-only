@@ -1,8 +1,4 @@
-const deepmerge = require('deepmerge');
-
-const baseConfig = require('../../../../jest.config.base');
-
-module.exports = deepmerge(baseConfig, {
+module.exports = {
   preset: '@metamask/snaps-jest',
 
   // Since `@metamask/snaps-jest` runs in the browser, we can't collect
@@ -12,11 +8,5 @@ module.exports = deepmerge(baseConfig, {
     '^.+\\.(t|j)sx?$': 'ts-jest',
   },
   testTimeout: 20000,
-  coveragePathIgnorePatterns: [
-    '/node_modules/',
-    '/test/',
-    'src/types/',
-    'contracts',
-    'artifacts',
-  ],
-});
+  coveragePathIgnorePatterns: ['/node_modules/', '/test/'],
+};
