@@ -81,6 +81,7 @@ node_modules/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+/packages/snap/.yarn/
 
 # IntelliJ
 .idea/
