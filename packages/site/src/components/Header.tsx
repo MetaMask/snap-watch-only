@@ -24,7 +24,6 @@ const Title = styled.p`
   font-weight: bold;
   margin: 0;
   margin-left: 1.2rem;
-
   ${({ theme }) => theme.mediaQueries.small} {
     display: none;
   }
@@ -87,17 +86,17 @@ export const Header = () => {
         </div>
 
         <div>
-          <b>Snap version expected: </b>
+          <b>Snap version (expected): </b>
           {snapPackageInfo.version}
         </div>
 
         {state.installedSnap ? (
           <div>
-            <b>Snap version installed: </b> {state.installedSnap?.version}
+            <b>Snap version (installed): </b> {state.installedSnap?.version}
           </div>
         ) : (
           <div>
-            <b>Snap version to install: </b> {snapPackageInfo.version}
+            <b>Snap version (to install): </b> {snapPackageInfo.version}
           </div>
         )}
 
@@ -109,7 +108,7 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <Title>🔑 Snap Simple Keyring Watch-Only</Title>
+        <Title>Watch-Only Snap</Title>
       </LogoWrapper>
       <RightContainer>
         <Version />
