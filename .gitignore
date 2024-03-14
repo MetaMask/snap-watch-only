@@ -81,8 +81,7 @@ node_modules/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-/packages/snap/.yarn/cache/
-/packages/snap/.yarn/install-state.gz
+/packages/snap/.yarn/
 
 # IntelliJ
 .idea/
