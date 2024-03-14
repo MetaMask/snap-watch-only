@@ -4,15 +4,15 @@
   "proposedName": "Account Watcher",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/metamask/snap-watch-only.git"
+    "url": "git+https://github.com/k-g-j/snap-simple-keyring-watch-only.git"
   },
   "source": {
-    "shasum": "8Vy7EDrQ/p5tr3wc5ZATRixl7PJmPzFnfaj1SlfDP4U=",
+    "shasum": "IJlBBIojpBroKrMH0Mi8PbcrQ3TZtH8dZsthjYyF7X0=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "@metamask/snap-watch-only-snap",
+        "packageName": "snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
