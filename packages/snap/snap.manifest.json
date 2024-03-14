@@ -4,15 +4,15 @@
   "proposedName": "MetaMask Snap Keyring Watch-Only",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/metamask/snap-watch-only.git"
+    "url": "git+https://github.com/k-g-j/snap-simple-keyring-watch-only.git"
   },
   "source": {
-    "shasum": "jHdR0dA/FuHAE8RSaQSR40lUqBAM9YbQLopZ8VonExA=",
+    "shasum": "IJlBBIojpBroKrMH0Mi8PbcrQ3TZtH8dZsthjYyF7X0=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "snap-simple-keyring-watch-only-snap",
+        "packageName": "snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
