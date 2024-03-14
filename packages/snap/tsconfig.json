@@ -12,5 +12,5 @@
     },
     "types": ["node", "jest", "mocha", "chai"]
   },
-  "include": ["./src/", "snap.config.ts", "./scripts/**/*"],
+  "include": ["src", "snap.config.ts"],
 }
