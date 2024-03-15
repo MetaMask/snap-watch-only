@@ -154,8 +154,6 @@ export const onHomePage: OnHomePageHandler = async () => {
  * @see https://docs.metamask.io/snaps/reference/exports/#onuserinput
  */
 export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
-  let validation;
-
   // Handle form submission
   if (
     event.type === UserInputEventType.FormSubmitEvent &&
@@ -168,7 +166,7 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
       return;
     }
 
-    validation = await validateUserInput(inputValue);
+    const validation = await validateUserInput(inputValue);
     // Show validation message
     await showForm(id, validation.message);
     await new Promise((resolve) => setTimeout(resolve, 500));
