@@ -169,7 +169,8 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     }
 
     validation = await validateUserInput(inputValue);
-    // Show success message if validation passes
+    // Show validation message
+    await showForm(id, validation.message);
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (validation.address) {

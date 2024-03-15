@@ -1,11 +1,7 @@
-import { address, divider, heading, panel, text } from '@metamask/snaps-sdk';
-import type { Hex } from '@metamask/utils';
-import { add0x, getChecksumAddress } from '@metamask/utils';
-
 import {
-  generateErrorMessageComponent,
+  generateErrorMessageComponent, generateSpinnerComponent,
   generateSuccessMessageComponent,
-  generateWatchFormComponent
+  generateWatchFormComponent,
 } from './components';
 
 /**
@@ -66,6 +62,22 @@ export async function showErrorMessage(id: string, message: string) {
     params: {
       id,
       ui: generateErrorMessageComponent(message),
+    },
+  });
+}
+
+/**
+ * Update the Snap interface to show a loading spinner.
+ *
+ * @param id - The Snap interface ID to update.
+ * @param message - The message to display.
+ */
+export async function showSpinner(id: string, message?: string) {
+  await snap.request({
+    method: 'snap_updateInterface',
+    params: {
+      id,
+      ui: generateSpinnerComponent(message),
     },
   });
 }
