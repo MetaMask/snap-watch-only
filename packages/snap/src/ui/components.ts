@@ -1,5 +1,5 @@
 import { isValidAddress } from '@ethereumjs/util';
-import type { Component } from '@metamask/snaps-sdk';
+import {Component, spinner} from '@metamask/snaps-sdk';
 import {
   address,
   button,
@@ -113,4 +113,17 @@ export function generateSuccessMessageComponent(value: string): Component {
  */
 export function generateErrorMessageComponent(message: string): Component {
   return panel([heading('Error'), divider(), text(message)]);
+}
+
+/**
+ * Generate spinner component.
+ *
+ * @param message - The message to display.
+ * @returns The spinner component to display.
+ */
+export function generateSpinnerComponent(message?: string): Component {
+  if (!message) {
+    return panel([heading('Processing'), divider(), spinner()]);
+  }
+  return panel([heading('Processing'), divider(), text(message), spinner()]);
 }
