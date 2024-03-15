@@ -1,5 +1,7 @@
+import { isValidAddress } from '@ethereumjs/util';
 import type { Component } from '@metamask/snaps-sdk';
 import {
+  address,
   button,
   ButtonType,
   ButtonVariant,
@@ -10,6 +12,12 @@ import {
   panel,
   text,
 } from '@metamask/snaps-sdk';
+import {
+  add0x,
+  getChecksumAddress,
+  type Hex,
+  isValidHexAddress,
+} from '@metamask/utils';
 
 import {
   WATCH_FORM_DESCRIPTION,
@@ -77,4 +85,32 @@ export function generateWatchFormComponent(
         text(validationMessage),
       ]);
   }
+}
+
+/**
+ * Generate the success message component.
+ *
+ * @param value - The value to display in the UI.
+ * @returns The success message component to display.
+ */
+export function generateSuccessMessageComponent(value: string): Component {
+  if (isValidHexAddress(value as Hex) || isValidAddress(value)) {
+    return panel([
+      heading('Success'),
+      divider(),
+      text('You are now watching'),
+      address(getChecksumAddress(add0x(value)) as Hex),
+    ]);
+  }
+  return panel([heading('Success'), divider(), text(value)]);
+}
+
+/**
+ * Generate the error message component.
+ *
+ * @param message - The error message to display.
+ * @returns The error message component to display.
+ */
+export function generateErrorMessageComponent(message: string): Component {
+  return panel([heading('Error'), divider(), text(message)]);
 }
