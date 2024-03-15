@@ -169,6 +169,8 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     }
 
     validation = await validateUserInput(inputValue);
+    // Show success message if validation passes
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (validation.address) {
       // Add the watch-only account to the keyring
@@ -184,13 +186,5 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
       // Show error message from validation
       await showErrorMessage(id, validation.message);
     }
-
-    // Handle input change event for UI feedback
-  } else if (
-    event.type === UserInputEventType.InputChangeEvent &&
-    event.name === 'address-input'
-  ) {
-    validation = await validateUserInput(event.value);
-    await showForm(id, validation.message);
   }
 };

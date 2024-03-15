@@ -2,7 +2,11 @@ import { address, divider, heading, panel, text } from '@metamask/snaps-sdk';
 import type { Hex } from '@metamask/utils';
 import { add0x, getChecksumAddress } from '@metamask/utils';
 
-import { generateWatchFormComponent } from './components';
+import {
+  generateErrorMessageComponent,
+  generateSuccessMessageComponent,
+  generateWatchFormComponent
+} from './components';
 
 /**
  * Initiate a new interface with the starting screen.
@@ -45,12 +49,7 @@ export async function showSuccess(id: string, value: string) {
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: panel([
-        heading('Success'),
-        divider(),
-        text('You are now watching'),
-        address(getChecksumAddress(add0x(value)) as Hex),
-      ]),
+      ui: generateSuccessMessageComponent(value),
     },
   });
 }
@@ -66,7 +65,7 @@ export async function showErrorMessage(id: string, message: string) {
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: panel([heading('Error'), divider(), text(message)]),
+      ui: generateErrorMessageComponent(message),
     },
   });
 }
