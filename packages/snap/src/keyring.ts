@@ -1,9 +1,4 @@
-import {
-  addHexPrefix,
-  Address,
-  isValidPrivate,
-  toChecksumAddress,
-} from '@ethereumjs/util';
+import { toChecksumAddress } from '@ethereumjs/util';
 import type {
   Keyring,
   KeyringAccount,
@@ -12,13 +7,11 @@ import type {
 } from '@metamask/keyring-api';
 import { emitSnapKeyringEvent, EthAccountType } from '@metamask/keyring-api';
 import { KeyringEvent } from '@metamask/keyring-api/dist/events';
-import { hexToBytes, type Json } from '@metamask/utils';
-import { Buffer } from 'buffer';
+import type { Json } from '@metamask/utils';
 import { v4 as uuid } from 'uuid';
 
 import { saveState } from './stateManagement';
-import { isEvmChain, isUniqueAddress, runSensitive, throwError } from './util';
-import packageInfo from '../package.json';
+import { isEvmChain, isUniqueAddress, throwError } from './util';
 
 export type KeyringState = {
   wallets: Record<string, Wallet>;
@@ -49,19 +42,15 @@ export class WatchOnlyKeyring implements Keyring {
     );
   }
 
-  async createAccount(
-    options: Record<string, Json> = {},
-  ): Promise<KeyringAccount> {
-    let address: string;
-
+  async createAccount(options: { address: string }): Promise<KeyringAccount> {
     if (!options?.address) {
-      // Create new watch-only account.
-      ({ address } = this.#getKeyPair(undefined));
-    } else if (options?.address) {
-      // Import watch-only account from public address.
-      address = toChecksumAddress(options.address as string);
-    } else {
       throw new Error('Unsupported account creation options');
+    }
+    let address;
+    try {
+      address = toChecksumAddress(options.address);
+    } catch {
+      throw new Error(`Invalid address '${options.address}' provided`);
     }
 
     if (!isUniqueAddress(address, Object.values(this.#state.wallets))) {
@@ -71,7 +60,7 @@ export class WatchOnlyKeyring implements Keyring {
     try {
       const account: KeyringAccount = {
         id: uuid(),
-        options,
+        options: {},
         address,
         // No methods are supported for watch-only accounts.
         methods: [],
@@ -85,7 +74,7 @@ export class WatchOnlyKeyring implements Keyring {
       await this.#saveState();
       return account;
     } catch (error) {
-      throw new Error((error as Error).message);
+      throw new Error(`Unknown snap error: ${(error as Error).message}`);
     }
   }
 
@@ -117,12 +106,18 @@ export class WatchOnlyKeyring implements Keyring {
   }
 
   async deleteAccount(id: string): Promise<void> {
+    const account = this.#state.wallets[id];
+
+    if (!account) {
+      throw new Error(`Account '${id}' not found`);
+    }
+
     try {
       await this.#emitEvent(KeyringEvent.AccountDeleted, { id });
       delete this.#state.wallets[id];
       await this.#saveState();
     } catch (error) {
-      throwError((error as Error).message);
+      throw new Error(`Unknown snap error: ${(error as Error).message}`);
     }
   }
 
@@ -137,74 +132,6 @@ export class WatchOnlyKeyring implements Keyring {
   }
 
   async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
-    return this.#state.useSyncApprovals
-      ? this.#syncSubmitRequest(request)
-      : this.#asyncSubmitRequest(request);
-  }
-
-  async approveRequest(id: string): Promise<void> {
-    await this.#removePendingRequest(id);
-    await this.#emitEvent(KeyringEvent.RequestRejected, { id });
-    throwError('Signing is not supported in this watch-only account snap.');
-  }
-
-  async rejectRequest(id: string): Promise<void> {
-    if (this.#state.pendingRequests[id] === undefined) {
-      throw new Error(`Request '${id}' not found`);
-    }
-
-    await this.#removePendingRequest(id);
-    await this.#emitEvent(KeyringEvent.RequestRejected, { id });
-  }
-
-  async toggleSyncApprovals(): Promise<void> {
-    this.#state.useSyncApprovals = !this.#state.useSyncApprovals;
-    await this.#saveState();
-  }
-
-  isSynchronousMode(): boolean {
-    return this.#state.useSyncApprovals;
-  }
-
-  async #removePendingRequest(id: string): Promise<void> {
-    delete this.#state.pendingRequests[id];
-    await this.#saveState();
-  }
-
-  #getCurrentUrl(): string {
-    const dappUrlPrefix =
-      process.env.NODE_ENV === 'production'
-        ? process.env.DAPP_ORIGIN_PRODUCTION
-        : process.env.DAPP_ORIGIN_DEVELOPMENT;
-    const dappVersion: string = packageInfo.version;
-
-    // Ensuring that both dappUrlPrefix and dappVersion are truthy
-    if (dappUrlPrefix && dappVersion && process.env.NODE_ENV === 'production') {
-      return `${dappUrlPrefix}${dappVersion}/`;
-    }
-    // Default URL if dappUrlPrefix or dappVersion are falsy, or if URL construction fails
-    return dappUrlPrefix as string;
-  }
-
-  async #asyncSubmitRequest(
-    request: KeyringRequest,
-  ): Promise<SubmitRequestResponse> {
-    this.#state.pendingRequests[request.id] = request;
-    await this.#saveState();
-    const dappUrl = this.#getCurrentUrl();
-    return {
-      pending: true,
-      redirect: {
-        url: dappUrl,
-        message:
-          'Redirecting to Watch-Only Snap Simple Keyring to sign transaction',
-      },
-    };
-  }
-
-  async #syncSubmitRequest(
-    request: KeyringRequest,
-  ): Promise<SubmitRequestResponse> {
     throwError(
       `Signing is not supported for this watch-only account snap.\nRequest: ${JSON.stringify(
         request,
@@ -212,39 +139,6 @@ export class WatchOnlyKeyring implements Keyring {
         2,
       )}`,
     );
-  }
-
-  #getWalletByAddress(address: string): Wallet {
-    const match = Object.values(this.#state.wallets).find(
-      (wallet) =>
-        wallet.account.address.toLowerCase() === address.toLowerCase(),
-    );
-
-    return match ?? throwError(`Account '${address}' not found`);
-  }
-
-  #getKeyPair(privateKey?: string): {
-    privateKey: string;
-    address: string;
-  } {
-    const privateKeyBuffer: Buffer = runSensitive(
-      () =>
-        privateKey
-          ? Buffer.from(hexToBytes(addHexPrefix(privateKey)))
-          : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore - available in snaps
-            Buffer.from(crypto.getRandomValues(new Uint8Array(32))),
-      'Invalid private key',
-    );
-
-    if (!isValidPrivate(privateKeyBuffer)) {
-      throw new Error('Invalid private key');
-    }
-
-    const address = toChecksumAddress(
-      Address.fromPrivateKey(privateKeyBuffer).toString(),
-    );
-    return { privateKey: privateKeyBuffer.toString('hex'), address };
   }
 
   async #saveState(): Promise<void> {

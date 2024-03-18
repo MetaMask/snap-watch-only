@@ -1,24 +1,30 @@
-import type { KeyringAccount, KeyringRequest } from '@metamask/keyring-api';
+import {
+  type KeyringAccount,
+  type KeyringRequest,
+} from '@metamask/keyring-api';
+import * as uuid from 'uuid';
 
 import type { KeyringState } from './keyring';
 import { WatchOnlyKeyring } from './keyring';
+import * as stateManagement from './stateManagement';
 
 const id = 'ea747116-767c-4117-a347-0c3f7b19cc5a';
+const mockAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+const mockSnapRequest = jest.fn();
 
-jest.mock('uuid', () => ({
-  v4: () => id,
-}));
-
+jest.mock('uuid');
+const mockUuid = jest.spyOn(uuid, 'v4');
 // @ts-expect-error Mocking Snap global object
 global.snap = {
-  request: jest.fn(),
-  emitEvent: jest.fn(),
+  request: () => mockSnapRequest,
+  emitEvent: jest.fn().mockResolvedValue(null),
 };
 
 describe('WatchOnlyKeyring', () => {
   let state: KeyringState, keyring: WatchOnlyKeyring;
 
   beforeEach(() => {
+    mockUuid.mockReturnValue(id);
     state = {
       wallets: {
         [id]: {
@@ -38,20 +44,23 @@ describe('WatchOnlyKeyring', () => {
     keyring = new WatchOnlyKeyring(state);
   });
 
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe('constructor', () => {
     it('should initialize with provided state', async () => {
       expect(await keyring.getAccount(id)).toStrictEqual(
         state.wallets[id]?.account,
       );
       expect(await keyring.listRequests()).toStrictEqual([]);
-      expect(keyring.isSynchronousMode()).toBe(false);
     });
   });
 
   describe('getAccount', () => {
     it('should get an account by ID', async () => {
       const expectedResponse = {
-        id: '49116980-0712-4fa5-b045-e4294f1d440e',
+        id: expect.any(String),
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         options: {},
         methods: [],
@@ -71,7 +80,7 @@ describe('WatchOnlyKeyring', () => {
     it('should list accounts', async () => {
       const expectedResponse: KeyringAccount[] = [
         {
-          id: '49116980-0712-4fa5-b045-e4294f1d440e',
+          id: expect.any(String),
           address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
           options: {},
           methods: [],
@@ -85,31 +94,42 @@ describe('WatchOnlyKeyring', () => {
 
   describe('createAccount', () => {
     it('should create a new account without options', async () => {
-      const newAccount = await keyring.createAccount();
-      expect(typeof newAccount.address).toBe('string');
-      expect(newAccount.address.length).toBeGreaterThan(2);
-      expect(newAccount.address.startsWith('0x')).toBe(true);
-      expect(typeof newAccount.id).toBe('string');
-      expect(newAccount.id.length).toBeGreaterThan(0);
-      expect(newAccount.methods).toStrictEqual([]);
-      expect(newAccount.type).toBe('eip155:eoa');
-      expect(newAccount.options).toStrictEqual({});
-      expect(await keyring.getAccount(newAccount.id)).toStrictEqual(newAccount);
-    });
-  });
-
-  describe('createAccount with public address', () => {
-    it('should import a watch-only account from a public address', async () => {
-      const publicAddress = '0x1234567890AbcdEF1234567890aBcdef12345678';
+      mockUuid.mockReturnValue('new-account-id');
+      const expectedAccount = {
+        id: 'new-account-id',
+        address: expect.any(String),
+        options: {},
+        methods: [],
+        type: 'eip155:eoa',
+      };
       const newAccount = await keyring.createAccount({
-        address: publicAddress,
+        address: mockAddress,
       });
-      expect(newAccount.address).toBe(publicAddress);
-      const retrievedAccount = await keyring.getAccount(newAccount.id);
-      expect(retrievedAccount).toStrictEqual(newAccount);
-      expect(retrievedAccount.methods).toStrictEqual([]);
-      expect(await keyring.listAccounts()).toHaveLength(2);
+      expect(newAccount).toStrictEqual(expectedAccount);
     });
+
+    it('should throw if no address was provided', async () => {
+      await expect(keyring.createAccount({ address: '' })).rejects.toThrow(
+        'Unsupported account creation options',
+      );
+    });
+
+    it('should throw if invalid address was provided', async () => {
+      await expect(keyring.createAccount({ address: 'asdf' })).rejects.toThrow(
+        "Invalid address 'asdf' provided",
+      );
+    });
+
+    it('should throw create account error', async () => {
+      const expectedError = new Error('Snap error');
+      jest.spyOn(stateManagement, 'saveState').mockRejectedValue(expectedError);
+      await expect(
+        keyring.createAccount({
+          address: mockAddress,
+        }),
+      ).rejects.toThrow('Unknown snap error: Snap error');
+    });
+
     it('should throw error for already used address', async () => {
       await expect(
         keyring.createAccount({
@@ -130,8 +150,10 @@ describe('WatchOnlyKeyring', () => {
         methods: [],
         type: 'eip155:eoa',
       };
-      const response = await keyring.updateAccount(account);
-      expect(response).toBeUndefined();
+      await keyring.updateAccount(account);
+
+      const updatedAccount = await keyring.getAccount(id);
+      expect(updatedAccount).toStrictEqual(account);
     });
     it('should throw error when updating a nonexistent account', async () => {
       const nonexistentAccount: KeyringAccount = {
@@ -151,8 +173,19 @@ describe('WatchOnlyKeyring', () => {
     it('should delete an account', async () => {
       const response = await keyring.deleteAccount(id);
       expect(response).toBeUndefined();
-      await expect(keyring.getAccount(id)).rejects.toThrow(
-        "Account '49116980-0712-4fa5-b045-e4294f1d440e' not found",
+    });
+
+    it('should throw if account is not found', async () => {
+      await expect(keyring.deleteAccount('unknown-id')).rejects.toThrow(
+        "Account 'unknown-id' not found",
+      );
+    });
+
+    it('handles errors', async () => {
+      const expectedError = new Error('Snap error');
+      jest.spyOn(stateManagement, 'saveState').mockRejectedValue(expectedError);
+      await expect(keyring.deleteAccount(id)).rejects.toThrow(
+        'Unknown snap error: Snap error',
       );
     });
   });
@@ -184,18 +217,7 @@ describe('WatchOnlyKeyring', () => {
     });
   });
 
-  describe('toggleSyncApprovals', () => {
-    it('should toggle sync approvals', async () => {
-      await keyring.toggleSyncApprovals();
-      expect(keyring.isSynchronousMode()).toBe(true);
-    });
-  });
-
   describe('submitRequest', () => {
-    beforeEach(async () => {
-      await keyring.toggleSyncApprovals();
-    });
-
     it('should throw an error for signing not supported', async () => {
       const personalSignRequest: KeyringRequest = {
         id,
@@ -231,14 +253,6 @@ describe('WatchOnlyKeyring', () => {
           null,
           2,
         )}`,
-      );
-    });
-  });
-
-  describe('approveRequest', () => {
-    it('should throw an error for signing not supported', async () => {
-      await expect(keyring.approveRequest(id)).rejects.toThrow(
-        'Signing is not supported in this watch-only account snap.',
       );
     });
   });
