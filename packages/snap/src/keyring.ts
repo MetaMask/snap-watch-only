@@ -67,7 +67,8 @@ export class WatchOnlyKeyring implements Keyring {
     try {
       const account: KeyringAccount = {
         id: uuid(),
-        options,
+        // No options are supported for watch-only accounts.
+        options: {},
         address,
         // No methods are supported for watch-only accounts.
         methods: [],
