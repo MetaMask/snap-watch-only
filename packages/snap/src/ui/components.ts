@@ -1,6 +1,7 @@
 import { isValidAddress } from '@ethereumjs/util';
-import {Component, spinner} from '@metamask/snaps-sdk';
+import type { Component } from '@metamask/snaps-sdk';
 import {
+  spinner,
   address,
   button,
   ButtonType,

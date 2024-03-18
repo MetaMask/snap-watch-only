@@ -1,9 +1,4 @@
-import {
-  addHexPrefix,
-  Address,
-  isValidPrivate,
-  toChecksumAddress,
-} from '@ethereumjs/util';
+import { isValidAddress, toChecksumAddress } from '@ethereumjs/util';
 import type {
   Keyring,
   KeyringAccount,
@@ -12,12 +7,11 @@ import type {
 } from '@metamask/keyring-api';
 import { emitSnapKeyringEvent, EthAccountType } from '@metamask/keyring-api';
 import { KeyringEvent } from '@metamask/keyring-api/dist/events';
-import { hexToBytes, type Json } from '@metamask/utils';
-import { Buffer } from 'buffer';
+import { type Hex, isValidHexAddress, type Json } from '@metamask/utils';
 import { v4 as uuid } from 'uuid';
 
 import { saveState } from './stateManagement';
-import { isEvmChain, isUniqueAddress, runSensitive, throwError } from './util';
+import { isEvmChain, isUniqueAddress, throwError } from './util';
 import packageInfo from '../package.json';
 
 export type KeyringState = {
@@ -52,17 +46,19 @@ export class WatchOnlyKeyring implements Keyring {
   async createAccount(
     options: Record<string, Json> = {},
   ): Promise<KeyringAccount> {
-    let address: string;
-
     if (!options?.address) {
-      // Create new watch-only account.
-      ({ address } = this.#getKeyPair(undefined));
-    } else if (options?.address) {
-      // Import watch-only account from public address.
-      address = toChecksumAddress(options.address as string);
-    } else {
-      throw new Error('Unsupported account creation options');
+      throw new Error('Account creation options must include an address');
     }
+
+    if (
+      !isValidHexAddress(options.address as Hex) &&
+      !isValidAddress(options.address as string)
+    ) {
+      throw new Error(`Invalid address: ${options.address as string}`);
+    }
+
+    // Import watch-only account from public address.
+    const address = toChecksumAddress(options.address as string);
 
     if (!isUniqueAddress(address, Object.values(this.#state.wallets))) {
       throw new Error(`Account address already in use: ${address}`);
@@ -196,8 +192,7 @@ export class WatchOnlyKeyring implements Keyring {
       pending: true,
       redirect: {
         url: dappUrl,
-        message:
-          'Redirecting to Watch-Only Snap Simple Keyring to sign transaction',
+        message: 'Watch-only accounts do not support signing. Redirecting...',
       },
     };
   }
@@ -212,39 +207,6 @@ export class WatchOnlyKeyring implements Keyring {
         2,
       )}`,
     );
-  }
-
-  #getWalletByAddress(address: string): Wallet {
-    const match = Object.values(this.#state.wallets).find(
-      (wallet) =>
-        wallet.account.address.toLowerCase() === address.toLowerCase(),
-    );
-
-    return match ?? throwError(`Account '${address}' not found`);
-  }
-
-  #getKeyPair(privateKey?: string): {
-    privateKey: string;
-    address: string;
-  } {
-    const privateKeyBuffer: Buffer = runSensitive(
-      () =>
-        privateKey
-          ? Buffer.from(hexToBytes(addHexPrefix(privateKey)))
-          : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore - available in snaps
-            Buffer.from(crypto.getRandomValues(new Uint8Array(32))),
-      'Invalid private key',
-    );
-
-    if (!isValidPrivate(privateKeyBuffer)) {
-      throw new Error('Invalid private key');
-    }
-
-    const address = toChecksumAddress(
-      Address.fromPrivateKey(privateKeyBuffer).toString(),
-    );
-    return { privateKey: privateKeyBuffer.toString('hex'), address };
   }
 
   async #saveState(): Promise<void> {
