@@ -10,7 +10,7 @@
     "paths": {
       "@metamask/*": ["../../../*/src"]
     },
-    "types": ["node", "jest"]
+    "types": ["node", "jest", "@metamask/snap-jest"]
   },
   "include": ["src", "snap.config.ts"],
 }
