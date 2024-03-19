@@ -37,7 +37,7 @@ import {
 export function generateWatchFormComponent(
   validationMessage?: string,
 ): Component {
- if (validationMessage) {
+  if (validationMessage) {
     return panel([
       heading(WATCH_FORM_HEADER),
       text(WATCH_FORM_DESCRIPTION),
