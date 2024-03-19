@@ -37,55 +37,53 @@ import {
 export function generateWatchFormComponent(
   validationMessage?: string,
 ): Component {
-  switch (validationMessage) {
-    case undefined:
-      return panel([
-        heading(WATCH_FORM_HEADER),
-        text(WATCH_FORM_DESCRIPTION),
-        divider(),
-        text(WATCH_FORM_INSTRUCTIONS),
-        form({
-          name: 'address-form',
-          children: [
-            input({
-              name: 'address-input',
-              label: WATCH_FORM_INPUT_LABEL,
-              placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
-            }),
-            button({
-              variant: ButtonVariant.Primary,
-              value: 'Watch account',
-              name: 'submit',
-              buttonType: ButtonType.Submit,
-            }),
-          ],
-        }),
-      ]);
-    default:
-      return panel([
-        heading(WATCH_FORM_HEADER),
-        text(WATCH_FORM_DESCRIPTION),
-        divider(),
-        text(WATCH_FORM_INSTRUCTIONS),
-        form({
-          name: 'address-form',
-          children: [
-            input({
-              name: 'address-input',
-              label: WATCH_FORM_INPUT_LABEL,
-              placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
-            }),
-            button({
-              variant: ButtonVariant.Primary,
-              value: 'Watch account',
-              name: 'submit',
-              buttonType: ButtonType.Submit,
-            }),
-          ],
-        }),
-        text(validationMessage),
-      ]);
+ if (validationMessage) {
+    return panel([
+      heading(WATCH_FORM_HEADER),
+      text(WATCH_FORM_DESCRIPTION),
+      divider(),
+      text(WATCH_FORM_INSTRUCTIONS),
+      form({
+        name: 'address-form',
+        children: [
+          input({
+            name: 'address-input',
+            label: WATCH_FORM_INPUT_LABEL,
+            placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
+          }),
+          button({
+            variant: ButtonVariant.Primary,
+            value: 'Watch account',
+            name: 'submit',
+            buttonType: ButtonType.Submit,
+          }),
+        ],
+      }),
+      text(validationMessage),
+    ]);
   }
+  return panel([
+    heading(WATCH_FORM_HEADER),
+    text(WATCH_FORM_DESCRIPTION),
+    divider(),
+    text(WATCH_FORM_INSTRUCTIONS),
+    form({
+      name: 'address-form',
+      children: [
+        input({
+          name: 'address-input',
+          label: WATCH_FORM_INPUT_LABEL,
+          placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
+        }),
+        button({
+          variant: ButtonVariant.Primary,
+          value: 'Watch account',
+          name: 'submit',
+          buttonType: ButtonType.Submit,
+        }),
+      ],
+    }),
+  ]);
 }
 
 /**
