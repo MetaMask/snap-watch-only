@@ -52,7 +52,7 @@ export async function validateUserInput(
 }
 
 /**
- * Formats an Ethereum address by bolding the first and last segments.
+ * Formats an Ethereum address by splitting into 10 segments bolding the first and last segments.
  *
  * @param address - The Ethereum address to format.
  * @returns The formatted Ethereum address.

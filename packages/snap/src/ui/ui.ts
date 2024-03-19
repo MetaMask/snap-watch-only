@@ -1,5 +1,6 @@
 import {
-  generateErrorMessageComponent, generateSpinnerComponent,
+  generateErrorMessageComponent,
+  generateSpinnerComponent,
   generateSuccessMessageComponent,
   generateWatchFormComponent,
 } from './components';
