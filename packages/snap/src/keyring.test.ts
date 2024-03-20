@@ -1,4 +1,5 @@
 import {
+  EthMethod,
   type KeyringAccount,
   type KeyringRequest,
 } from '@metamask/keyring-api';
@@ -19,6 +20,13 @@ global.snap = {
   request: () => mockSnapRequest,
   emitEvent: jest.fn().mockResolvedValue(null),
 };
+
+const saveStateWillThrow = (message: string) => {
+  jest.spyOn(stateManagement, 'saveState').mockImplementationOnce(async () => {
+    throw new Error(`Unknown snap error: ${message}`);
+  });
+};
+const failedToSaveStateError = 'Failed to save state';
 
 describe('WatchOnlyKeyring', () => {
   let state: KeyringState, keyring: WatchOnlyKeyring;
@@ -120,14 +128,11 @@ describe('WatchOnlyKeyring', () => {
       },
     );
 
-    it('should throw create account error', async () => {
-      const expectedError = new Error('Snap error');
-      jest.spyOn(stateManagement, 'saveState').mockRejectedValue(expectedError);
+    it('should throw error when saving state fails', async () => {
+      saveStateWillThrow(failedToSaveStateError);
       await expect(
-        keyring.createAccount({
-          address: mockAddress,
-        }),
-      ).rejects.toThrow('Unknown snap error: Snap error');
+        keyring.createAccount({ address: mockAddress }),
+      ).rejects.toThrow(`Unknown snap error: ${failedToSaveStateError}`);
     });
 
     it('should throw error for already used address', async () => {
@@ -155,6 +160,36 @@ describe('WatchOnlyKeyring', () => {
       const updatedAccount = await keyring.getAccount(id);
       expect(updatedAccount).toStrictEqual(account);
     });
+
+    it('should not update read-only properties of an account', async () => {
+      const accountBefore = await keyring.getAccount(id);
+      const account: KeyringAccount = {
+        id,
+        address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
+        options: {},
+        methods: [...Object.values(EthMethod)],
+        type: 'eip155:eoa',
+      };
+      await keyring.updateAccount(account);
+      const updatedAccount = await keyring.getAccount(id);
+      expect(updatedAccount).not.toStrictEqual(account);
+      expect(updatedAccount).toStrictEqual(accountBefore);
+      expect(updatedAccount.methods).toStrictEqual([]);
+    });
+    it('should throw error when saving state fails', async () => {
+      saveStateWillThrow(failedToSaveStateError);
+      const account: KeyringAccount = {
+        id,
+        address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
+        options: {},
+        methods: [],
+        type: 'eip155:eoa',
+      };
+      await expect(keyring.updateAccount(account)).rejects.toThrow(
+        `Unknown snap error: ${failedToSaveStateError}`,
+      );
+    });
+
     it('should throw error when updating a nonexistent account', async () => {
       const nonexistentAccount: KeyringAccount = {
         type: 'eip155:eoa',
@@ -181,11 +216,10 @@ describe('WatchOnlyKeyring', () => {
       );
     });
 
-    it('handles errors', async () => {
-      const expectedError = new Error('Snap error');
-      jest.spyOn(stateManagement, 'saveState').mockRejectedValue(expectedError);
+    it('should throw an error if save state fails', async () => {
+      saveStateWillThrow(failedToSaveStateError);
       await expect(keyring.deleteAccount(id)).rejects.toThrow(
-        'Unknown snap error: Snap error',
+        `Unknown snap error: ${failedToSaveStateError}`,
       );
     });
   });
