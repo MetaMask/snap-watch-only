@@ -1,23 +1,16 @@
-import {
-  handleKeyringRequest,
-  MethodNotSupportedError,
-} from '@metamask/keyring-api';
+import { handleKeyringRequest } from '@metamask/keyring-api';
 import type {
   OnHomePageHandler,
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
-import {
-  assert,
-  ManageStateOperation,
-  UserInputEventType,
-} from '@metamask/snaps-sdk';
+import { UserInputEventType } from '@metamask/snaps-sdk';
 import type {
   OnKeyringRequestHandler,
   OnRpcRequestHandler,
 } from '@metamask/snaps-types';
 
 import { WatchOnlyKeyring } from './keyring';
-import { InternalMethod, originPermissions } from './permissions';
+import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
 import {
   createInterface,
