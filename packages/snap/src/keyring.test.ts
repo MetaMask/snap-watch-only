@@ -128,6 +128,24 @@ describe('WatchOnlyKeyring', () => {
       },
     );
 
+    it.each([
+      [{ address: '123' }, 'invalid hex and non-hex address'],
+      [{ address: 'abc' }, 'invalid hex and non-hex address'],
+      [{ address: '0xabc' }, 'invalid hex address, too short'],
+      [{ address: '0xz89a...bc' }, 'invalid hex address, bad characters'],
+      [
+        { address: 'r9dA6BH26964aF9D7eTd9e93E57415D37aA96046' },
+        'invalid non-hex address',
+      ],
+    ])(
+      'should throw an error for an invalid address ($1)',
+      async (options, _description) => {
+        await expect(keyring.createAccount(options)).rejects.toThrow(
+          `Invalid address '${options.address}' provided`,
+        );
+      },
+    );
+
     it('should throw error when saving state fails', async () => {
       saveStateWillThrow(failedToSaveStateError);
       await expect(

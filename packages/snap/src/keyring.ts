@@ -1,4 +1,4 @@
-import { toChecksumAddress } from '@ethereumjs/util';
+import { isValidAddress, toChecksumAddress } from '@ethereumjs/util';
 import type {
   Keyring,
   KeyringAccount,
@@ -7,7 +7,8 @@ import type {
 } from '@metamask/keyring-api';
 import { emitSnapKeyringEvent, EthAccountType } from '@metamask/keyring-api';
 import { KeyringEvent } from '@metamask/keyring-api/dist/events';
-import type { Json } from '@metamask/utils';
+import type { Hex, Json } from '@metamask/utils';
+import { isValidHexAddress } from '@metamask/utils';
 import { v4 as uuid } from 'uuid';
 
 import { saveState } from './stateManagement';
@@ -44,12 +45,13 @@ export class WatchOnlyKeyring implements Keyring {
     if (!options?.address) {
       throw new Error('Account creation options must include an address');
     }
-    let address;
-    try {
-      address = toChecksumAddress(options.address);
-    } catch {
+    if (
+      !isValidHexAddress(options.address as Hex) &&
+      !isValidAddress(options.address)
+    ) {
       throw new Error(`Invalid address '${options.address}' provided`);
     }
+    const address = toChecksumAddress(options.address);
 
     if (!isUniqueAddress(address, Object.values(this.#state.wallets))) {
       throw new Error(`Account address already in use: ${address}`);
