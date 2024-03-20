@@ -57,7 +57,7 @@ export async function validateUserInput(
  * @param address - The Ethereum address to format.
  * @returns The formatted Ethereum address.
  */
-function formatAddress(address: string): string {
+export function formatAddress(address: string): string {
   // Remove the 0x prefix for processing
   const rawAddress = remove0x(address as Hex);
   // Split the address into segments
@@ -80,7 +80,9 @@ function formatAddress(address: string): string {
  * @param address - The Ethereum address to check.
  * @returns A promise that resolves to true if the address is a smart contract, false otherwise.
  */
-async function isSmartContractAddress(address: string): Promise<boolean> {
+export async function isSmartContractAddress(
+  address: string,
+): Promise<boolean> {
   const provider = new ethers.BrowserProvider(ethereum);
   try {
     const code = await provider.getCode(address);

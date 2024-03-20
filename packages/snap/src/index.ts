@@ -12,12 +12,7 @@ import type {
 import { WatchOnlyKeyring } from './keyring';
 import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
-import {
-  createInterface,
-  showErrorMessage,
-  showForm,
-  showSuccess,
-} from './ui/ui';
+import { createInterface, showErrorMessage, showSuccess } from './ui/ui';
 import { validateUserInput } from './ui/ui-utils';
 
 let keyring: WatchOnlyKeyring;
