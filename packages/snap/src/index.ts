@@ -125,17 +125,15 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     }
 
     const validation = await validateUserInput(inputValue);
-    // Show validation message
-    await showForm(id, validation.message);
-    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (validation.address) {
-      // Add the watch-only account to the keyring
+      // Show success resolution message and add the account to the keyring
+      await showSuccess(id, validation.message);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       try {
         await (
           await getKeyring()
         ).createAccount({ address: validation.address });
-        await showSuccess(id, validation.address);
       } catch (error) {
         await showErrorMessage(id, (error as Error).message);
       }
