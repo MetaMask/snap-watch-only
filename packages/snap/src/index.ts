@@ -80,41 +80,6 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
       `Origin '${origin}' is not allowed to call '${request.method}'`,
     );
   }
-
-  // Handle custom methods.
-  switch (request.method) {
-    case InternalMethod.ToggleSyncApprovals: {
-      return (await getKeyring()).toggleSyncApprovals();
-    }
-
-    case InternalMethod.IsSynchronousMode: {
-      return (await getKeyring()).isSynchronousMode();
-    }
-
-    // Handle getting interface state
-    case 'getState': {
-      const snapState = await snap.request({
-        method: 'snap_manageState',
-        params: {
-          operation: ManageStateOperation.GetState,
-          encrypted: false,
-        },
-      });
-
-      assert(snapState?.interfaceId, 'No interface ID found in state.');
-
-      return await snap.request({
-        method: 'snap_getInterfaceState',
-        params: {
-          id: snapState.interfaceId as string,
-        },
-      });
-    }
-
-    default: {
-      throw new MethodNotSupportedError(request.method);
-    }
-  }
 };
 
 export const onKeyringRequest: OnKeyringRequestHandler = async ({

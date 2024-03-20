@@ -12,7 +12,7 @@ describe('Watch-only snap interactive UI', () => {
   });
 
   describe('onRpcRequest', () => {
-    it('throws an error if the requested method does not exist', async () => {
+    it('throws an error if origin does not have permission for the requested method', async () => {
       const unsupportedMethod = 'foo';
       const response = await snap.request({
         method: unsupportedMethod,
