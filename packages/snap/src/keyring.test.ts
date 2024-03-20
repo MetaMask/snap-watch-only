@@ -38,8 +38,6 @@ describe('WatchOnlyKeyring', () => {
           privateKey: '',
         },
       },
-      pendingRequests: {},
-      useSyncApprovals: false,
     };
     keyring = new WatchOnlyKeyring(state);
   });
@@ -53,7 +51,6 @@ describe('WatchOnlyKeyring', () => {
       expect(await keyring.getAccount(id)).toStrictEqual(
         state.wallets[id]?.account,
       );
-      expect(await keyring.listRequests()).toStrictEqual([]);
     });
   });
 
@@ -108,17 +105,20 @@ describe('WatchOnlyKeyring', () => {
       expect(newAccount).toStrictEqual(expectedAccount);
     });
 
-    it('should throw if no address was provided', async () => {
-      await expect(keyring.createAccount({ address: '' })).rejects.toThrow(
-        'Unsupported account creation options',
-      );
-    });
-
-    it('should throw if invalid address was provided', async () => {
-      await expect(keyring.createAccount({ address: 'asdf' })).rejects.toThrow(
-        "Invalid address 'asdf' provided",
-      );
-    });
+    it.each([
+      [{}, 'empty object'],
+      [{ foo: 'bar' }, 'object with unrelated property'],
+      [{ addr: mockAddress }, 'object with addr property (incorrect key)'],
+      [{ addres: mockAddress }, 'object with addres property (typo in key)'],
+    ])(
+      'should throw an error if no public address was provided ($1)',
+      async (options, _description) => {
+        // @ts-expect-error Testing invalid options
+        await expect(keyring.createAccount(options)).rejects.toThrow(
+          'Account creation options must include an address',
+        );
+      },
+    );
 
     it('should throw create account error', async () => {
       const expectedError = new Error('Snap error');
@@ -198,22 +198,6 @@ describe('WatchOnlyKeyring', () => {
         ['eip155:1', 'eip155:137', 'other:chain'],
       );
       expect(account).toStrictEqual(expectedResponse);
-    });
-  });
-
-  describe('listRequests', () => {
-    it('should be empty', async () => {
-      const response = await keyring.listRequests();
-      expect(response).toStrictEqual([]);
-    });
-  });
-
-  describe('getRequest', () => {
-    it('should throw an error for a nonexistent request', async () => {
-      const requestId = '71621d8d-62a4-4bf4-97cc-fb8f243679b0';
-      await expect(keyring.getRequest(requestId)).rejects.toThrow(
-        "Request '71621d8d-62a4-4bf4-97cc-fb8f243679b0' not found",
-      );
     });
   });
 

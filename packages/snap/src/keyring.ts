@@ -15,8 +15,6 @@ import { isEvmChain, isUniqueAddress, throwError } from './util';
 
 export type KeyringState = {
   wallets: Record<string, Wallet>;
-  pendingRequests: Record<string, KeyringRequest>;
-  useSyncApprovals: boolean;
 };
 
 export type Wallet = {
@@ -44,7 +42,7 @@ export class WatchOnlyKeyring implements Keyring {
 
   async createAccount(options: { address: string }): Promise<KeyringAccount> {
     if (!options?.address) {
-      throw new Error('Unsupported account creation options');
+      throw new Error('Account creation options must include an address');
     }
     let address;
     try {
@@ -119,16 +117,6 @@ export class WatchOnlyKeyring implements Keyring {
     } catch (error) {
       throw new Error(`Unknown snap error: ${(error as Error).message}`);
     }
-  }
-
-  async listRequests(): Promise<KeyringRequest[]> {
-    return Object.values(this.#state.pendingRequests);
-  }
-
-  async getRequest(id: string): Promise<KeyringRequest> {
-    return (
-      this.#state.pendingRequests[id] ?? throwError(`Request '${id}' not found`)
-    );
   }
 
   async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {

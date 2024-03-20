@@ -1,10 +1,5 @@
 import { KeyringRpcMethod } from '@metamask/keyring-api';
 
-export enum InternalMethod {
-  ToggleSyncApprovals = 'snap.internal.toggleSynchronousApprovals',
-  IsSynchronousMode = 'snap.internal.isSynchronousMode',
-}
-
 export const originPermissions = new Map<string, string[]>([
   [
     'metamask',
@@ -37,9 +32,6 @@ export const originPermissions = new Map<string, string[]>([
       KeyringRpcMethod.SubmitRequest,
       KeyringRpcMethod.ApproveRequest,
       KeyringRpcMethod.RejectRequest,
-      // Custom methods
-      InternalMethod.ToggleSyncApprovals,
-      InternalMethod.IsSynchronousMode,
     ],
   ],
   [
@@ -57,9 +49,6 @@ export const originPermissions = new Map<string, string[]>([
       KeyringRpcMethod.GetRequest,
       KeyringRpcMethod.ApproveRequest,
       KeyringRpcMethod.RejectRequest,
-      // Custom methods
-      InternalMethod.ToggleSyncApprovals,
-      InternalMethod.IsSynchronousMode,
     ],
   ],
 ]);
