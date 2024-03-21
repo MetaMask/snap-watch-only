@@ -3,33 +3,37 @@ import { ethers } from 'ethers';
 import { logger } from './logger';
 
 /**
- * Resolve ENS name to Ethereum address.
+ * Get Ethereum address from ENS name.
  *
  * @param name - ENS name to resolve.
- * @returns Ethereum address.
+ * @returns Ethereum address or `null` if not found.
  */
-export const resolveName = async (name: string): Promise<string | null> => {
+export const getAddressFromEns = async (
+  name: string,
+): Promise<string | null> => {
   const provider = new ethers.BrowserProvider(ethereum);
   try {
     return await provider.resolveName(name);
   } catch (error) {
-    logger.error('Failed to resolve ENS name:', error);
+    logger.error(`Failed to resolve ENS name '${name}': `, error);
     return null;
   }
 };
 
 /**
- * Lookup ENS name.
+ * Get ENS name from Ethereum address.
  *
- * @param address - Ethereum address to lookup.
+ * @param address - Ethereum address to lookup ENS name for.
  * @returns ENS name or `null` if not found.
  */
-export const lookupName = async (address: string): Promise<string | null> => {
+export const getEnsFromAddress = async (
+  address: string,
+): Promise<string | null> => {
   const provider = new ethers.BrowserProvider(ethereum);
   try {
     return await provider.lookupAddress(address);
   } catch (error) {
-    logger.error('Failed to lookup ENS name:', error);
+    logger.error(`Failed to lookup ENS name for '${address}': `, error);
     return null;
   }
 };

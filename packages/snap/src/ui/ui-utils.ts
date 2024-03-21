@@ -3,7 +3,7 @@ import type { Hex } from '@metamask/utils';
 import { add0x, isValidHexAddress, remove0x } from '@metamask/utils';
 import { ethers } from 'ethers';
 
-import { logger, lookupName, resolveName } from '../util';
+import { logger, getEnsFromAddress, getAddressFromEns } from '../util';
 
 export type ValidationResult = {
   message: string;
@@ -27,7 +27,7 @@ export async function validateUserInput(
         return { message: 'Smart contract addresses are not supported yet' };
       }
       // ENS Name Lookup
-      const ensName = await lookupName(input);
+      const ensName = await getEnsFromAddress(input);
       if (ensName) {
         return { message: `**${ensName}**`, address: input };
       }
@@ -39,7 +39,7 @@ export async function validateUserInput(
   }
   // ENS Name Resolution
   else if (input.endsWith('.eth')) {
-    const address = await resolveName(input);
+    const address = await getAddressFromEns(input);
     // Valid ENS Name
     if (address) {
       return { message: formatAddress(address), address };
