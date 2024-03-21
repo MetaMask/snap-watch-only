@@ -1,4 +1,4 @@
-import { describe, jest } from '@jest/globals';
+import { afterEach, describe, jest } from '@jest/globals';
 
 import {
   formatAddress,
@@ -6,12 +6,11 @@ import {
   validateUserInput,
 } from './ui-utils';
 
-jest.mock('../util/ens', () => ({
-  lookupName: jest.fn(),
-  resolveName: jest.fn(),
-}));
-
 describe('UI Utils', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('isSmartContract', () => {
     it('should return true if the address has non-zero bytecode', async () => {
       jest.mock('ethers', () => {
@@ -75,6 +74,9 @@ describe('UI Utils', () => {
       });
 
       it('should return valid ENS name and message', async () => {
+        jest.mock('../util/ens', () => ({
+          lookupName: jest.fn().mockReturnValue('metamask.eth'),
+        }));
         const result = await validateUserInput(
           '0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb',
         );
@@ -103,6 +105,11 @@ describe('UI Utils', () => {
 
     describe("when input ends with '.eth'", () => {
       it('should return valid ENS name and message', async () => {
+        jest.mock('../util/ens', () => ({
+          lookupName: jest
+            .fn()
+            .mockReturnValue('0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb'),
+        }));
         const result = await validateUserInput('metamask.eth');
         expect(result).toStrictEqual({
           message: formatAddress('0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb'),
