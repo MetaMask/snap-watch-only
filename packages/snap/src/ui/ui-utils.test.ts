@@ -1,5 +1,4 @@
-import { afterEach, describe, jest } from '@jest/globals';
-import { ethers } from 'ethers';
+import { describe, jest } from '@jest/globals';
 
 import {
   formatAddress,
@@ -8,28 +7,21 @@ import {
 } from './ui-utils';
 
 jest.mock('ethers', () => {
-  // Directly importing the actual `ethers` library to not lose original functionalities
   const actualEthers = jest.requireActual('ethers');
 
-  // Creating a mock for the `getCode` function
   const getCodeMock = jest.fn().mockImplementation(async (address) => {
     if (address === '0x0227628f3F023bb0B980b67D528571c95c6DaC1c') {
       return '0x123';
     }
     return '0x';
   });
-
-  // Creating a mock for the `getAddressFromEns` function
   const resolveNameMock = jest.fn(async () =>
     Promise.resolve('0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb'),
   );
-
-  // Creating a mock for the `getEnsFromAddress` function
   const lookupAddressMock = jest.fn(async () =>
     Promise.resolve('metamask.eth'),
   );
 
-  // Mocking the ethers.providers.Web3Provider (or the specific provider you are testing against)
   const MockedProvider = jest.fn().mockImplementation(() => ({
     getCode: getCodeMock,
     resolveName: resolveNameMock,
@@ -40,21 +32,15 @@ jest.mock('ethers', () => {
     ...actualEthers,
     ethers: {
       ...actualEthers.ethers,
-      BrowserProcider: {
+      BrowserProvider: {
         ...actualEthers.ethers.BrowserProvider,
-        getCode: getCodeMock,
-        resolveName: resolveNameMock,
-        lookupAddress: lookupAddressMock,
+        ...MockedProvider,
       },
     },
   };
 });
 
 describe('UI Utils', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   describe('isSmartContract', () => {
     it('should return true if the address has non-zero bytecode', async () => {
       const result = await isSmartContractAddress(
