@@ -58,11 +58,14 @@ export async function validateUserInput(
  * @returns The formatted Ethereum address.
  */
 export function formatAddress(address: string): string {
+  if (!isValidHexAddress(address as Hex) || !isValidAddress(address)) {
+    return 'Invalid address';
+  }
   // Remove the 0x prefix for processing
   const rawAddress = remove0x(address as Hex);
   // Split the address into segments
   const segments = rawAddress.match(/.{1,4}/gu);
-  if (!segments) {
+  if (!segments || segments.length !== 10) {
     return 'Invalid address';
   }
   // Bold the first and last segment and add the 0x prefix to the first segment
