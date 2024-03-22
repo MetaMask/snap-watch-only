@@ -117,9 +117,15 @@ export function generateSuccessMessageComponent(
     ]);
   }
   if (withSpinner) {
-    return panel([heading('Success'), divider(), text(message), spinner()]);
+    return panel([
+      heading('Success'),
+      divider(),
+      text(message),
+      text(value),
+      spinner(),
+    ]);
   }
-  return panel([heading('Success'), divider(), text(message)]);
+  return panel([heading('Success'), divider(), text(message), text(value)]);
 }
 
 /**
