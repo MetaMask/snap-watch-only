@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { describe, jest } from '@jest/globals';
+import type { ethers } from 'ethers';
 
 import {
   formatAddress,
@@ -6,39 +8,22 @@ import {
   validateUserInput,
 } from './ui-utils';
 
-jest.mock('ethers', () => {
-  const actualEthers = jest.requireActual('ethers');
-
-  const getCodeMock = jest.fn().mockImplementation(async (address) => {
-    if (address === '0x0227628f3F023bb0B980b67D528571c95c6DaC1c') {
-      return '0x123';
-    }
-    return '0x';
-  });
-  const resolveNameMock = jest.fn(async () =>
-    Promise.resolve('0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb'),
-  );
-  const lookupAddressMock = jest.fn(async () =>
-    Promise.resolve('metamask.eth'),
-  );
-
-  const MockedProvider = jest.fn().mockImplementation(() => ({
-    getCode: getCodeMock,
-    resolveName: resolveNameMock,
-    lookupAddress: lookupAddressMock,
-  }));
-
-  return {
-    ...actualEthers,
-    ethers: {
-      ...actualEthers.ethers,
-      BrowserProvider: {
-        ...actualEthers.ethers.BrowserProvider,
-        ...MockedProvider,
-      },
-    },
-  };
-});
+jest.mock('ethers', () => ({
+  ...(jest.requireActual('ethers') as typeof ethers),
+  BrowserProvider: {
+    ...(jest.requireActual('ethers') as typeof ethers).BrowserProvider,
+    getCode: jest.fn().mockImplementation(async (address) => {
+      if (address === '0x0227628f3F023bb0B980b67D528571c95c6DaC1c') {
+        return '0x123';
+      }
+      return '0x';
+    }),
+    resolveName: jest.fn(async () =>
+      Promise.resolve('0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb'),
+    ),
+    lookupAddress: jest.fn(async () => Promise.resolve('metamask.eth')),
+  },
+}));
 
 describe('UI Utils', () => {
   describe('isSmartContract', () => {
