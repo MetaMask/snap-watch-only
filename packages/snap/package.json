@@ -51,7 +51,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@jest/globals": "^29.5.0",
+    "@jest/globals": "^29.7.0",
     "@lavamoat/allow-scripts": "^3.0.3",
     "@metamask/auto-changelog": "^3.4.4",
     "@metamask/eslint-config": "^12.1.0",
