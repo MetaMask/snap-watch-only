@@ -10,6 +10,8 @@ import {
   heading,
   input,
   panel,
+  row,
+  RowVariant,
   spinner,
   text,
 } from '@metamask/snaps-sdk';
@@ -135,7 +137,13 @@ export function generateSuccessMessageComponent(
  * @returns The error message component to display.
  */
 export function generateErrorMessageComponent(message: string): Component {
-  return panel([heading('Error'), divider(), text(message)]);
+  return panel([
+    row({
+      label: 'Error',
+      value: text(message),
+      variant: RowVariant.Critical,
+    }),
+  ]);
 }
 
 /**
