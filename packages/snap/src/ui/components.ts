@@ -1,7 +1,6 @@
 import { isValidAddress } from '@ethereumjs/util';
 import type { Component } from '@metamask/snaps-sdk';
 import {
-  spinner,
   address,
   button,
   ButtonType,
@@ -11,6 +10,7 @@ import {
   heading,
   input,
   panel,
+  spinner,
   text,
 } from '@metamask/snaps-sdk';
 import {
@@ -90,18 +90,36 @@ export function generateWatchFormComponent(
  * Generate the success message component.
  *
  * @param value - The value to display in the UI.
+ * @param message - The message to display.
+ * @param withSpinner - Whether to show a spinner.
  * @returns The success message component to display.
  */
-export function generateSuccessMessageComponent(value: string): Component {
-  if (isValidHexAddress(value as Hex) || isValidAddress(value)) {
+export function generateSuccessMessageComponent(
+  value?: string,
+  message?: string,
+  withSpinner?: boolean,
+): Component {
+  if (value && (isValidHexAddress(value as Hex) || isValidAddress(value))) {
+    if (withSpinner) {
+      return panel([
+        heading('Success'),
+        divider(),
+        text(message),
+        address(getChecksumAddress(add0x(value)) as Hex),
+        spinner(),
+      ]);
+    }
     return panel([
       heading('Success'),
       divider(),
-      text('You are now watching'),
+      text(message),
       address(getChecksumAddress(add0x(value)) as Hex),
     ]);
   }
-  return panel([heading('Success'), divider(), text(value)]);
+  if (withSpinner) {
+    return panel([heading('Success'), divider(), text(message), spinner()]);
+  }
+  return panel([heading('Success'), divider(), text(message)]);
 }
 
 /**

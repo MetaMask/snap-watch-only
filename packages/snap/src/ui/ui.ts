@@ -40,13 +40,20 @@ export async function showForm(id: string, validationMessage?: string) {
  *
  * @param id - The Snap interface ID to update.
  * @param value - The value to display in the UI.
+ * @param message - The message to display.
+ * @param withSpinner - Whether to show a spinner.
  */
-export async function showSuccess(id: string, value: string) {
+export async function showSuccess(
+  id: string,
+  value?: string,
+  message?: string,
+  withSpinner?: boolean,
+) {
   await snap.request({
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: generateSuccessMessageComponent(value),
+      ui: generateSuccessMessageComponent(value, message, withSpinner),
     },
   });
 }

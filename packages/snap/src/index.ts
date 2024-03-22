@@ -123,7 +123,7 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
 
     if (validation.address) {
       // Show success resolution message and add the account to the keyring
-      await showSuccess(id, validation.message);
+      await showSuccess(id, validation.address, validation.message, true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       try {
         await (
