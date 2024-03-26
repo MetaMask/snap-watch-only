@@ -138,3 +138,5 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     }
   }
 };
+export { getEnsFromAddress } from './ui/ui-utils';
+export { getAddressFromEns } from './ui/ui-utils';
