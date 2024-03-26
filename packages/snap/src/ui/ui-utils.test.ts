@@ -38,7 +38,7 @@ jest.mock('ethers', () => {
 });
 
 describe('UI Utils', () => {
-  describe.skip('isSmartContract', () => {
+  describe('isSmartContract', () => {
     it('should return true if the address has non-zero bytecode', async () => {
       const result = await isSmartContractAddress(
         '0x0227628f3F023bb0B980b67D528571c95c6DaC1c',
