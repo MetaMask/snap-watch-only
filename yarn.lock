@@ -802,7 +802,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-typescript@npm:^7.24.1, @babel/plugin-syntax-typescript@npm:^7.7.2":
+"@babel/plugin-syntax-typescript@npm:7.24.1, @babel/plugin-syntax-typescript@npm:^7.24.1, @babel/plugin-syntax-typescript@npm:^7.7.2":
   version: 7.24.1
   resolution: "@babel/plugin-syntax-typescript@npm:7.24.1"
   dependencies:
@@ -22022,6 +22022,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "snap-watch-only@workspace:."
   dependencies:
+    "@babel/plugin-syntax-typescript": 7.24.1
     "@babel/preset-typescript": ^7.23.3
     "@jest/globals": ^29.7.0
     "@lavamoat/allow-scripts": ^3.0.0

@@ -8,6 +8,7 @@
     "snap",
     "keyring",
     "watch-only",
+    "account-watcher",
     "account"
   ],
   "homepage": "https://github.com/metamask/snap-watch-only#readme",
