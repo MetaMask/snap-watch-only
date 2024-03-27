@@ -9,4 +9,6 @@ module.exports = {
   },
   testTimeout: 20000,
   coveragePathIgnorePatterns: ['/node_modules/', '/test/'],
+
+  setupFiles: ['./src/test/setup.ts'],
 };
