@@ -1,6 +1,3 @@
-import { describe, jest } from '@jest/globals';
-import type { ethers } from 'ethers';
-
 import {
   formatAddress,
   isSmartContractAddress,
@@ -12,44 +9,17 @@ global.ethereum = {
   request: jest.fn(),
 };
 
-// Mock the ethers library
-jest.mock('ethers', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const actualEthers = jest.requireActual('ethers') as typeof ethers;
-  return {
-    ...actualEthers,
-    BrowserProvider: {
-      getCode: jest
-        .fn<(address: string) => Promise<string>>()
-        .mockImplementation(async (address) => {
-          console.log('inside mock getCode');
-          return address === '0x0227628f3F023bb0B980b67D528571c95c6DaC1c'
-            ? '0x123'
-            : '0x';
-        }),
-      resolveName: jest
-        .fn<() => Promise<string>>()
-        .mockResolvedValue('0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb'),
-      lookupAddress: jest
-        .fn<() => Promise<string>>()
-        .mockResolvedValue('metamask.eth'),
-    },
-  };
-});
-
 describe('UI Utils', () => {
   describe('isSmartContract', () => {
     it('should return true if the address has non-zero bytecode', async () => {
-      const result = await isSmartContractAddress(
-        '0x0227628f3F023bb0B980b67D528571c95c6DaC1c',
-      );
+      const address = '0x0227628f3F023bb0B980b67D528571c95c6DaC1c';
+      const result = await isSmartContractAddress(address);
       expect(result).toBe(true);
     });
 
     it('should return false if the address has zero bytecode', async () => {
-      const result = await isSmartContractAddress(
-        '0x225f137127d9067788314bc7fcc1f36746a3c3B5',
-      );
+      const address = '0x225f137127d9067788314bc7fcc1f36746a3c3B5';
+      const result = await isSmartContractAddress(address);
       expect(result).toBe(false);
     });
   });
