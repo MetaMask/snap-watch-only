@@ -18,7 +18,6 @@ module.exports = {
           { allow: ['describe', 'expect', 'it'] },
         ],
         '@typescript-eslint/unbound-method': 'off',
-        'no-console': 'off',
       },
     },
   ],
