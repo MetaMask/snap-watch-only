@@ -43,13 +43,7 @@ function hasPermission(origin: string, method: string): boolean {
 
 /**
  * Handle incoming JSON-RPC requests from the dapp, sent through the
- * `wallet_invokeSnap` method. This handler handles two methods:
- *
- * - `dialog`: Create a `snap_dialog` with an interactive interface. This demonstrates
- * that a snap can show an interactive `snap_dialog` that the user can interact with.
- *
- * - `getState`: Get the state of a given interface. This demonstrates
- * that a snap can retrieve an interface state.
+ * `wallet_invokeSnap` method.
  *
  * @param params - The request parameters.
  * @param params.request - The JSON-RPC request object.
@@ -70,6 +64,13 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
   }
 };
 
+/**
+ * Handle incoming keyring requests from the MetaMask clients for privileged keyring actions.
+ *
+ * @param params - The request parameters.
+ * @param params.origin - The origin of the request.
+ * @param params.request - The keyring request object.
+ */
 export const onKeyringRequest: OnKeyringRequestHandler = async ({
   origin,
   request,
