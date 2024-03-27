@@ -3,6 +3,7 @@ import {
   isSmartContractAddress,
   validateUserInput,
 } from './ui-utils';
+import { TEST_VALUES } from '../test/setup';
 
 // @ts-expect-error Mocking ethereum global object
 global.ethereum = {
@@ -12,14 +13,14 @@ global.ethereum = {
 describe('UI Utils', () => {
   describe('isSmartContract', () => {
     it('should return true if the address has non-zero bytecode', async () => {
-      const address = '0x0227628f3F023bb0B980b67D528571c95c6DaC1c';
-      const result = await isSmartContractAddress(address);
+      const result = await isSmartContractAddress(
+        TEST_VALUES.smartContractAddress,
+      );
       expect(result).toBe(true);
     });
 
     it('should return false if the address has zero bytecode', async () => {
-      const address = '0x225f137127d9067788314bc7fcc1f36746a3c3B5';
-      const result = await isSmartContractAddress(address);
+      const result = await isSmartContractAddress(TEST_VALUES.validAddress);
       expect(result).toBe(false);
     });
   });
@@ -45,28 +46,24 @@ describe('UI Utils', () => {
   describe('validateUserInput', () => {
     describe("when input starts with '0x'", () => {
       it('should return a valid address and message', async () => {
-        const result = await validateUserInput(
-          '0x0227628f3F023bb0B980b67D528571c95c6DaC1c',
-        );
+        const result = await validateUserInput(TEST_VALUES.validAddress);
         expect(result).toStrictEqual({
           message: 'Valid address',
-          address: '0x0227628f3F023bb0B980b67D528571c95c6DaC1c',
+          address: TEST_VALUES.validAddress,
         });
       });
 
       it('should return valid ENS name and message', async () => {
-        const result = await validateUserInput(
-          '0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb',
-        );
+        const result = await validateUserInput(TEST_VALUES.validEnsAddress);
         expect(result).toStrictEqual({
-          message: '**metamask.eth**',
-          address: '0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb',
+          message: `**${TEST_VALUES.validEns}**`,
+          address: TEST_VALUES.validEnsAddress,
         });
       });
 
       it("should return 'Smart contract' message", async () => {
         const result = await validateUserInput(
-          '0x0227628f3F023bb0B980b67D528571c95c6DaC1c',
+          TEST_VALUES.smartContractAddress,
         );
         expect(result).toStrictEqual({
           message: 'Smart contract addresses are not supported yet',
@@ -83,10 +80,10 @@ describe('UI Utils', () => {
 
     describe("when input ends with '.eth'", () => {
       it('should return valid ENS name and message', async () => {
-        const result = await validateUserInput('metamask.eth');
+        const result = await validateUserInput(TEST_VALUES.validEns);
         expect(result).toStrictEqual({
-          message: formatAddress('0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb'),
-          address: '0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb',
+          message: formatAddress(TEST_VALUES.validEnsAddress),
+          address: TEST_VALUES.validEnsAddress,
         });
       });
 
