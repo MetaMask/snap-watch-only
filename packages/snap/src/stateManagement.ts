@@ -5,8 +5,6 @@ import type { KeyringState } from './keyring';
  */
 const defaultState: KeyringState = {
   wallets: {},
-  pendingRequests: {},
-  useSyncApprovals: true,
 };
 
 /**
