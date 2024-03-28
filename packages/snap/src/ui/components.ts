@@ -30,6 +30,12 @@ import {
   WATCH_FORM_INSTRUCTIONS,
 } from './content';
 
+export declare enum WatchFormNames {
+  AddressForm = 'address-form',
+  AddressInput = 'address-input',
+  SubmitButton = 'submit',
+}
+
 /**
  * Generate the watch form component.
  *
@@ -46,17 +52,17 @@ export function generateWatchFormComponent(
       divider(),
       text(WATCH_FORM_INSTRUCTIONS),
       form({
-        name: 'address-form',
+        name: WatchFormNames.AddressForm,
         children: [
           input({
-            name: 'address-input',
+            name: WatchFormNames.AddressInput,
             label: WATCH_FORM_INPUT_LABEL,
             placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
           }),
           button({
             variant: ButtonVariant.Primary,
             value: 'Watch account',
-            name: 'submit',
+            name: WatchFormNames.SubmitButton,
             buttonType: ButtonType.Submit,
           }),
         ],
@@ -70,17 +76,17 @@ export function generateWatchFormComponent(
     divider(),
     text(WATCH_FORM_INSTRUCTIONS),
     form({
-      name: 'address-form',
+      name: WatchFormNames.AddressForm,
       children: [
         input({
-          name: 'address-input',
+          name: WatchFormNames.AddressInput,
           label: WATCH_FORM_INPUT_LABEL,
           placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
         }),
         button({
           variant: ButtonVariant.Primary,
           value: 'Watch account',
-          name: 'submit',
+          name: WatchFormNames.SubmitButton,
           buttonType: ButtonType.Submit,
         }),
       ],

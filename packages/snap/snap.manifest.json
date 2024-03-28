@@ -7,11 +7,11 @@
     "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "q1isjPJqd+OZ1N5r13W9OUGewYXmy+Ubmtw5FcAXD+I=",
+    "shasum": "/M5TdHtPY7jD/FlemmMtMLQllw2TX7OLVU6FHdizIsw=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "iconPath": "images/icon.svg",
+        "iconPath": "images/watcher-fox-eye.png",
         "packageName": "@metamask/snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
@@ -21,12 +21,13 @@
     "snap_dialog": {},
     "endowment:keyring": {
       "allowedOrigins": [
-        "https://metamask.github.io",
-        "http://localhost:8000"
+        "https://snaps.metamask.io"
       ]
     },
     "endowment:rpc": {
-      "dapps": true
+      "allowedOrigins": [
+        "https://snaps.metamask.io"
+      ]
     },
     "snap_manageAccounts": {},
     "endowment:page-home": {},

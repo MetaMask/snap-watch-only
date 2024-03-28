@@ -16,10 +16,6 @@ can customize the wallet experience.
 
 ## Snap usage
 
-### onRpcRequest
-
-This snap exposes an `onRpcRequest` handler, which handles incoming JSON-RPC requests from the dapp, sent through the`wallet_invokeSnap` method.
-
 ### onKeyringRequest
 
 The snap exposes an `onKeyringRequest` handler, which called by the MetaMask client for privileged keyring actions.

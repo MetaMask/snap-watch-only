@@ -35,7 +35,7 @@ export const originPermissions = new Map<string, string[]>([
     ],
   ],
   [
-    'https://metamask.github.io',
+    'https://snaps.metamask.io',
     [
       // Keyring methods
       KeyringRpcMethod.ListAccounts,
