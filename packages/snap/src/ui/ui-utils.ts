@@ -3,11 +3,47 @@ import type { Hex } from '@metamask/utils';
 import { add0x, isValidHexAddress, remove0x } from '@metamask/utils';
 import { ethers } from 'ethers';
 
-import { logger, lookupName, resolveName } from '../util';
+import { logger } from '../util';
 
 export type ValidationResult = {
   message: string;
   address?: string;
+};
+
+/**
+ * Get Ethereum address from ENS name.
+ *
+ * @param name - ENS name to resolve.
+ * @returns Ethereum address or `null` if not found.
+ */
+export const getAddressFromEns = async (
+  name: string,
+): Promise<string | null> => {
+  const provider = new ethers.BrowserProvider(ethereum);
+  try {
+    return await provider.resolveName(name);
+  } catch (error) {
+    logger.error(`Failed to resolve ENS name '${name}': `, error);
+    return null;
+  }
+};
+
+/**
+ * Get ENS name from Ethereum address.
+ *
+ * @param address - Ethereum address to lookup ENS name for.
+ * @returns ENS name or `null` if not found.
+ */
+export const getEnsFromAddress = async (
+  address: string,
+): Promise<string | null> => {
+  const provider = new ethers.BrowserProvider(ethereum);
+  try {
+    return await provider.lookupAddress(address);
+  } catch (error) {
+    logger.error(`Failed to lookup ENS name for '${address}': `, error);
+    return null;
+  }
 };
 
 /**
@@ -27,7 +63,7 @@ export async function validateUserInput(
         return { message: 'Smart contract addresses are not supported yet' };
       }
       // ENS Name Lookup
-      const ensName = await lookupName(input);
+      const ensName = await getEnsFromAddress(input);
       if (ensName) {
         return { message: `**${ensName}**`, address: input };
       }
@@ -39,7 +75,7 @@ export async function validateUserInput(
   }
   // ENS Name Resolution
   else if (input.endsWith('.eth')) {
-    const address = await resolveName(input);
+    const address = await getAddressFromEns(input);
     // Valid ENS Name
     if (address) {
       return { message: formatAddress(address), address };
@@ -52,17 +88,20 @@ export async function validateUserInput(
 }
 
 /**
- * Formats an Ethereum address by bolding the first and last segments.
+ * Formats an Ethereum address by splitting into 10 segments bolding the first and last segments.
  *
  * @param address - The Ethereum address to format.
  * @returns The formatted Ethereum address.
  */
-function formatAddress(address: string): string {
+export function formatAddress(address: string): string {
+  if (!isValidHexAddress(address as Hex) || !isValidAddress(address)) {
+    return 'Invalid address';
+  }
   // Remove the 0x prefix for processing
   const rawAddress = remove0x(address as Hex);
   // Split the address into segments
   const segments = rawAddress.match(/.{1,4}/gu);
-  if (!segments) {
+  if (!segments || segments.length !== 10) {
     return 'Invalid address';
   }
   // Bold the first and last segment and add the 0x prefix to the first segment
@@ -80,7 +119,9 @@ function formatAddress(address: string): string {
  * @param address - The Ethereum address to check.
  * @returns A promise that resolves to true if the address is a smart contract, false otherwise.
  */
-async function isSmartContractAddress(address: string): Promise<boolean> {
+export async function isSmartContractAddress(
+  address: string,
+): Promise<boolean> {
   const provider = new ethers.BrowserProvider(ethereum);
   try {
     const code = await provider.getCode(address);

@@ -8,9 +8,9 @@
     "keyring",
     "account"
   ],
-  "homepage": "https://github.com/metamask/snap-watch-only/packages/snap#readme",
+  "homepage": "https://github.com/MetaMask/snap-watch-only#readme",
   "bugs": {
-    "url": "https://github.com/metamask/snap-watch-only/packages/snap/issues"
+    "url": "https://github.com/MetaMask/snap-watch-only/issues"
   },
   "repository": {
     "type": "git",
@@ -30,15 +30,14 @@
     "lint": "yarn lint:eslint && yarn lint:misc --check && yarn lint:changelog && yarn lint:dependencies",
     "lint:changelog": "../../../../scripts/validate-changelog.sh @metamask/snap-watch-only-snap",
     "lint:ci": "yarn lint",
-    "lint:dependencies": "depcheck",
     "lint:eslint": "eslint . --cache --ext js,ts,jsx,tsx",
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
     "lint:misc": "prettier --no-error-on-unmatched-pattern --loglevel warn \"**/*.json\" \"**/*.md\" \"**/*.html\" \"!CHANGELOG.md\" \"!snap.manifest.json\" --ignore-path ../../../../.gitignore",
-    "publish:preview": "yarn npm publish --tag preview",
     "start": "mm-snap watch",
     "test": "yarn test:e2e",
     "test:e2e": "jest",
-    "test:coverage": "yarn test:e2e --coverage"
+    "publish:preview": "yarn npm publish --tag preview",
+    "lint:dependencies": "depcheck"
   },
   "dependencies": {
     "@ethereumjs/tx": "^5.1.0",
@@ -52,6 +51,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@lavamoat/allow-scripts": "^3.0.3",
     "@metamask/auto-changelog": "^3.4.4",
     "@metamask/eslint-config": "^12.1.0",

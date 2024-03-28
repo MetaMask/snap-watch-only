@@ -22,9 +22,7 @@ provides access to upcoming features.
 
 ## Getting Started
 
-Clone the template-snap repository [using this
-template](https://github.com/MetaMask/template-snap-monorepo/generate) and
-setup the development environment:
+Clone the repository and setup the development environment:
 
 ```shell
 yarn install && yarn start

@@ -1,5 +1,5 @@
 import { isValidAddress } from '@ethereumjs/util';
-import {Component, spinner} from '@metamask/snaps-sdk';
+import type { Component } from '@metamask/snaps-sdk';
 import {
   address,
   button,
@@ -10,6 +10,9 @@ import {
   heading,
   input,
   panel,
+  row,
+  RowVariant,
+  spinner,
   text,
 } from '@metamask/snaps-sdk';
 import {
@@ -36,73 +39,95 @@ import {
 export function generateWatchFormComponent(
   validationMessage?: string,
 ): Component {
-  switch (validationMessage) {
-    case undefined:
-      return panel([
-        heading(WATCH_FORM_HEADER),
-        text(WATCH_FORM_DESCRIPTION),
-        divider(),
-        text(WATCH_FORM_INSTRUCTIONS),
-        form({
-          name: 'address-form',
-          children: [
-            input({
-              name: 'address-input',
-              label: WATCH_FORM_INPUT_LABEL,
-              placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
-            }),
-            button({
-              variant: ButtonVariant.Primary,
-              value: 'Watch account',
-              name: 'submit',
-              buttonType: ButtonType.Submit,
-            }),
-          ],
-        }),
-      ]);
-    default:
-      return panel([
-        heading(WATCH_FORM_HEADER),
-        text(WATCH_FORM_DESCRIPTION),
-        divider(),
-        text(WATCH_FORM_INSTRUCTIONS),
-        form({
-          name: 'address-form',
-          children: [
-            input({
-              name: 'address-input',
-              label: WATCH_FORM_INPUT_LABEL,
-              placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
-            }),
-            button({
-              variant: ButtonVariant.Primary,
-              value: 'Watch account',
-              name: 'submit',
-              buttonType: ButtonType.Submit,
-            }),
-          ],
-        }),
-        text(validationMessage),
-      ]);
+  if (validationMessage) {
+    return panel([
+      heading(WATCH_FORM_HEADER),
+      text(WATCH_FORM_DESCRIPTION),
+      divider(),
+      text(WATCH_FORM_INSTRUCTIONS),
+      form({
+        name: 'address-form',
+        children: [
+          input({
+            name: 'address-input',
+            label: WATCH_FORM_INPUT_LABEL,
+            placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
+          }),
+          button({
+            variant: ButtonVariant.Primary,
+            value: 'Watch account',
+            name: 'submit',
+            buttonType: ButtonType.Submit,
+          }),
+        ],
+      }),
+      text(validationMessage),
+    ]);
   }
+  return panel([
+    heading(WATCH_FORM_HEADER),
+    text(WATCH_FORM_DESCRIPTION),
+    divider(),
+    text(WATCH_FORM_INSTRUCTIONS),
+    form({
+      name: 'address-form',
+      children: [
+        input({
+          name: 'address-input',
+          label: WATCH_FORM_INPUT_LABEL,
+          placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
+        }),
+        button({
+          variant: ButtonVariant.Primary,
+          value: 'Watch account',
+          name: 'submit',
+          buttonType: ButtonType.Submit,
+        }),
+      ],
+    }),
+  ]);
 }
 
 /**
  * Generate the success message component.
  *
  * @param value - The value to display in the UI.
+ * @param message - The message to display.
+ * @param withSpinner - Whether to show a spinner.
  * @returns The success message component to display.
  */
-export function generateSuccessMessageComponent(value: string): Component {
-  if (isValidHexAddress(value as Hex) || isValidAddress(value)) {
+export function generateSuccessMessageComponent(
+  value?: string,
+  message?: string,
+  withSpinner?: boolean,
+): Component {
+  if (value && (isValidHexAddress(value as Hex) || isValidAddress(value))) {
+    if (withSpinner) {
+      return panel([
+        heading('Success'),
+        divider(),
+        text(message),
+        address(getChecksumAddress(add0x(value)) as Hex),
+        spinner(),
+      ]);
+    }
     return panel([
       heading('Success'),
       divider(),
-      text('You are now watching'),
+      text(message),
       address(getChecksumAddress(add0x(value)) as Hex),
     ]);
   }
-  return panel([heading('Success'), divider(), text(value)]);
+  if (withSpinner) {
+    return panel([
+      heading('Success'),
+      divider(),
+      text(message),
+      text(value),
+      spinner(),
+    ]);
+  }
+  return panel([heading('Success'), divider(), text(message), text(value)]);
 }
 
 /**
@@ -112,7 +137,13 @@ export function generateSuccessMessageComponent(value: string): Component {
  * @returns The error message component to display.
  */
 export function generateErrorMessageComponent(message: string): Component {
-  return panel([heading('Error'), divider(), text(message)]);
+  return panel([
+    row({
+      label: 'Error',
+      value: text(message),
+      variant: RowVariant.Critical,
+    }),
+  ]);
 }
 
 /**

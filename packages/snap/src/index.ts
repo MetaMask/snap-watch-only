@@ -1,30 +1,18 @@
-import {
-  handleKeyringRequest,
-  MethodNotSupportedError,
-} from '@metamask/keyring-api';
+import { handleKeyringRequest } from '@metamask/keyring-api';
 import type {
   OnHomePageHandler,
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
-import {
-  assert,
-  ManageStateOperation,
-  UserInputEventType,
-} from '@metamask/snaps-sdk';
+import { UserInputEventType } from '@metamask/snaps-sdk';
 import type {
   OnKeyringRequestHandler,
   OnRpcRequestHandler,
 } from '@metamask/snaps-types';
 
 import { WatchOnlyKeyring } from './keyring';
-import { InternalMethod, originPermissions } from './permissions';
+import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
-import {
-  createInterface,
-  showErrorMessage,
-  showForm,
-  showSuccess,
-} from './ui/ui';
+import { createInterface, showErrorMessage, showSuccess } from './ui/ui';
 import { validateUserInput } from './ui/ui-utils';
 
 let keyring: WatchOnlyKeyring;
@@ -55,13 +43,7 @@ function hasPermission(origin: string, method: string): boolean {
 
 /**
  * Handle incoming JSON-RPC requests from the dapp, sent through the
- * `wallet_invokeSnap` method. This handler handles two methods:
- *
- * - `dialog`: Create a `snap_dialog` with an interactive interface. This demonstrates
- * that a snap can show an interactive `snap_dialog` that the user can interact with.
- *
- * - `getState`: Get the state of a given interface. This demonstrates
- * that a snap can retrieve an interface state.
+ * `wallet_invokeSnap` method.
  *
  * @param params - The request parameters.
  * @param params.request - The JSON-RPC request object.
@@ -80,43 +62,15 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
       `Origin '${origin}' is not allowed to call '${request.method}'`,
     );
   }
-
-  // Handle custom methods.
-  switch (request.method) {
-    case InternalMethod.ToggleSyncApprovals: {
-      return (await getKeyring()).toggleSyncApprovals();
-    }
-
-    case InternalMethod.IsSynchronousMode: {
-      return (await getKeyring()).isSynchronousMode();
-    }
-
-    // Handle getting interface state
-    case 'getState': {
-      const snapState = await snap.request({
-        method: 'snap_manageState',
-        params: {
-          operation: ManageStateOperation.GetState,
-          encrypted: false,
-        },
-      });
-
-      assert(snapState?.interfaceId, 'No interface ID found in state.');
-
-      return await snap.request({
-        method: 'snap_getInterfaceState',
-        params: {
-          id: snapState.interfaceId as string,
-        },
-      });
-    }
-
-    default: {
-      throw new MethodNotSupportedError(request.method);
-    }
-  }
 };
 
+/**
+ * Handle incoming keyring requests from the MetaMask clients for privileged keyring actions.
+ *
+ * @param params - The request parameters.
+ * @param params.origin - The origin of the request.
+ * @param params.request - The keyring request object.
+ */
 export const onKeyringRequest: OnKeyringRequestHandler = async ({
   origin,
   request,
@@ -167,17 +121,15 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     }
 
     const validation = await validateUserInput(inputValue);
-    // Show validation message
-    await showForm(id, validation.message);
-    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (validation.address) {
-      // Add the watch-only account to the keyring
+      // Show success resolution message and add the account to the keyring
+      await showSuccess(id, validation.address, validation.message, true);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       try {
         await (
           await getKeyring()
         ).createAccount({ address: validation.address });
-        await showSuccess(id, validation.address);
       } catch (error) {
         await showErrorMessage(id, (error as Error).message);
       }
@@ -187,3 +139,5 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     }
   }
 };
+export { getEnsFromAddress } from './ui/ui-utils';
+export { getAddressFromEns } from './ui/ui-utils';
