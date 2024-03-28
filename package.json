@@ -1,12 +1,14 @@
 {
-  "name": "snap-keyring-watch-only",
+  "name": "snap-watch-only",
   "version": "1.0.0",
   "private": true,
-  "description": "A keyring snap for watch-only accounts that integrates with MetaMask accounts.",
+  "description": "Monitor public addresses or ENS domains directly in MetaMask with this Watch-Only Snap.",
   "keywords": [
     "metamask",
     "snap",
     "keyring",
+    "watch-only",
+    "account-watcher",
     "account"
   ],
   "homepage": "https://github.com/metamask/snap-watch-only#readme",
@@ -24,8 +26,7 @@
   ],
   "scripts": {
     "build": "yarn workspaces foreach --parallel --verbose --topological run build",
-    "build:dapp": "yarn workspace @metamask/snap-account-abstraction-keyring-site build",
-    "build:snap": "yarn workspace @metamask/snap-account-abstraction-keyring build",
+    "build:snap": "yarn workspace @metamask/snap-watch-only-snap build",
     "build:docs": "typedoc",
     "lint": "yarn workspaces foreach --parallel --verbose run lint",
     "lint:deps": "yarn workspaces foreach --parallel --verbose run depcheck",

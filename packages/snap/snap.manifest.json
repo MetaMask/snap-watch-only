@@ -1,18 +1,18 @@
 {
   "version": "1.0.0",
-  "description": "A keyring for watch-only accounts.",
-  "proposedName": "MetaMask Snap Keyring Watch-Only",
+  "description": "Keep an eye on Ethereum addresses or ENS domains right in MetaMask",
+  "proposedName": "Account Watcher",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/k-g-j/snap-simple-keyring-watch-only.git"
+    "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "IJlBBIojpBroKrMH0Mi8PbcrQ3TZtH8dZsthjYyF7X0=",
+    "shasum": "Tr2dMOxB4fVtvVVKPnpAqgAeAsxI7AwKkOlcr4sfCm4=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "iconPath": "images/icon.svg",
-        "packageName": "snap-watch-only-snap",
+        "iconPath": "images/watcher-fox-eye.svg",
+        "packageName": "@metamask/snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
@@ -21,15 +21,18 @@
     "snap_dialog": {},
     "endowment:keyring": {
       "allowedOrigins": [
-        "https://metamask.github.io",
-        "http://localhost:8000"
+        "https://snaps.metamask.io"
       ]
     },
     "endowment:rpc": {
-      "dapps": true
+      "allowedOrigins": [
+        "https://snaps.metamask.io"
+      ]
     },
     "snap_manageAccounts": {},
-    "snap_manageState": {}
+    "endowment:page-home": {},
+    "snap_manageState": {},
+    "endowment:ethereum-provider": {}
   },
   "manifestVersion": "0.1"
 }

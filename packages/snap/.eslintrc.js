@@ -9,6 +9,17 @@ module.exports = {
         'import/no-nodejs-modules': ['error', { allow: ['buffer', 'crypto'] }],
       },
     },
+    {
+      files: ['**/*.test.ts', '**/*.test.js'],
+      extends: ['@metamask/eslint-config-jest'],
+      rules: {
+        '@typescript-eslint/no-shadow': [
+          'error',
+          { allow: ['describe', 'expect', 'it'] },
+        ],
+        '@typescript-eslint/unbound-method': 'off',
+      },
+    },
   ],
 
   ignorePatterns: [
