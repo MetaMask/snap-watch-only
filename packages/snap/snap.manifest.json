@@ -7,11 +7,11 @@
     "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "/M5TdHtPY7jD/FlemmMtMLQllw2TX7OLVU6FHdizIsw=",
+    "shasum": "Tr2dMOxB4fVtvVVKPnpAqgAeAsxI7AwKkOlcr4sfCm4=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "iconPath": "images/watcher-fox-eye.png",
+        "iconPath": "images/watcher-fox-eye.svg",
         "packageName": "@metamask/snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
