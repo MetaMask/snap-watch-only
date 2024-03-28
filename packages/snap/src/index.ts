@@ -9,6 +9,7 @@ import type { OnKeyringRequestHandler } from '@metamask/snaps-types';
 import { WatchOnlyKeyring } from './keyring';
 import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
+import { WatchFormNames } from './ui/components';
 import { createInterface, showErrorMessage, showSuccess } from './ui/ui';
 import { validateUserInput } from './ui/ui-utils';
 
@@ -85,9 +86,9 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
   // Handle form submission
   if (
     event.type === UserInputEventType.FormSubmitEvent &&
-    event.name === 'address-form'
+    event.name === WatchFormNames.AddressForm
   ) {
-    const inputValue = event.value['address-input'];
+    const inputValue = event.value[WatchFormNames.AddressInput];
 
     if (!inputValue) {
       await showErrorMessage(id, 'Address or ENS is required');
