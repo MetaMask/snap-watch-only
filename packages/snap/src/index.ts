@@ -4,10 +4,7 @@ import type {
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
 import { UserInputEventType } from '@metamask/snaps-sdk';
-import type {
-  OnKeyringRequestHandler,
-  OnRpcRequestHandler,
-} from '@metamask/snaps-types';
+import type { OnKeyringRequestHandler } from '@metamask/snaps-types';
 
 import { WatchOnlyKeyring } from './keyring';
 import { originPermissions } from './permissions';
@@ -40,29 +37,6 @@ async function getKeyring(): Promise<WatchOnlyKeyring> {
 function hasPermission(origin: string, method: string): boolean {
   return originPermissions.get(origin)?.includes(method) ?? false;
 }
-
-/**
- * Handle incoming JSON-RPC requests from the dapp, sent through the
- * `wallet_invokeSnap` method.
- *
- * @param params - The request parameters.
- * @param params.request - The JSON-RPC request object.
- * @param params.origin - The origin of the request.
- * @returns The JSON-RPC response.
- * @see https://docs.metamask.io/snaps/reference/exports/#onrpcrequest
- * @see https://docs.metamask.io/snaps/reference/rpc-api/#wallet_invokesnap
- */
-export const onRpcRequest: OnRpcRequestHandler = async ({
-  origin,
-  request,
-}) => {
-  // Check if origin is allowed to call method.
-  if (!hasPermission(origin, request.method)) {
-    throw new Error(
-      `Origin '${origin}' is not allowed to call '${request.method}'`,
-    );
-  }
-};
 
 /**
  * Handle incoming keyring requests from the MetaMask clients for privileged keyring actions.

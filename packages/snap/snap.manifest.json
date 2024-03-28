@@ -21,12 +21,12 @@
     "snap_dialog": {},
     "endowment:keyring": {
       "allowedOrigins": [
-        "https://snaps.metamask.io/"
+        "https://snaps.metamask.io"
       ]
     },
     "endowment:rpc": {
       "allowedOrigins": [
-        "https://snaps.metamask.io/"
+        "https://snaps.metamask.io"
       ]
     },
     "snap_manageAccounts": {},
