@@ -11,7 +11,7 @@
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "iconPath": "images/icon.svg",
+        "iconPath": "images/watcher-fox-eye.png",
         "packageName": "@metamask/snap-watch-only-snap",
         "registry": "https://registry.npmjs.org/"
       }
@@ -21,12 +21,13 @@
     "snap_dialog": {},
     "endowment:keyring": {
       "allowedOrigins": [
-        "https://metamask.github.io",
-        "http://localhost:8000"
+        "https://snaps.metamask.io/"
       ]
     },
     "endowment:rpc": {
-      "dapps": true
+      "allowedOrigins": [
+        "https://snaps.metamask.io/"
+      ]
     },
     "snap_manageAccounts": {},
     "endowment:page-home": {},
