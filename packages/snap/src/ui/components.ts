@@ -30,7 +30,7 @@ import {
   WATCH_FORM_INSTRUCTIONS,
 } from './content';
 
-export declare enum WatchFormNames {
+export enum WatchFormNames {
   AddressForm = 'address-form',
   AddressInput = 'address-input',
   SubmitButton = 'submit',
