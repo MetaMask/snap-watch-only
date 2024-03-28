@@ -1,5 +1,5 @@
 {
-  "name": "snap-watch-only",
+  "name": "@metamask/snap-watch-only",
   "version": "1.0.0",
   "private": true,
   "description": "Monitor public addresses or ENS domains directly in MetaMask with this Watch-Only Snap.",
@@ -27,18 +27,14 @@
   "scripts": {
     "build": "yarn workspaces foreach --parallel --verbose --topological run build",
     "build:snap": "yarn workspace @metamask/snap-watch-only-snap build",
-    "build:docs": "typedoc",
     "lint": "yarn workspaces foreach --parallel --verbose run lint",
     "lint:deps": "yarn workspaces foreach --parallel --verbose run depcheck",
     "lint:eslint": "yarn workspaces foreach --parallel --verbose run lint:eslint",
     "lint:fix": "yarn workspaces foreach --parallel --verbose run lint:fix",
     "lint:misc": "yarn workspaces foreach --parallel --verbose run lint:misc",
     "lint:types": "yarn workspaces foreach --parallel --verbose run lint:types",
-    "lint:constraints": "yarn constraints",
-    "lint:dependencies": "depcheck && yarn dedupe",
     "start": "yarn workspaces foreach --parallel --verbose --interlaced run start",
-    "test": "yarn workspaces foreach --parallel --verbose run test",
-    "install-chrome": "./scripts/install-chrome.sh"
+    "test": "yarn workspaces foreach --parallel --verbose run test"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.23.3",

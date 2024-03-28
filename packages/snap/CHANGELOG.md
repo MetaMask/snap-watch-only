@@ -1,1 +1,383 @@
+# Changelog
+All notable changes to this project will be documented in this file.
 
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [1.0.0]
+### Uncategorized
+- feat: removed changelog script
+- fix: yarn.lock
+- fix: lint errors
+- init: removed site package, updated yarn to 3.6.1, removed dapp workflows
+- Add 100% coverage test for keyring ([#4](https://github.com/metamask/snap-watch-only/pull/4))
+- chore: merged with main
+- Merge remote-tracking branch 'origin/main' into fix/294
+- feat: add account flow with input validation ([#2](https://github.com/metamask/snap-watch-only/pull/2))
+- Merge remote-tracking branch 'origin/feat/add-account-ui' into fix/294
+- fix: replaced snap icon with svg version
+- Merge remote-tracking branch 'origin/feat/add-account-ui' into fix/294
+- fix: removed declare keyword from enum
+- Merge remote-tracking branch 'origin/feat/add-account-ui' into fix/294
+- feat: removed onRPCRequest from README
+- fix: removed exported utils from index.ts
+- feat: replaced form names with enum values
+- feat: removed onRpcRequest handler and updated permissions
+- feat: updated allowed origins in manifest and changed icon
+- fix: removed unused e2e test script
+- Merge remote-tracking branch 'origin/feat/add-account-ui' into fix/294
+- fix: removed extra jest.config.js
+- Merge remote-tracking branch 'origin/feat/add-account-ui' into fix/294
+- feat: updated keyring test formatting
+- feat: updated homepage and issues linked and removed console off in .eslintrc
+- fix: removed cached .yarn folder and unnecessary .yarnrc
+- fix: removed yarn.lock in snap package and broken ui.test.ts
+- fix: removed .yarn cached folder
+- fix: removed duplicate util file
+- chore: removed licenses from snap package
+- chore: merged with main
+- Merge branch 'main' into feat/add-account-ui
+- feat: updated READMEs
+- test: fixed ui-utils.test and added testing constants
+- test: add test setup config and mock ethers ([#6](https://github.com/metamask/snap-watch-only/pull/6))
+- test: add test setup config and mock ethers
+- test: added debugging log to getCode mock
+- feat: moved ens util functions into ui-utils.ts
+- fix: temp fix with yarn.lock in snap package
+- refactor: mocking ethers in ui.utils.test.ts
+- feat: added color variant to error message component
+- feat: added value text to default success message component
+- feat: added spinner to success message component
+- feat: upgraded jest package and fixed yarn.lock errors
+- test: refactoring ui-utils-test with ethers mock
+- feat: updated function names and jsdoc for ens util
+- feat: updated mocks in ui-utils test
+- test: added test cases for ui-utils
+- test: started testing file for ui-utils
+- feat: changed logic to show success in the dynamic UI on account creation
+- fix: lint errors
+- feat: removed unused custom methods from 'onRpcRequest' handler
+- fix: lint errors in components.ts
+- refactor: change 'generateWatchFormComponent' to use if statement and not switch
+- feat: replaced example snap UI tests with minimum dynamic UI testing
+- fix: lint errors and enhanced jsdoc
+- refactor: moved validation from let to const
+- feat: added spinner component and removed on change input handling
+- feat: moved component generation into components.ts file
+- chore: merged with latest main branch
+- fix: jsdoc on showForm
+- fix: added .yarn folder in snap to gitignore
+- refactor: removed unused dialogue handler in onRpcRequest handler
+- fix: removed mocha and chai from ts config in snap
+- fix: removed unused parts of jest config in snap
+- fix: snap origin in site production env
+- feat: removed change log from site
+- feat: updated README's and tsconfig
+- init: replaced site package with blank site with install button
+- refactor: removed comments in snap ts config
+- feat: moved form label into constants file and added 'TODO' to ui tests
+- fix: removed cached .yarn directories
+- refactor: removed snaps packages and updated dependencies to not use workspaces
+- refactor: renamed keyring test file
+- feat: updated snap name and descriptions
+- refactor: cleaned up and simplified validation and form submission logic
+- refactor: removed 'onTransaction' Handler
+- refactor: removed unused transaction insights
+- feat: fixed provider permission in manifest and implemented input validation
+- feat: implemented watch form and working import of public etherum address
+- fix: added homepage endowment
+- init: started watch-only snap from SSK
+- feat: added more robust valid address check to keyring and tests
+- fix: update tests
+- fix: remove unused code
+- feat: add 100% coverage test for keyring
+- refactor: moved validation from let to const
+- feat: added spinner component and removed on change input handling
+- feat: moved component generation into components.ts file
+- chore: merged with latest main branch
+- Merge branch 'main' into feat/add-account-ui
+- fix: jsdoc on showForm
+- feat: minimum front end ([#3](https://github.com/metamask/snap-watch-only/pull/3))
+- Merge branch 'feat/minimum-front-end' into feat/add-account-ui
+- fix: added .yarn folder in snap to gitignore
+- refactor: removed unused dialogue handler in onRpcRequest handler
+- fix: removed mocha and chai from ts config in snap
+- fix: removed unused parts of jest config in snap
+- Merge branch 'feat/minimum-front-end' into feat/add-account-ui
+- Fix: snap origin in site production env
+- Feat: removed change log from site
+- Feat: updated README's and tsconfig
+- Init: replaced site package with blank site with install button
+- Refactor: removed comments in snap ts config
+- Feat: moved form label into constants file and added 'TODO' to ui tests
+- Fix: removed cached .yarn directories
+- Refactor: removed snaps packages and updated dependencies to not use workspaces
+- Refactor: renamed keyring test file
+- Feat: updated snap name and descriptions
+- Refactor: cleaned up and simplified validation and form submission logic
+- Refactor: removed 'onTransaction' Handler
+- Refactor: removed unused transaction insights
+- Feat: fixed provider permission in manifest and implemented input validation
+- Feat: implemented watch form and working import of public etherum address
+- Fix: added homepage endowment
+- chore: brought in packages from snaps core
+- feat: brought in interactive UI example from snaps repo
+- Init: deleted site package and reorganized utils
+- Chore: updated dependencies and configurations ([#1](https://github.com/metamask/snap-watch-only/pull/1))
+- Fix: update name in site package
+- Chore: updated dependencies and configurations
+- commented out signing methods demo
+- Changed input on dark mode text boxes to white text
+- Fixed eslint import errors in test
+- Added check for empty methods in import account test
+- Added check for empty methods in import account test
+- Fixed jest bug and implemented tests
+- Fixed package errors
+- Working on debugging tests
+- Added more tests and formatting
+- Implemented more robust jest testing and tried to debug config
+- Working on debugging jest set up
+- Started implementing jest testing
+- Changed KeyRing name to WatchOnlyKeyRing
+- Added better type safety for Accordian method inputs
+- Moved ens functions into separate file
+- Added ENS support
+- Removed @MetaMask tag from packages
+- Updated snap package README
+- Updated private access
+- Changed version to 1.0.0
+- Changed private to false
+- Updated README
+- Updated README for watch-only details
+- Updated README for watch-only details
+- Updated packages.json
+- Debugged getting account for signing
+- Added signing methods
+- Updated copy title to watch-only
+- Added ability to import account from public key and disabled requesting
+- Working rejection of signing for keyring accounts
+- removed shasum from manifest.json
+- updated manifest.json
+- Updated manifest.json
+- Commented out unsupported signing methods
+- feat: add alignItems prop to AccountRow
+- fix: update manifest
+- feat: add delete button to account
+- fix: change `packageInfo` to `snapPackageInfo` ([#114](https://github.com/metamask/snap-watch-only/pull/114))
+- fix: use the Snap `package.json` for the update check ([#112](https://github.com/metamask/snap-watch-only/pull/112))
+- 1.0.1 ([#109](https://github.com/metamask/snap-watch-only/pull/109))
+- fix: remove logs from Snap ([#108](https://github.com/metamask/snap-watch-only/pull/108))
+- 1.0.0 ([#107](https://github.com/metamask/snap-watch-only/pull/107))
+- chore: remove localhost ([#106](https://github.com/metamask/snap-watch-only/pull/106))
+- feat: add alert banner for users ([#104](https://github.com/metamask/snap-watch-only/pull/104))
+- 0.4.0 ([#103](https://github.com/metamask/snap-watch-only/pull/103))
+- feat: add URL to async approval redirect ([#98](https://github.com/metamask/snap-watch-only/pull/98))
+- 0.3.1 ([#102](https://github.com/metamask/snap-watch-only/pull/102))
+- feat: allow Snap to be installed on MetaMask Stable ([#101](https://github.com/metamask/snap-watch-only/pull/101))
+- 0.3.0 ([#100](https://github.com/metamask/snap-watch-only/pull/100))
+- feat!: use `onKeyringRequest` to handle keyring methods ([#97](https://github.com/metamask/snap-watch-only/pull/97))
+- 0.2.4 ([#96](https://github.com/metamask/snap-watch-only/pull/96))
+- fix: snap and extension are out of sync ([#95](https://github.com/metamask/snap-watch-only/pull/95))
+- feat: add update button ([#93](https://github.com/metamask/snap-watch-only/pull/93))
+- fix: add state.installSnap into dep array ([#92](https://github.com/metamask/snap-watch-only/pull/92))
+- chore(deps): bump graphql from 16.8.0 to 16.8.1 ([#91](https://github.com/metamask/snap-watch-only/pull/91))
+- fix: remove private key from options after generating key pair ([#90](https://github.com/metamask/snap-watch-only/pull/90))
+- ui: fix the private key format in the import account placeholder ([#89](https://github.com/metamask/snap-watch-only/pull/89))
+- chore: remove `console.log` if snap is not installed ([#88](https://github.com/metamask/snap-watch-only/pull/88))
+- fix: check if the snap is installed before trying to get its state ([#87](https://github.com/metamask/snap-watch-only/pull/87))
+- 0.2.3 ([#86](https://github.com/metamask/snap-watch-only/pull/86))
+- build: update linting targets ([#85](https://github.com/metamask/snap-watch-only/pull/85))
+- chore: update Gatsby to version 5 ([#83](https://github.com/metamask/snap-watch-only/pull/83))
+- fix: use text fields in account methods inputs ([#82](https://github.com/metamask/snap-watch-only/pull/82))
+- feat: enable linters and fix errors ([#81](https://github.com/metamask/snap-watch-only/pull/81))
+- fix: serve self-hosted fonts ([#80](https://github.com/metamask/snap-watch-only/pull/80))
+- ci: change wokrflow names `docs` -> `dapp` ([#79](https://github.com/metamask/snap-watch-only/pull/79))
+- 0.2.2 ([#78](https://github.com/metamask/snap-watch-only/pull/78))
+- fix: disable async-sync toggle if snap is not installed ([#77](https://github.com/metamask/snap-watch-only/pull/77))
+- fix: persist snap state after switching between sync <-> async ([#76](https://github.com/metamask/snap-watch-only/pull/76))
+- build: update configs from `metamask-module-template` ([#75](https://github.com/metamask/snap-watch-only/pull/75))
+- chore: update toggle style ([#73](https://github.com/metamask/snap-watch-only/pull/73))
+- feat: the dApp specifies the Snap version to install ([#72](https://github.com/metamask/snap-watch-only/pull/72))
+- feat: add dapp version to header ([#71](https://github.com/metamask/snap-watch-only/pull/71))
+- build: update main file (`src/index.ts` -> `dist/bundle.js`) ([#69](https://github.com/metamask/snap-watch-only/pull/69))
+- chore: fix typo in changelog ([#68](https://github.com/metamask/snap-watch-only/pull/68))
+- 0.2.1 ([#67](https://github.com/metamask/snap-watch-only/pull/67))
+- ui: align button and request result with action name ([#66](https://github.com/metamask/snap-watch-only/pull/66))
+- ui: remove account name and improve some UI components ([#65](https://github.com/metamask/snap-watch-only/pull/65))
+- feat: migrate to new `keyring-api` version (`0.2.x`) ([#64](https://github.com/metamask/snap-watch-only/pull/64))
+- chore: set `.nvmrc` to v18 ([#63](https://github.com/metamask/snap-watch-only/pull/63))
+- fix: crypto dependency introduced in metamask-utils 6.2.0 ([#62](https://github.com/metamask/snap-watch-only/pull/62))
+- 0.2.0 ([#61](https://github.com/metamask/snap-watch-only/pull/61))
+- chore(deps): bump @adobe/css-tools from 4.2.0 to 4.3.1 ([#60](https://github.com/metamask/snap-watch-only/pull/60))
+- feat: support the async approval flow ([#50](https://github.com/metamask/snap-watch-only/pull/50))
+- fix: now you don't have to change your defaultSnapOrigin ([#59](https://github.com/metamask/snap-watch-only/pull/59))
+- feat: import account ([#58](https://github.com/metamask/snap-watch-only/pull/58))
+- feat: improve UI/UX ([#54](https://github.com/metamask/snap-watch-only/pull/54))
+- 0.1.4 ([#57](https://github.com/metamask/snap-watch-only/pull/57))
+- chore(deps): bump semver from 5.7.1 to 5.7.2 ([#48](https://github.com/metamask/snap-watch-only/pull/48))
+- chore(deps): bump word-wrap from 1.2.3 to 1.2.4 ([#49](https://github.com/metamask/snap-watch-only/pull/49))
+- fix: `rejectRequest` in site package ([#53](https://github.com/metamask/snap-watch-only/pull/53))
+- chore(deps): bump ses from 0.18.4 to 0.18.7 ([#51](https://github.com/metamask/snap-watch-only/pull/51))
+- Bump `@metamask/snaps-cli` to `v0.38.2-flask.1` ([#55](https://github.com/metamask/snap-watch-only/pull/55))
+- 0.1.3 ([#47](https://github.com/metamask/snap-watch-only/pull/47))
+- chore: update snap checksum ([#46](https://github.com/metamask/snap-watch-only/pull/46))
+- fix: fix address checksum ([#44](https://github.com/metamask/snap-watch-only/pull/44))
+- fix: fix unique name during account creation ([#43](https://github.com/metamask/snap-watch-only/pull/43))
+- 0.1.2 ([#42](https://github.com/metamask/snap-watch-only/pull/42))
+- chore(deps): update snaps and API dependencies ([#41](https://github.com/metamask/snap-watch-only/pull/41))
+- feat(snap): notify extension on accounts changes ([#39](https://github.com/metamask/snap-watch-only/pull/39))
+- fix: add ids for e2e ([#40](https://github.com/metamask/snap-watch-only/pull/40))
+- 0.1.1 ([#38](https://github.com/metamask/snap-watch-only/pull/38))
+- docs: update snap's `README.md` ([#37](https://github.com/metamask/snap-watch-only/pull/37))
+- fix(snap): allow `https://metamask.github.io` as origin ([#36](https://github.com/metamask/snap-watch-only/pull/36))
+- 0.1.0 ([#35](https://github.com/metamask/snap-watch-only/pull/35))
+- Revert "0.1.0 ([#34](https://github.com/metamask/snap-watch-only/pull/34))
+- ci: use archived `dist` directories
+- ci: archive `dist` dirs from all workspaces
+- 0.1.0 ([#34](https://github.com/metamask/snap-watch-only/pull/34))
+- ci: hard-code snap origin (again)
+- ci: make `SNAP_ORIGIN` available in the browser
+- ci: set snap origin in env file ([#33](https://github.com/metamask/snap-watch-only/pull/33))
+- fix: hard-code snap origin for now
+- ci: add missing prefix to package name
+- ci: set snap origin ([#32](https://github.com/metamask/snap-watch-only/pull/32))
+- fix: revert window check and remove placeholder text ([#31](https://github.com/metamask/snap-watch-only/pull/31))
+- fix: move client creation into use effect ([#29](https://github.com/metamask/snap-watch-only/pull/29))
+- ci: define path prefix when building site ([#30](https://github.com/metamask/snap-watch-only/pull/30))
+- ci: build site instead of docs ([#28](https://github.com/metamask/snap-watch-only/pull/28))
+- ci: use workflows from template ([#26](https://github.com/metamask/snap-watch-only/pull/26))
+- chore: revert versions to `0.0.0` before release ([#27](https://github.com/metamask/snap-watch-only/pull/27))
+- ci: use action from template to publish dapp to GH Pages ([#25](https://github.com/metamask/snap-watch-only/pull/25))
+- 0.1.0 ([#24](https://github.com/metamask/snap-watch-only/pull/24))
+- 0.1.0 ([#23](https://github.com/metamask/snap-watch-only/pull/23))
+- feat(snap): enable eth_sign ([#22](https://github.com/metamask/snap-watch-only/pull/22))
+- 0.1.0 ([#21](https://github.com/metamask/snap-watch-only/pull/21))
+- docs: add changelog
+- 0.1.0 ([#20](https://github.com/metamask/snap-watch-only/pull/20))
+- chore: prepare for release ([#19](https://github.com/metamask/snap-watch-only/pull/19))
+- chore(deps): bump fast-xml-parser from 4.2.4 to 4.2.5 ([#18](https://github.com/metamask/snap-watch-only/pull/18))
+- chore(snap): update manifest ([#16](https://github.com/metamask/snap-watch-only/pull/16))
+- fix(snap): use new snap controller method name ([#14](https://github.com/metamask/snap-watch-only/pull/14))
+- chore(site): remove `updateState` ([#15](https://github.com/metamask/snap-watch-only/pull/15))
+- feat(site): add inputs fields ([#12](https://github.com/metamask/snap-watch-only/pull/12))
+- chore: bump `keyring-api` to `0.1.0` (`site`) ([#13](https://github.com/metamask/snap-watch-only/pull/13))
+- docs: update `README.md` ([#11](https://github.com/metamask/snap-watch-only/pull/11))
+- chore: bump `keyring-api` and remove allowed scripts ([#9](https://github.com/metamask/snap-watch-only/pull/9))
+- feat: use dispatcher from `keyring-api` ([#8](https://github.com/metamask/snap-watch-only/pull/8))
+- chore: fix linter
+- chore: update `chainHandlers` function name (was `buildHandlersChain`)
+- chore: rename `keyring2` to `keyring`
+- chore: remove old keyring
+- fix: fix signing on `keyring2`
+- feat: use dispatcher in the snap
+- feat: use dispatcher in the snap
+- remove ethereumjs dep from site
+- remove unused func
+- add superstruct and have strictNullChecks
+- rename the keyring class
+- update yarn and dep
+- Merge remote-tracking branch 'origin/main' into feat/api-wrapper
+- Feat/api wrapper signing ([#6](https://github.com/metamask/snap-watch-only/pull/6))
+- update checksum in manifest
+- remove duplicate
+- Merge remote-tracking branch 'origin/feat/api-wrapper' into feat/api-wrapper-signing
+- add examples and implement filter
+- wip: some API changes
+- add isEVMChain util
+- update to use new KeyringAccount and implement filterSupportedChains
+- update switch methods
+- add cases to request handler
+- add handle signing
+- add saveSnapKeyringState
+- update keyringstate keys
+- update getWalletByAddress and throw if none is found
+- add save keyringState after account creation
+- update keyring construction
+- add jsdoc for stateManagment
+- add utils
+- update methods
+- disable strict null check
+- chore: run `yarn install`
+- chore: prettier formatting
+- chore: rename TODOs
+- chore: rename keyring-api package
+- Solve rendering issue
+- Update with feedback
+- Improve descriptions
+- Merge feat/api-wrapper
+- Revert "Update snap/src/keyring.ts to feat/api-wrapper"
+- Update snap/src/keyring.ts to feat/api-wrapper
+- Update index page
+- Update AccountList component
+- Add more styledComponents
+- Add Accordion component
+- Add Accordion component
+- Add dependencies
+- chore: use new keyring API
+- Update name
+- Add AccountList to index
+- Update home page
+- Add styled components
+- Update title
+- Update Card component
+- Add AccountList component
+- Add react-icons and remove material UI
+- Move styled components to new file
+- WIP: Update main page
+- Update Card component style
+- Add material UI module
+- Merge branch 'fix-unused-chainOpts' into feat/api-wrapper
+- fix unused chainOpts
+- Update to 0 32 0 ([#5](https://github.com/metamask/snap-watch-only/pull/5))
+- update code owners
+- Update yarn.lock + dedupe ethereumjs packages
+- use latest snap version
+- wip: start implementation on snap side
+- wip: list accounts
+- chore: start dev of wrapper
+- refactor into keyring class
+- fix handleApproveRequest
+- fix nodemon
+- feat: display account addresses
+- chore: rename methods and remove more logic from UI
+- fix chain id
+- Feat/remove account ([#3](https://github.com/metamask/snap-watch-only/pull/3))
+- remove keys
+- fix comment
+- fix type 2 transactions
+- remove ethers form accountManagement
+- remove dep
+- fix sign legacy
+- fix: don't use `account` object since it's no longer available on UI
+- Feat/remove account ([#2](https://github.com/metamask/snap-watch-only/pull/2))
+- Merge branch 'main' into feat/remove-account
+- add ethereum js
+- updatedSIgned tx to be serializable
+- update snaps keyring, move signPersonalMessage to snap
+- update site
+- move signPersonalMessage logic into snap
+- refactor: add new account/request methods
+- update dep
+- fix: add missing return values
+- update imports
+- add hexToArrayBuffer
+- add transaction management functions
+- add account management functions
+- add ethereumjs dependency
+- remove unused
+- refactor state management
+- add ethereumjs dependencies
+- add ui for delete account
+- allow snap_manageAccount in host interaction
+- Add some missing types
+- automatic lint fixes
+- updated all other packages
+- @metamask/snaps-* packages at 0.30.0
+- mvp working
+- migrate over existing snap ui
+- Initial commit
+
+[Unreleased]: https://github.com/metamask/snap-watch-only/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/metamask/snap-watch-only/releases/tag/v1.0.0
