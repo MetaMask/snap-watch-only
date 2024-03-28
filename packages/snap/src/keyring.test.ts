@@ -146,13 +146,6 @@ describe('WatchOnlyKeyring', () => {
       },
     );
 
-    it('should throw error when saving state fails', async () => {
-      saveStateWillThrow(failedToSaveStateError);
-      await expect(
-        keyring.createAccount({ address: mockAddress }),
-      ).rejects.toThrow(`Unknown snap error: ${failedToSaveStateError}`);
-    });
-
     it('should throw error for already used address', async () => {
       await expect(
         keyring.createAccount({
@@ -161,6 +154,13 @@ describe('WatchOnlyKeyring', () => {
       ).rejects.toThrow(
         'Account address already in use: 0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
       );
+    });
+
+    it('should throw error when saving state fails', async () => {
+      saveStateWillThrow(failedToSaveStateError);
+      await expect(
+        keyring.createAccount({ address: mockAddress }),
+      ).rejects.toThrow(`Unknown snap error: ${failedToSaveStateError}`);
     });
   });
 
@@ -194,19 +194,6 @@ describe('WatchOnlyKeyring', () => {
       expect(updatedAccount).toStrictEqual(accountBefore);
       expect(updatedAccount.methods).toStrictEqual([]);
     });
-    it('should throw error when saving state fails', async () => {
-      saveStateWillThrow(failedToSaveStateError);
-      const account: KeyringAccount = {
-        id,
-        address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
-        options: {},
-        methods: [],
-        type: 'eip155:eoa',
-      };
-      await expect(keyring.updateAccount(account)).rejects.toThrow(
-        `Unknown snap error: ${failedToSaveStateError}`,
-      );
-    });
 
     it('should throw error when updating a nonexistent account', async () => {
       const nonexistentAccount: KeyringAccount = {
@@ -218,6 +205,20 @@ describe('WatchOnlyKeyring', () => {
       };
       await expect(keyring.updateAccount(nonexistentAccount)).rejects.toThrow(
         "Account 'nonexistent' not found",
+      );
+    });
+
+    it('should throw error when saving state fails', async () => {
+      saveStateWillThrow(failedToSaveStateError);
+      const account: KeyringAccount = {
+        id,
+        address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
+        options: {},
+        methods: [],
+        type: 'eip155:eoa',
+      };
+      await expect(keyring.updateAccount(account)).rejects.toThrow(
+        `Unknown snap error: ${failedToSaveStateError}`,
       );
     });
   });
@@ -247,7 +248,7 @@ describe('WatchOnlyKeyring', () => {
       const expectedResponse = ['eip155:1', 'eip155:137'];
       const account = await keyring.filterAccountChains(
         '49116980-0712-4fa5-b045-e4294f1d440e',
-        ['eip155:1', 'eip155:137', 'other:chain'],
+        ['non-evm:200', 'eip155:1', 'eip155:137', 'other:chain', 'solana:101'],
       );
       expect(account).toStrictEqual(expectedResponse);
     });

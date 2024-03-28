@@ -4198,7 +4198,6 @@ __metadata:
   dependencies:
     "@ethereumjs/tx": ^5.1.0
     "@ethereumjs/util": ^9.0.1
-    "@jest/globals": ^29.5.0
     "@lavamoat/allow-scripts": ^3.0.3
     "@metamask/auto-changelog": ^3.4.4
     "@metamask/eslint-config": ^12.1.0
