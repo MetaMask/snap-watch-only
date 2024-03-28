@@ -9,7 +9,6 @@
     "noEmit": true,
     "noErrorTruncation": true,
     "noUncheckedIndexedAccess": true,
-    "skipLibCheck": false,
     "strict": true,
     "target": "es2020"
   }

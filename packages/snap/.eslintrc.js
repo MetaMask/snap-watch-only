@@ -22,12 +22,5 @@ module.exports = {
     },
   ],
 
-  ignorePatterns: [
-    '!.eslintrc.js',
-    'dist/',
-    'contracts/',
-    'coverage/',
-    'cache/',
-    'artifacts/',
-  ],
+  ignorePatterns: ['!.eslintrc.js', 'dist/', 'coverage/', 'cache/'],
 };
