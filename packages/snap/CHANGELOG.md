@@ -13,12 +13,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-## [0.1.0]
-
-### Added
-
-- Pre release.
-
 [Unreleased]: https://github.com/metamask/snap-watch-only/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/metamask/snap-watch-only/compare/v0.1.0...v1.0.0
-[0.1.0]: https://github.com/metamask/snap-watch-only/releases/tag/v0.1.0
+[1.0.0]: https://github.com/metamask/snap-watch-only/releases/tag/v1.0.0
