@@ -1,6 +1,6 @@
 {
   "name": "@metamask/snap-watch-only",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Monitor public addresses or ENS domains directly in MetaMask with this Watch-Only Snap.",
   "keywords": [

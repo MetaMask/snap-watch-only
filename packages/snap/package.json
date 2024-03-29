@@ -1,6 +1,6 @@
 {
   "name": "@metamask/snap-watch-only-snap",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Keep an eye on Ethereum addresses or ENS domains right in MetaMask",
   "keywords": [
     "metamask",
