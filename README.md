@@ -1,6 +1,6 @@
 # Account Watcher Snap
 
-This repository contains a simple example of a watch-only keyring snap.
+This repository contains a keyring snap for watch-only accounts.
 
 Keyring snaps enable developers to enhance MetaMask by adding new account
 types. These accounts are natively supported within the extension, appearing in
@@ -47,6 +47,23 @@ simply remove the step named "Publish to GitHub Pages" in that workflow.
 If you don't wish to use any of the existing GitHub actions in this repository,
 simply delete the `.github/workflows` directory.
 
+## Snap usage
+
+### onKeyringRequest
+
+The snap exposes an `onKeyringRequest` handler, which called by the MetaMask client for privileged keyring actions.
+
+### onHomePage
+
+The snap exposes an `onHomePage` handler, which shows a user interface.
+
+### onUserInput
+
+The snap exposes an `onUserInput` handler, which handles incoming user events coming from the MetaMask clients open interfaces.
+
+For more information, you can refer to
+[the end-to-end tests](src/ui/index.test.ts).
+
 ## Contributing
 
 ### Testing and Linting
@@ -72,6 +89,7 @@ information about how they work.
      changes to see whether they include any breaking changes, new features, or
      deprecations, then choose the appropriate SemVer version. See [the SemVer
      specification](https://semver.org/) for more information.
+
 2. If this release is backporting changes onto a previous release, then ensure
    there is a major version branch for that version (e.g. `1.x` for a `v1`
    backport release).
@@ -80,6 +98,7 @@ information about how they work.
      that major version. For example, when backporting a `v1.0.2` release,
      you'd want to ensure there was a `1.x` branch that was set to the `v1.0.1`
      tag.
+
 3. Trigger the
    [`workflow_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch)
    event
@@ -93,6 +112,7 @@ information about how they work.
    - This should trigger the
      [`action-create-release-pr`](https://github.com/MetaMask/action-create-release-pr)
      workflow to create the release PR.
+
 4. Update the changelog to move each change entry into the appropriate change
    category ([See here](https://keepachangelog.com/en/1.0.0/#types) for the
    full list of change categories, and the correct ordering), and edit them to
@@ -109,18 +129,21 @@ information about how they work.
      explain.
    - Run `yarn auto-changelog validate --rc` to check that the changelog is
      correctly formatted.
+
 5. Review and QA the release.
 
-   * If changes are made to the base branch, the release branch will need to be
+   - If changes are made to the base branch, the release branch will need to be
      updated with these changes and review/QA will need to restart again. As
      such, it's probably best to avoid merging other PRs into the base branch
      while review is underway.
+
 6. Squash & Merge the release.
 
-   * This should trigger the
+   - This should trigger the
      [`action-publish-release`](https://github.com/MetaMask/action-publish-release)
      workflow to tag the final release commit and publish the release on
      GitHub.
+
 7. Publish the release on npm.
 
    - Be very careful to use a clean local environment to publish the release,

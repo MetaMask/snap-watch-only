@@ -1,8 +1,7 @@
 {
   "name": "@metamask/snap-watch-only",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Monitor public addresses or ENS domains directly in MetaMask with this Watch-Only Snap.",
+  "version": "1.0.1",
+  "description": "Keep an eye on Ethereum addresses or ENS domains right in MetaMask",
   "keywords": [
     "metamask",
     "snap",
@@ -11,41 +10,59 @@
     "account-watcher",
     "account"
   ],
-  "homepage": "https://github.com/metamask/snap-watch-only#readme",
+  "author": "",
+  "homepage": "https://github.com/MetaMask/snap-watch-only#readme",
   "bugs": {
-    "url": "https://github.com/metamask/snap-watch-only/issues"
+    "url": "https://github.com/MetaMask/snap-watch-only/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/metamask/snap-watch-only.git"
+    "url": "git+https://github.com/metamask/snap-watch-only.git"
   },
   "license": "(MIT-0 OR Apache-2.0)",
-  "author": "",
-  "workspaces": [
-    "packages/*"
+  "main": "dist/bundle.js",
+  "files": [
+    "dist/",
+    "images/",
+    "snap.manifest.json"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach --parallel --verbose --topological run build",
-    "build:snap": "yarn workspace @metamask/snap-watch-only-snap build",
-    "lint": "yarn workspaces foreach --parallel --verbose run lint",
-    "lint:deps": "yarn workspaces foreach --parallel --verbose run depcheck",
-    "lint:eslint": "yarn workspaces foreach --parallel --verbose run lint:eslint",
-    "lint:fix": "yarn workspaces foreach --parallel --verbose run lint:fix",
-    "lint:misc": "yarn workspaces foreach --parallel --verbose run lint:misc",
-    "lint:types": "yarn workspaces foreach --parallel --verbose run lint:types",
-    "start": "yarn workspaces foreach --parallel --verbose --interlaced run start",
-    "test": "yarn workspaces foreach --parallel --verbose run test"
+    "build": "mm-snap build",
+    "build:clean": "yarn clean && yarn build",
+    "clean": "rimraf \"dist\"",
+    "lint": "yarn lint:eslint && yarn lint:misc && yarn lint:deps && yarn lint:types",
+    "lint:deps": "depcheck",
+    "lint:eslint": "eslint . --cache --ext js,jsx,ts,tsx",
+    "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
+    "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' '!snap.manifest.json' --check",
+    "lint:types": "tsc --noEmit",
+    "publish:preview": "yarn npm publish --tag preview",
+    "start": "mm-snap watch",
+    "test": "yarn jest"
+  },
+  "dependencies": {
+    "@ethereumjs/tx": "^5.1.0",
+    "@ethereumjs/util": "^9.0.1",
+    "@metamask/keyring-api": "^4.0.1",
+    "@metamask/snaps-sdk": "^3.1.0",
+    "@metamask/utils": "^8.3.0",
+    "ethers": "^6.10.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.23.3",
+    "@lavamoat/allow-scripts": "^3.0.3",
+    "@metamask/auto-changelog": "^3.3.0",
     "@metamask/eslint-config": "^12.2.0",
     "@metamask/eslint-config-jest": "^12.1.0",
     "@metamask/eslint-config-nodejs": "^12.1.0",
     "@metamask/eslint-config-typescript": "^12.1.0",
+    "@metamask/snaps-cli": "^6.0.2",
+    "@metamask/snaps-jest": "^6.0.1",
+    "@metamask/snaps-types": "^3.1.0",
     "@types/jest": "^29.5.11",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
-    "depcheck": "^1.4.6",
+    "depcheck": "^1.4.7",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-import": "^2.27.5",
@@ -56,22 +73,25 @@
     "eslint-plugin-promise": "^6.1.1",
     "jest": "^29.7.0",
     "prettier": "^2.8.4",
+    "rimraf": "^4.1.2",
     "ts-jest": "^29.1.1",
-    "ts-node": "^10.9.2",
-    "typedoc": "^0.23.15",
     "typescript": "^4.9.5"
   },
   "packageManager": "yarn@3.6.3",
   "engines": {
-    "node": ">=18.0.0"
+    "node": "^18.16 || >=20"
   },
-  "dependencies": {
-    "ts-node": "^10.9.1"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "lavamoat": {
     "allowScripts": {
+      "@swc/core": false,
       "ts-node>@swc/core": false,
-      "@lavamoat/preinstall-always-fail": false
+      "@lavamoat/preinstall-always-fail": false,
+      "@metamask/snaps-types>@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
+      "@metamask/snaps-types>@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false
     }
   }
 }

@@ -1,3 +1,4 @@
 {
-  "ignore-patterns": [".yarn/"]
+  "ignore-patterns": [".yarn/"],
+  "ignores": ["@metamask/auto-changelog", "@lavamoat/allow-scripts"]
 }
