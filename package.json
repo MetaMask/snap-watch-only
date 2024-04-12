@@ -1,6 +1,6 @@
 {
   "name": "@metamask/snap-watch-only",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Keep an eye on Ethereum accounts right in MetaMask",
   "keywords": [
     "metamask",
