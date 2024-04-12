@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0]
 ### Changed
-- Converted from monorepo and changed package name from "@metamask/snap-watch-only-snap" to "@metamask/snap-watch-only-snap"
+- Converted from monorepo and changed package name from "@metamask/snap-watch-only-snap" to "@metamask/snap-watch-only"
 
 ## [1.0.0]
 ### Added
