@@ -7,16 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [2.0.0]
-### Uncategorized
-- fix: changelog formatting
-- feat: replaced changelog
-- feat: replaced changelog
-- chore: rebuilt snap
-- feat: updated description package.json
-- feat: updated description in README.md
-- feat: moved back down to v1.0.0
-- feat: updated changelog
-- feat: converted to monorepo and changed package name
+### Changed
+- Converted from monorepo and changed package name from "@metamask/snap-watch-only-snap" to "@metamask/snap-watch-only-snap"
 
 ## [1.0.0]
 ### Added
