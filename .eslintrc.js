@@ -12,6 +12,7 @@ module.exports = {
         // currently use both in our codebase, so this rule is disabled.
         'no-restricted-globals': 'off',
         'spaced-comment': ['error', 'always', { markers: ['/'] }],
+        'import/no-nodejs-modules': ['error', { allow: ['buffer', 'crypto'] }],
       },
     },
 
@@ -26,6 +27,13 @@ module.exports = {
         '@metamask/eslint-config-jest',
         '@metamask/eslint-config-nodejs',
       ],
+      rules: {
+        '@typescript-eslint/no-shadow': [
+          'error',
+          { allow: ['describe', 'expect', 'it'] },
+        ],
+        '@typescript-eslint/unbound-method': 'off',
+      },
     },
   ],
 
@@ -37,6 +45,7 @@ module.exports = {
   ignorePatterns: [
     '!.eslintrc.js',
     '!.prettierrc.js',
+    'cache/',
     'coverage/',
     'dist/',
     'docs/',

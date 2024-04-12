@@ -105,7 +105,7 @@ export function formatAddress(address: string): string {
     return 'Invalid address';
   }
   // Bold the first and last segment and add the 0x prefix to the first segment
-  segments[0] = `**${add0x(segments[0] as string)}**`;
+  segments[0] = `**${add0x(segments[0])}**`;
   segments[segments.length - 1] = `**${
     segments[segments.length - 1] as string
   }**`;
