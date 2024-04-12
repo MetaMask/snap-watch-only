@@ -1,6 +1,6 @@
 # Account Watcher Snap
 
-This repository contains a keyring snap for watch-only accounts.
+This repository contains a snap to manage watch-only accounts.
 
 Keyring snaps enable developers to enhance MetaMask by adding new account
 types. These accounts are natively supported within the extension, appearing in
