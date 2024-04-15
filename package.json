@@ -1,5 +1,5 @@
 {
-  "name": "@metamask/snap-watch-only",
+  "name": "@metamask/account-watcher",
   "version": "2.0.0",
   "description": "Keep an eye on Ethereum accounts right in MetaMask",
   "keywords": [
