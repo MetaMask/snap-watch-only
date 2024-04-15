@@ -1,5 +1,5 @@
 import { beforeEach, expect } from '@jest/globals';
-import type { Snap, SnapHandlerInterface, SnapResponseWithInterface } from '@metamask/snaps-jest';
+import type { Snap } from '@metamask/snaps-jest';
 import { installSnap } from '@metamask/snaps-jest';
 
 import {
@@ -18,26 +18,28 @@ describe('Watch-only snap interactive UI', () => {
   });
 
   describe('onHomePage', () => {
-
     it('returns custom UI with the watch account form', async () => {
       const response = await snap.onHomePage();
       const ui = response.getInterface();
+
       const watchForm = generateWatchFormComponent();
       expect(ui).toRender(watchForm);
     });
 
-    it.only('shows an error if input is empty', async () => { 
+    it('shows an error if input is empty', async () => {
       const response = await snap.onHomePage();
       const ui = response.getInterface();
 
       await ui.clickElement(WatchFormNames.SubmitButton);
 
-      const expectedErrorMessage = generateErrorMessageComponent('Address or ENS is required');
+      const expectedErrorMessage = generateErrorMessageComponent(
+        'Address or ENS is required',
+      );
       const component = response.getInterface();
       expect(component).toRender(expectedErrorMessage);
     });
 
-    it('can submit the watch account form with a valid address', async () => {
+    it('submits the watch account form with a valid address', async () => {
       const response = await snap.onHomePage();
       const ui = response.getInterface();
 
