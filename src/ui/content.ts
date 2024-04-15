@@ -1,4 +1,4 @@
-export const WATCH_FORM_HEADER = 'Watch and Ethereum Address 🍿';
+export const WATCH_FORM_HEADER = 'Watch an Ethereum Address 🍿';
 
 export const WATCH_FORM_DESCRIPTION =
   'You can add Ethereum addresses to watch within your MetaMask wallet.';
