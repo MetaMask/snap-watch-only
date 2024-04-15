@@ -1,4 +1,4 @@
-# Account Watcher Snap
+# Ethereum Account Watcher Snap
 
 This repository contains a snap to manage watch-only accounts.
 
@@ -6,19 +6,13 @@ Keyring snaps enable developers to enhance MetaMask by adding new account
 types. These accounts are natively supported within the extension, appearing in
 MetaMask's UI, and can be used with dapps.
 
-With Account Watcher by MetaMask, you can keep an eye on any account – even accounts you don’t own. Ideal for tracking and observing any account, all without leaving the comfort of your MetaMask wallet.
+With Account Watcher by MetaMask, you can keep an eye on any Ethereum account – even accounts you don’t own. Ideal for tracking and observing any account, all without leaving the comfort of your MetaMask wallet.
 
 Just enter a public address or ENS domain, and you can watch transactions and balances right from within MetaMask. But remember, you can’t use Account Watcher to sign transactions or messages.
 
 MetaMask Snaps is a system that allows anyone to safely expand the capabilities
 of MetaMask. A _snap_ is a program that we run in an isolated environment that
 can customize the wallet experience.
-
-## Snaps is pre-release software
-
-To interact with (your) Snaps, you will need to install [MetaMask
-Flask](https://metamask.io/flask/), a canary distribution for developers that
-provides access to upcoming features.
 
 ## Getting Started
 
