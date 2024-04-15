@@ -2,7 +2,7 @@ import { beforeEach, expect } from '@jest/globals';
 import type { Snap } from '@metamask/snaps-jest';
 import { installSnap } from '@metamask/snaps-jest';
 
-import { generateWatchFormComponent } from './ui/components';
+import { generateWatchFormComponent } from './components';
 
 let snap: Snap;
 
