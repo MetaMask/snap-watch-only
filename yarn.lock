@@ -1959,7 +1959,7 @@ __metadata:
     "@metamask/eslint-config-typescript": ^12.1.0
     "@metamask/keyring-api": ^4.0.1
     "@metamask/snaps-cli": ^6.0.2
-    "@metamask/snaps-jest": ^7.0.1
+    "@metamask/snaps-jest": ^7.0.2
     "@metamask/snaps-sdk": ^3.1.0
     "@metamask/snaps-types": ^3.1.0
     "@metamask/utils": ^8.3.0
@@ -2563,28 +2563,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-execution-environments@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@metamask/snaps-execution-environments@npm:6.0.0"
+"@metamask/snaps-execution-environments@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "@metamask/snaps-execution-environments@npm:6.0.1"
   dependencies:
     "@metamask/json-rpc-engine": ^8.0.1
     "@metamask/object-multiplex": ^2.0.0
     "@metamask/post-message-stream": ^8.0.0
     "@metamask/providers": ^16.0.0
     "@metamask/rpc-errors": ^6.2.1
-    "@metamask/snaps-sdk": ^4.0.0
+    "@metamask/snaps-sdk": ^4.0.1
     "@metamask/snaps-utils": ^7.1.0
     "@metamask/utils": ^8.3.0
     nanoid: ^3.1.31
     readable-stream: ^3.6.2
     superstruct: ^1.0.3
-  checksum: 367e8f09843f36a74969ea09ba724ff66cea66ecadbd1306bbd1c43937cf51a22cf342f81a56f8f45abe2a2a914f9316dec3e9a9c64a8bb215957563c963ab51
+  checksum: 47e24c70f9d98c178f7a21467fdd5bc3f65b8d587155a742d61ad9d0b36cdc6d0332e37852274d66f7c556424b92d076f0ee9a90ca9b197a5ef96fef37667277
   languageName: node
   linkType: hard
 
-"@metamask/snaps-jest@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@metamask/snaps-jest@npm:7.0.1"
+"@metamask/snaps-jest@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "@metamask/snaps-jest@npm:7.0.2"
   dependencies:
     "@jest/environment": ^29.5.0
     "@jest/expect": ^29.5.0
@@ -2596,7 +2596,7 @@ __metadata:
     "@metamask/key-tree": ^9.0.0
     "@metamask/permission-controller": ^9.0.2
     "@metamask/snaps-controllers": ^7.0.1
-    "@metamask/snaps-execution-environments": ^6.0.0
+    "@metamask/snaps-execution-environments": ^6.0.1
     "@metamask/snaps-rpc-methods": ^8.0.0
     "@metamask/snaps-sdk": ^4.0.1
     "@metamask/snaps-utils": ^7.1.0
@@ -2609,7 +2609,7 @@ __metadata:
     redux: ^4.2.1
     redux-saga: ^1.2.3
     superstruct: ^1.0.3
-  checksum: 8136edc0c8b8ec564e9aae20ad9b64655d44305325d508d3502ab5198b162e109cfad583fcf6e73120baad84d89083823f52db764c84e8b27137c85f8e7b9c32
+  checksum: a23f9461ec28c6efb5b77fdf7850637a8fe01de3772e4d15a982d4c79e9345ffbf71da87520868fe3d606477a9528d0bf2594aae720f49e5def527331007e13a
   languageName: node
   linkType: hard
 
