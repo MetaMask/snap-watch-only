@@ -1,5 +1,5 @@
 export const TEST_VALUES = {
-  validAddress: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+  validAddress: '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc',
   validEnsAddress: '0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb',
   validEns: 'metamask.eth',
   smartContractAddress: '0x0227628f3F023bb0B980b67D528571c95c6DaC1c',

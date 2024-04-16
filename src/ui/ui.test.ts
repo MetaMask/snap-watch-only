@@ -1,5 +1,9 @@
 import { beforeEach, expect } from '@jest/globals';
-import type { Snap } from '@metamask/snaps-jest';
+import type {
+  Snap,
+  SnapHandlerInterface,
+  SnapResponseWithInterface,
+} from '@metamask/snaps-jest';
 import { installSnap } from '@metamask/snaps-jest';
 
 import {
@@ -20,42 +24,49 @@ describe('Watch-only snap interactive UI', () => {
   describe('onHomePage', () => {
     it('returns custom UI with the watch account form', async () => {
       const response = await snap.onHomePage();
-      const ui = response.getInterface();
+      const startScreen = response.getInterface();
 
       const watchForm = generateWatchFormComponent();
-      expect(ui).toRender(watchForm);
+      expect(startScreen).toRender(watchForm);
     });
 
-    it('shows an error if input is empty', async () => {
-      const response = await snap.onHomePage();
-      const ui = response.getInterface();
+    describe('onUserInput', () => {
+      let response: SnapResponseWithInterface;
+      let formScreen: SnapHandlerInterface;
 
-      await ui.clickElement(WatchFormNames.SubmitButton);
+      beforeEach(async () => {
+        response = await snap.onHomePage();
+        formScreen = response.getInterface();
+      });
 
-      const expectedErrorMessage = generateErrorMessageComponent(
-        'Address or ENS is required',
-      );
-      const component = response.getInterface();
-      expect(component).toRender(expectedErrorMessage);
-    });
+      it('shows an error submitting form if input is empty', async () => {
+        await formScreen.clickElement(WatchFormNames.SubmitButton);
 
-    it('submits the watch account form with a valid address', async () => {
-      const response = await snap.onHomePage();
-      const ui = response.getInterface();
+        const expectedErrorMessage = generateErrorMessageComponent(
+          'Address or ENS is required',
+        );
+        const resultScreen = response.getInterface();
+        expect(resultScreen).toRender(expectedErrorMessage);
+      });
 
-      await ui.typeInField(
-        WatchFormNames.AddressInput,
-        TEST_VALUES.validAddress,
-      );
-      await ui.clickElement(WatchFormNames.SubmitButton);
+      it('submits form with a valid address', async () => {
+        await formScreen.typeInField(
+          WatchFormNames.AddressInput,
+          TEST_VALUES.validAddress,
+        );
+        await formScreen.clickElement(WatchFormNames.SubmitButton);
 
-      const expectedSuccessMessage = generateSuccessMessageComponent(
-        TEST_VALUES.validAddress,
-        'Valid address',
-        true,
-      );
-      const component = response.getInterface();
-      expect(component).toRender(expectedSuccessMessage);
+        const expectedSuccessMessage = generateSuccessMessageComponent(
+          TEST_VALUES.validAddress,
+          'Valid address',
+          true,
+        );
+        const resultScreen = response.getInterface();
+
+        console.log(JSON.stringify(resultScreen.content, null, 2));
+
+        expect(resultScreen).toRender(expectedSuccessMessage);
+      });
     });
   });
 });

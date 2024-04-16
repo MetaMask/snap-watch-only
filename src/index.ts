@@ -106,6 +106,7 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
           await getKeyring()
         ).createAccount({ address: validation.address });
       } catch (error) {
+        console.error('Error adding account to keyring', error);
         await showErrorMessage(id, (error as Error).message);
       }
     } else {
