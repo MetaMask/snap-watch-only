@@ -49,7 +49,6 @@ export function generateWatchFormComponent(
     return panel([
       heading(WATCH_FORM_HEADER),
       text(WATCH_FORM_DESCRIPTION),
-      divider(),
       text(WATCH_FORM_INSTRUCTIONS),
       form({
         name: WatchFormNames.AddressForm,
@@ -73,7 +72,6 @@ export function generateWatchFormComponent(
   return panel([
     heading(WATCH_FORM_HEADER),
     text(WATCH_FORM_DESCRIPTION),
-    divider(),
     text(WATCH_FORM_INSTRUCTIONS),
     form({
       name: WatchFormNames.AddressForm,
