@@ -11,6 +11,16 @@ export type ValidationResult = {
 };
 
 /**
+ * Checks if the network is Ethereum mainnet.
+ *
+ * @returns True if the network is Ethereum mainnet, false otherwise.
+ */
+export async function isMainnet(): Promise<boolean> {
+  const provider = new ethers.BrowserProvider(ethereum);
+  return Number((await provider.getNetwork()).chainId) === 1;
+}
+
+/**
  * Get Ethereum address from ENS name.
  *
  * @param name - ENS name to resolve.
@@ -19,8 +29,8 @@ export type ValidationResult = {
 export const getAddressFromEns = async (
   name: string,
 ): Promise<string | null> => {
-  const provider = new ethers.BrowserProvider(ethereum);
   try {
+    const provider = new ethers.BrowserProvider(ethereum);
     return await provider.resolveName(name);
   } catch (error) {
     logger.error(`Failed to resolve ENS name '${name}': `, error);
@@ -37,8 +47,8 @@ export const getAddressFromEns = async (
 export const getEnsFromAddress = async (
   address: string,
 ): Promise<string | null> => {
-  const provider = new ethers.BrowserProvider(ethereum);
   try {
+    const provider = new ethers.BrowserProvider(ethereum);
     return await provider.lookupAddress(address);
   } catch (error) {
     logger.error(`Failed to lookup ENS name for '${address}': `, error);
@@ -75,13 +85,17 @@ export async function validateUserInput(
   }
   // ENS Name Resolution
   else if (input.endsWith('.eth')) {
-    const address = await getAddressFromEns(input);
-    // Valid ENS Name
-    if (address) {
-      return { message: formatAddress(address), address };
+    if (await isMainnet()) {
+      const address = await getAddressFromEns(input);
+      // Valid ENS Name
+      if (address) {
+        return { message: formatAddress(address), address };
+      }
+      // Invalid ENS Name
+      return { message: 'Invalid ENS name' };
     }
-    // Invalid ENS Name
-    return { message: 'Invalid ENS name' };
+    // ENS only supported on Ethereum mainnet
+    return { message: 'ENS is only supported on Ethereum mainnet' };
   }
   // Default case for invalid input
   return { message: 'Invalid input' };
@@ -122,8 +136,8 @@ export function formatAddress(address: string): string {
 export async function isSmartContractAddress(
   address: string,
 ): Promise<boolean> {
-  const provider = new ethers.BrowserProvider(ethereum);
   try {
+    const provider = new ethers.BrowserProvider(ethereum);
     const code = await provider.getCode(address);
     return code !== '0x' && code !== '0x0';
   } catch (error) {

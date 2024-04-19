@@ -8,6 +8,9 @@ export const TEST_VALUES = {
 // eslint-disable-next-line import/unambiguous
 jest.mock('ethers', () => {
   const BrowserProvider = jest.fn().mockImplementation((_ethereum) => ({
+    getNetwork: jest.fn().mockImplementation(async () => {
+      return Promise.resolve({ chainId: 1 });
+    }),
     getCode: jest.fn().mockImplementation(async (address) => {
       return Promise.resolve(
         address === TEST_VALUES.smartContractAddress ? '0x123' : '0x',

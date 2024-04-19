@@ -93,6 +93,19 @@ describe('UI Utils', () => {
           message: 'Invalid ENS name',
         });
       });
+
+      // TODO: Fix this test
+      it('should return ENS is only supported on Ethereum mainnet message', async () => {
+        jest.mock('./ui-utils', () => {
+          return {
+            isMainnet: jest.fn().mockResolvedValueOnce(false),
+          };
+        });
+        const result = await validateUserInput(TEST_VALUES.validEns);
+        expect(result).toStrictEqual({
+          message: 'ENS is only supported on Ethereum mainnet',
+        });
+      });
     });
 
     describe('when input is invalid', () => {
