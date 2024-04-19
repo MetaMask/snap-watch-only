@@ -1,6 +1,9 @@
 export const WATCH_FORM_HEADER = 'Watch any Ethereum account 👀';
 
 export const WATCH_FORM_DESCRIPTION =
+  'Enter any public address to add an account to watch within MetaMask.';
+
+export const WATCH_FORM_DESCRIPTION_MAINNET =
   'Enter any public address or ENS name to add an account to watch within MetaMask.';
 
 export const WATCH_FORM_INSTRUCTIONS =
@@ -8,5 +11,7 @@ export const WATCH_FORM_INSTRUCTIONS =
 
 export const WATCH_FORM_INPUT_LABEL = 'Ethereum address';
 
-export const WATCH_FORM_INPUT_PLACEHOLDER =
+export const WATCH_FORM_INPUT_PLACEHOLDER = 'Enter a public address';
+
+export const WATCH_FORM_INPUT_PLACEHOLDER_MAINNET =
   'Enter a public address or ENS name';

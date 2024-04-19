@@ -24,9 +24,11 @@ import {
 
 import {
   WATCH_FORM_DESCRIPTION,
+  WATCH_FORM_DESCRIPTION_MAINNET,
   WATCH_FORM_HEADER,
   WATCH_FORM_INPUT_LABEL,
   WATCH_FORM_INPUT_PLACEHOLDER,
+  WATCH_FORM_INPUT_PLACEHOLDER_MAINNET,
   WATCH_FORM_INSTRUCTIONS,
 } from './content';
 
@@ -39,16 +41,14 @@ export enum WatchFormNames {
 /**
  * Generate the watch form component.
  *
- * @param validationMessage - The validation message to display (if any).
+ * @param onMainnet - Whether the user is on the mainnet (default: false).
  * @returns The watch form component to display.
  */
-export function generateWatchFormComponent(
-  validationMessage?: string,
-): Component {
-  if (validationMessage) {
+export function generateWatchFormComponent(onMainnet?: boolean): Component {
+  if (onMainnet) {
     return panel([
       heading(WATCH_FORM_HEADER),
-      text(WATCH_FORM_DESCRIPTION),
+      text(WATCH_FORM_DESCRIPTION_MAINNET),
       text(WATCH_FORM_INSTRUCTIONS),
       form({
         name: WatchFormNames.AddressForm,
@@ -56,7 +56,7 @@ export function generateWatchFormComponent(
           input({
             name: WatchFormNames.AddressInput,
             label: WATCH_FORM_INPUT_LABEL,
-            placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
+            placeholder: WATCH_FORM_INPUT_PLACEHOLDER_MAINNET,
           }),
           button({
             variant: ButtonVariant.Primary,
@@ -66,7 +66,6 @@ export function generateWatchFormComponent(
           }),
         ],
       }),
-      text(validationMessage),
     ]);
   }
   return panel([
