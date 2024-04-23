@@ -97,7 +97,7 @@ describe('UI Utils', () => {
       // TODO: Fix this test
       it('should return ENS is only supported on Ethereum mainnet message', async () => {
         jest.mock('./ui-utils', () => ({
-          ...jest.requireActual('./ui-utils'), // this line ensures other functions are still accessible as they originally were
+          ...jest.requireActual('./ui-utils'),
           isMainnet: jest.fn().mockImplementation(async () => {
             console.log('inside isMainnet mock');
             return Promise.resolve(false);
