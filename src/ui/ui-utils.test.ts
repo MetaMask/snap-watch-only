@@ -3,7 +3,7 @@ import {
   isSmartContractAddress,
   validateUserInput,
 } from './ui-utils';
-import { TEST_VALUES } from '../test/setup';
+import { mockGetNetwork, TEST_VALUES } from '../test/setup';
 
 // @ts-expect-error Mocking ethereum global object
 global.ethereum = {
@@ -94,15 +94,11 @@ describe('UI Utils', () => {
         });
       });
 
-      // TODO: Fix this test
       it('should return ENS is only supported on Ethereum mainnet message', async () => {
-        jest.mock('./ui-utils', () => ({
-          ...jest.requireActual('./ui-utils'),
-          isMainnet: jest.fn().mockImplementation(async () => {
-            console.log('inside isMainnet mock');
-            return Promise.resolve(false);
-          }),
-        }));
+        // Override getNetwork to return a non-mainnet chainId here
+        mockGetNetwork.mockImplementationOnce(async () => {
+          return { chainId: 59144 }; // Custom or test network chain ID
+        });
 
         const result = await validateUserInput('something.eth');
         expect(result).toStrictEqual({

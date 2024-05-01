@@ -24,11 +24,10 @@ import {
 
 import {
   WATCH_FORM_DESCRIPTION,
-  WATCH_FORM_DESCRIPTION_MAINNET,
+  WATCH_FORM_ENS_DISCLAIMER,
   WATCH_FORM_HEADER,
   WATCH_FORM_INPUT_LABEL,
   WATCH_FORM_INPUT_PLACEHOLDER,
-  WATCH_FORM_INPUT_PLACEHOLDER_MAINNET,
   WATCH_FORM_INSTRUCTIONS,
 } from './content';
 
@@ -41,33 +40,9 @@ export enum WatchFormNames {
 /**
  * Generate the watch form component.
  *
- * @param onMainnet - Whether the user is on the mainnet (default: false).
  * @returns The watch form component to display.
  */
-export function generateWatchFormComponent(onMainnet?: boolean): Component {
-  if (onMainnet) {
-    return panel([
-      heading(WATCH_FORM_HEADER),
-      text(WATCH_FORM_DESCRIPTION_MAINNET),
-      text(WATCH_FORM_INSTRUCTIONS),
-      form({
-        name: WatchFormNames.AddressForm,
-        children: [
-          input({
-            name: WatchFormNames.AddressInput,
-            label: WATCH_FORM_INPUT_LABEL,
-            placeholder: WATCH_FORM_INPUT_PLACEHOLDER_MAINNET,
-          }),
-          button({
-            variant: ButtonVariant.Primary,
-            value: 'Watch account',
-            name: WatchFormNames.SubmitButton,
-            buttonType: ButtonType.Submit,
-          }),
-        ],
-      }),
-    ]);
-  }
+export function generateWatchFormComponent(): Component {
   return panel([
     heading(WATCH_FORM_HEADER),
     text(WATCH_FORM_DESCRIPTION),
@@ -88,6 +63,7 @@ export function generateWatchFormComponent(onMainnet?: boolean): Component {
         }),
       ],
     }),
+    text(WATCH_FORM_ENS_DISCLAIMER),
   ]);
 }
 

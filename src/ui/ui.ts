@@ -4,7 +4,6 @@ import {
   generateSuccessMessageComponent,
   generateWatchFormComponent,
 } from './components';
-import { isMainnet } from './ui-utils';
 
 /**
  * Initiate a new interface with the starting screen.
@@ -12,11 +11,10 @@ import { isMainnet } from './ui-utils';
  * @returns The Snap interface ID.
  */
 export async function createInterface(): Promise<string> {
-  const onMainnet = await isMainnet();
   return await snap.request({
     method: 'snap_createInterface',
     params: {
-      ui: generateWatchFormComponent(onMainnet),
+      ui: generateWatchFormComponent(),
     },
   });
 }
@@ -27,12 +25,11 @@ export async function createInterface(): Promise<string> {
  * @param id - The Snap interface ID to update.
  */
 export async function showForm(id: string) {
-  const onMainnet = await isMainnet();
   await snap.request({
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: generateWatchFormComponent(onMainnet),
+      ui: generateWatchFormComponent(),
     },
   });
 }
