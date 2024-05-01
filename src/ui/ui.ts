@@ -23,14 +23,13 @@ export async function createInterface(): Promise<string> {
  * Update the interface with the watch-only form containing an input and a submit button.
  *
  * @param id - The Snap interface ID to update.
- * @param validationMessage - The validation message to display.
  */
-export async function showForm(id: string, validationMessage?: string) {
+export async function showForm(id: string) {
   await snap.request({
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: generateWatchFormComponent(validationMessage),
+      ui: generateWatchFormComponent(),
     },
   });
 }

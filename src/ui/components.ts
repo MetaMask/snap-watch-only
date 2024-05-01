@@ -24,6 +24,7 @@ import {
 
 import {
   WATCH_FORM_DESCRIPTION,
+  WATCH_FORM_ENS_DISCLAIMER,
   WATCH_FORM_HEADER,
   WATCH_FORM_INPUT_LABEL,
   WATCH_FORM_INPUT_PLACEHOLDER,
@@ -39,36 +40,9 @@ export enum WatchFormNames {
 /**
  * Generate the watch form component.
  *
- * @param validationMessage - The validation message to display (if any).
  * @returns The watch form component to display.
  */
-export function generateWatchFormComponent(
-  validationMessage?: string,
-): Component {
-  if (validationMessage) {
-    return panel([
-      heading(WATCH_FORM_HEADER),
-      text(WATCH_FORM_DESCRIPTION),
-      text(WATCH_FORM_INSTRUCTIONS),
-      form({
-        name: WatchFormNames.AddressForm,
-        children: [
-          input({
-            name: WatchFormNames.AddressInput,
-            label: WATCH_FORM_INPUT_LABEL,
-            placeholder: WATCH_FORM_INPUT_PLACEHOLDER,
-          }),
-          button({
-            variant: ButtonVariant.Primary,
-            value: 'Watch account',
-            name: WatchFormNames.SubmitButton,
-            buttonType: ButtonType.Submit,
-          }),
-        ],
-      }),
-      text(validationMessage),
-    ]);
-  }
+export function generateWatchFormComponent(): Component {
   return panel([
     heading(WATCH_FORM_HEADER),
     text(WATCH_FORM_DESCRIPTION),
@@ -89,6 +63,7 @@ export function generateWatchFormComponent(
         }),
       ],
     }),
+    text(WATCH_FORM_ENS_DISCLAIMER),
   ]);
 }
 

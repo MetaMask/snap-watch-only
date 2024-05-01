@@ -11,7 +11,7 @@ import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
 import { WatchFormNames } from './ui/components';
 import { createInterface, showErrorMessage, showSuccess } from './ui/ui';
-import { validateUserInput } from './ui/ui-utils';
+import { isMainnet, validateUserInput } from './ui/ui-utils';
 
 let keyring: WatchOnlyKeyring;
 
@@ -91,7 +91,11 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     const inputValue = event.value[WatchFormNames.AddressInput];
 
     if (!inputValue) {
-      await showErrorMessage(id, 'Address or ENS is required');
+      const onMainnet = await isMainnet();
+      const emptyInputMessage = onMainnet
+        ? 'Address or ENS is required'
+        : 'Address is required';
+      await showErrorMessage(id, emptyInputMessage);
       return;
     }
 

@@ -3,7 +3,7 @@ import {
   isSmartContractAddress,
   validateUserInput,
 } from './ui-utils';
-import { TEST_VALUES } from '../test/setup';
+import { mockGetNetwork, TEST_VALUES } from '../test/setup';
 
 // @ts-expect-error Mocking ethereum global object
 global.ethereum = {
@@ -91,6 +91,18 @@ describe('UI Utils', () => {
         const result = await validateUserInput('nonexistent.eth');
         expect(result).toStrictEqual({
           message: 'Invalid ENS name',
+        });
+      });
+
+      it('should return ENS is only supported on Ethereum mainnet message', async () => {
+        // Override getNetwork to return a non-mainnet chainId here
+        mockGetNetwork.mockImplementationOnce(async () => {
+          return { chainId: 59144 }; // Custom or test network chain ID
+        });
+
+        const result = await validateUserInput('something.eth');
+        expect(result).toStrictEqual({
+          message: 'ENS is only supported on Ethereum mainnet',
         });
       });
     });

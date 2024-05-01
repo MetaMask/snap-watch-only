@@ -86,3 +86,7 @@ node_modules/
 # IntelliJ
 .idea/
 /.idea/
+
+# Testing site
+site/
+/site/
