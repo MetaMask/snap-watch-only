@@ -32,13 +32,27 @@ const bundle = readFileContents(bundlePath);
 const icon = readFileContents(iconPath);
 const manifest = readFileContents(manifestPath);
 
-const snapId =
-  /** @type {import('@metamask/snaps-controllers').PreinstalledSnap['snapId']} */ (
-    `npm:${packageFile.name}`
-  );
+/**
+ * @typedef {object} PreinstalledSnap
+ * @property {string} snapId - The unique identifier for the snap.
+ * @property {object} manifest - The parsed manifest for the snap.
+ * @property {Array<object>} files - The list of files included in the snap.
+ * @property {boolean} removable - Indicates if the snap is removable.
+ */
 
 /**
- * @type {import('@metamask/snaps-controllers').PreinstalledSnap}
+ * Constructs a snap ID using the package name.
+ * @param {string} packageName - The name of the package.
+ * @returns {string} The constructed snap ID.
+ */
+function constructSnapId(packageName) {
+  return `npm:${packageName}`;
+}
+
+const snapId = constructSnapId(packageFile.name);
+
+/**
+ * @type {PreinstalledSnap}
  */
 const preinstalledSnap = {
   snapId,
