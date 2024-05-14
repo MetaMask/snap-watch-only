@@ -10,7 +10,7 @@ import { WatchOnlyKeyring } from './keyring';
 import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
 import { WatchFormNames } from './ui/components';
-import { createInterface, showErrorMessage, showSuccess } from './ui/ui';
+import { createInterface, showErrorMessage } from './ui/ui';
 import { isMainnet, validateUserInput } from './ui/ui-utils';
 
 let keyring: WatchOnlyKeyring;
