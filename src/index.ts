@@ -10,7 +10,7 @@ import { WatchOnlyKeyring } from './keyring';
 import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
 import { WatchFormNames } from './ui/components';
-import { createInterface, showErrorMessage, showSuccess } from './ui/ui';
+import { createInterface, showErrorMessage } from './ui/ui';
 import { isMainnet, validateUserInput } from './ui/ui-utils';
 
 let keyring: WatchOnlyKeyring;
@@ -102,9 +102,6 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     const validation = await validateUserInput(inputValue);
 
     if (validation.address) {
-      // Show success resolution message and add the account to the keyring
-      await showSuccess(id, validation.address, validation.message, true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
       try {
         await (
           await getKeyring()
