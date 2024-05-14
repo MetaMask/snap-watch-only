@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.1.0]
 
-### Uncategorized
+### Changed
 
-- feat: remove success screen ([#31](https://github.com/MetaMask/snap-watch-only/pull/31))
-- init: added script to build-preinstalled-snap json to dist ([#30](https://github.com/MetaMask/snap-watch-only/pull/30))
-- fix: ens resolution only supported on mainnet ([#29](https://github.com/MetaMask/snap-watch-only/pull/29))
+- Removed success screen ([#31](https://github.com/MetaMask/snap-watch-only/pull/31))
+- Added script to build-preinstalled-snap json to dist ([#30](https://github.com/MetaMask/snap-watch-only/pull/30))
+- ENS resolution only supported on mainnet ([#29](https://github.com/MetaMask/snap-watch-only/pull/29))
 
 ## [3.0.0]
 
