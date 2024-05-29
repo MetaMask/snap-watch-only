@@ -1,5 +1,10 @@
 .DS_Store
-dist/
+
+# Ignore everything in the dist directory
+dist/*
+# Except preinstalled-snap.json
+!dist/preinstalled-snap.json
+
 build/
 coverage/
 
