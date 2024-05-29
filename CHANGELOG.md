@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.1.1]
 
-### Uncategorized
+### Added
 
-- feat: added preinstalled-snap.json file to the repo ([#33](https://github.com/MetaMask/snap-watch-only/pull/33))
+- Added preinstalled-snap.json file to the repo ([#33](https://github.com/MetaMask/snap-watch-only/pull/33))
 
 ## [3.1.0]
 
