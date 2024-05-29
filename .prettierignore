@@ -1,3 +1,4 @@
-packages/snap/artifacts
-packages/snap/cache
-packages/snap/coverage
+artifacts/
+cache/
+coverage/
+dist/
