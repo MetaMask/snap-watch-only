@@ -3,11 +3,13 @@ import type { Hex } from '@metamask/utils';
 import { add0x, isValidHexAddress, remove0x } from '@metamask/utils';
 import { ethers } from 'ethers';
 
+import { getKeyring } from '..';
 import { logger } from '../util';
 
 export type ValidationResult = {
   message: string;
   address?: string;
+  accountNameSuggestion?: string;
 };
 
 /**
@@ -57,6 +59,17 @@ export const getEnsFromAddress = async (
 };
 
 /**
+ * Get the next account number from the keyring.
+ *
+ * @returns The next account number.
+ */
+export const getNextAccountNumber = async (): Promise<number> => {
+  const keyring = await getKeyring();
+  const accounts = await keyring.listAccounts();
+  return accounts.length + 1;
+};
+
+/**
  * Validate user input as either an Ethereum address or an ENS name and resolve accordingly.
  *
  * @param input - The user input string.
@@ -75,10 +88,18 @@ export async function validateUserInput(
       // ENS Name Lookup
       const ensName = await getEnsFromAddress(input);
       if (ensName) {
-        return { message: `**${ensName}**`, address: input };
+        return {
+          message: `**${ensName}**`,
+          address: input,
+          accountNameSuggestion: ensName,
+        };
       }
       // Valid Address
-      return { message: `Valid address`, address: input };
+      return {
+        message: `Valid address`,
+        address: input,
+        accountNameSuggestion: `Watched Account ${await getNextAccountNumber()}`,
+      };
     }
     // Invalid Address
     return { message: 'Invalid address' };
@@ -89,7 +110,11 @@ export async function validateUserInput(
       const address = await getAddressFromEns(input);
       // Valid ENS Name
       if (address) {
-        return { message: formatAddress(address), address };
+        return {
+          message: formatAddress(address),
+          address,
+          accountNameSuggestion: input,
+        };
       }
       // Invalid ENS Name
       return { message: 'Invalid ENS name' };

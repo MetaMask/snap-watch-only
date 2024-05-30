@@ -47,9 +47,16 @@ describe('UI Utils', () => {
     describe("when input starts with '0x'", () => {
       it('should return a valid address and message', async () => {
         const result = await validateUserInput(TEST_VALUES.validAddress);
+
+        jest.mock('./ui-utils', () => ({
+          ...jest.requireActual('./ui-utils'),
+          getNextAccountNumber: jest.fn().mockResolvedValueOnce(1),
+        }));
+
         expect(result).toStrictEqual({
           message: 'Valid address',
           address: TEST_VALUES.validAddress,
+          accountNameSuggestion: 'Watched Account 1',
         });
       });
 
@@ -58,6 +65,7 @@ describe('UI Utils', () => {
         expect(result).toStrictEqual({
           message: `**${TEST_VALUES.validEns}**`,
           address: TEST_VALUES.validEnsAddress,
+          accountNameSuggestion: TEST_VALUES.validEns,
         });
       });
 
@@ -84,6 +92,7 @@ describe('UI Utils', () => {
         expect(result).toStrictEqual({
           message: formatAddress(TEST_VALUES.validEnsAddress),
           address: TEST_VALUES.validEnsAddress,
+          accountNameSuggestion: TEST_VALUES.validEns,
         });
       });
 

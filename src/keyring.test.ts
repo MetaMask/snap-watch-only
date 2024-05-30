@@ -98,7 +98,7 @@ describe('WatchOnlyKeyring', () => {
   });
 
   describe('createAccount', () => {
-    it('should create a new account without options', async () => {
+    it('should create a new account with valid address', async () => {
       mockUuid.mockReturnValue('new-account-id');
       const expectedAccount = {
         id: 'new-account-id',
@@ -109,6 +109,22 @@ describe('WatchOnlyKeyring', () => {
       };
       const newAccount = await keyring.createAccount({
         address: mockAddress,
+      });
+      expect(newAccount).toStrictEqual(expectedAccount);
+    });
+
+    it('should create a new account with valid address and account name suggestion', async () => {
+      mockUuid.mockReturnValue('new-account-id');
+      const expectedAccount = {
+        id: 'new-account-id',
+        address: expect.any(String),
+        options: {},
+        methods: [],
+        type: 'eip155:eoa',
+      };
+      const newAccount = await keyring.createAccount({
+        address: mockAddress,
+        accountNameSuggestion: 'Watched Account 1',
       });
       expect(newAccount).toStrictEqual(expectedAccount);
     });
