@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.2.0]
 
-### Uncategorized
+### Added
 
-- feat: account name suggestion ([#35](https://github.com/MetaMask/snap-watch-only/pull/35))
+- Added account name suggestion to `"notify:accountCreated"` event ([#35](https://github.com/MetaMask/snap-watch-only/pull/35))
 
 ## [3.1.1]
 
