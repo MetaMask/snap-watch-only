@@ -18,7 +18,7 @@ let keyring: WatchOnlyKeyring;
 /**
  * Return the keyring instance. If it doesn't exist, create it.
  */
-async function getKeyring(): Promise<WatchOnlyKeyring> {
+export async function getKeyring(): Promise<WatchOnlyKeyring> {
   if (!keyring) {
     const state = await getState();
     if (!keyring) {
@@ -102,10 +102,19 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     const validation = await validateUserInput(inputValue);
 
     if (validation.address) {
+      const { accountNameSuggestion } = validation;
       try {
-        await (
-          await getKeyring()
-        ).createAccount({ address: validation.address });
+        const createAccountOptions: {
+          address: string;
+          accountNameSuggestion?: string;
+        } = {
+          address: validation.address,
+        };
+        if (accountNameSuggestion) {
+          createAccountOptions.accountNameSuggestion = accountNameSuggestion;
+        }
+
+        await (await getKeyring()).createAccount({ ...createAccountOptions });
       } catch (error) {
         await showErrorMessage(id, (error as Error).message);
       }

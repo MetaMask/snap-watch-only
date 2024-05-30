@@ -10,6 +10,12 @@ global.ethereum = {
   request: jest.fn(),
 };
 
+// @ts-expect-error Mocking Snap global object
+global.snap = {
+  request: jest.fn(),
+  emitEvent: jest.fn(),
+};
+
 describe('UI Utils', () => {
   describe('isSmartContract', () => {
     it('should return true if the address has non-zero bytecode', async () => {
@@ -50,6 +56,7 @@ describe('UI Utils', () => {
         expect(result).toStrictEqual({
           message: 'Valid address',
           address: TEST_VALUES.validAddress,
+          accountNameSuggestion: 'Watched Account 1',
         });
       });
 
@@ -58,6 +65,7 @@ describe('UI Utils', () => {
         expect(result).toStrictEqual({
           message: `**${TEST_VALUES.validEns}**`,
           address: TEST_VALUES.validEnsAddress,
+          accountNameSuggestion: TEST_VALUES.validEns,
         });
       });
 
@@ -84,6 +92,7 @@ describe('UI Utils', () => {
         expect(result).toStrictEqual({
           message: formatAddress(TEST_VALUES.validEnsAddress),
           address: TEST_VALUES.validEnsAddress,
+          accountNameSuggestion: TEST_VALUES.validEns,
         });
       });
 

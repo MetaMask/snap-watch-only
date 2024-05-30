@@ -41,7 +41,10 @@ export class WatchOnlyKeyring implements Keyring {
     );
   }
 
-  async createAccount(options: { address: string }): Promise<KeyringAccount> {
+  async createAccount(options: {
+    address: string;
+    accountNameSuggestion?: string;
+  }): Promise<KeyringAccount> {
     if (!options?.address) {
       throw new Error('Account creation options must include an address');
     }
@@ -66,7 +69,16 @@ export class WatchOnlyKeyring implements Keyring {
         methods: [],
         type: EthAccountType.Eoa,
       };
-      await this.#emitEvent(KeyringEvent.AccountCreated, { account });
+
+      const eventData: {
+        account: KeyringAccount;
+        accountNameSuggestion?: string;
+      } = { account };
+      if (options.accountNameSuggestion) {
+        eventData.accountNameSuggestion = options.accountNameSuggestion;
+      }
+
+      await this.#emitEvent(KeyringEvent.AccountCreated, { ...eventData });
       this.#state.wallets[account.id] = {
         account,
         privateKey: '', // Store an empty privateKey for watch-only accounts.
