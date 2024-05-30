@@ -10,6 +10,12 @@ global.ethereum = {
   request: jest.fn(),
 };
 
+// @ts-expect-error Mocking Snap global object
+global.snap = {
+  request: jest.fn(),
+  emitEvent: jest.fn(),
+};
+
 describe('UI Utils', () => {
   describe('isSmartContract', () => {
     it('should return true if the address has non-zero bytecode', async () => {
@@ -47,12 +53,6 @@ describe('UI Utils', () => {
     describe("when input starts with '0x'", () => {
       it('should return a valid address and message', async () => {
         const result = await validateUserInput(TEST_VALUES.validAddress);
-
-        jest.mock('./ui-utils', () => ({
-          ...jest.requireActual('./ui-utils'),
-          getNextAccountNumber: jest.fn().mockResolvedValueOnce(1),
-        }));
-
         expect(result).toStrictEqual({
           message: 'Valid address',
           address: TEST_VALUES.validAddress,
