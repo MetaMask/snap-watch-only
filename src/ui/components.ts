@@ -24,7 +24,6 @@ import {
 
 import {
   WATCH_FORM_DESCRIPTION,
-  WATCH_FORM_ENS_DISCLAIMER,
   WATCH_FORM_HEADER,
   WATCH_FORM_INPUT_LABEL,
   WATCH_FORM_INPUT_PLACEHOLDER,
@@ -63,7 +62,6 @@ export function generateWatchFormComponent(): Component {
         }),
       ],
     }),
-    text(WATCH_FORM_ENS_DISCLAIMER),
   ]);
 }
 
