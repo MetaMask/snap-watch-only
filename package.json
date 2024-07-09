@@ -47,7 +47,7 @@
     "@metamask/keyring-api": "^4.0.1",
     "@metamask/snaps-sdk": "^3.1.0",
     "@metamask/utils": "^8.3.0",
-    "ethers": "^6.10.0",
+    "ethers": "^5.7.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

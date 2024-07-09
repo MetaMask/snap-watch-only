@@ -18,7 +18,7 @@ export type ValidationResult = {
  * @returns True if the network is Ethereum mainnet, false otherwise.
  */
 export async function isMainnet(): Promise<boolean> {
-  const provider = new ethers.BrowserProvider(ethereum);
+  const provider = new ethers.providers.Web3Provider(ethereum);
   return Number((await provider.getNetwork()).chainId) === 1;
 }
 
@@ -32,7 +32,7 @@ export const getAddressFromEns = async (
   name: string,
 ): Promise<string | null> => {
   try {
-    const provider = new ethers.BrowserProvider(ethereum);
+    const provider = new ethers.providers.Web3Provider(ethereum);
     return await provider.resolveName(name);
   } catch (error) {
     logger.error(`Failed to resolve ENS name '${name}': `, error);
@@ -50,7 +50,7 @@ export const getEnsFromAddress = async (
   address: string,
 ): Promise<string | null> => {
   try {
-    const provider = new ethers.BrowserProvider(ethereum);
+    const provider = new ethers.providers.Web3Provider(ethereum);
     return await provider.lookupAddress(address);
   } catch (error) {
     logger.error(`Failed to lookup ENS name for '${address}': `, error);
@@ -162,7 +162,7 @@ export async function isSmartContractAddress(
   address: string,
 ): Promise<boolean> {
   try {
-    const provider = new ethers.BrowserProvider(ethereum);
+    const provider = new ethers.providers.Web3Provider(ethereum);
     const code = await provider.getCode(address);
     return code !== '0x' && code !== '0x0';
   } catch (error) {
