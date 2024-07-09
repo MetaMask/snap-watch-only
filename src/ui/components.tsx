@@ -1,6 +1,5 @@
 import { isValidAddress } from '@ethereumjs/util';
 import { ButtonType, ButtonVariant, RowVariant } from '@metamask/snaps-sdk';
-import type { SnapComponent } from '@metamask/snaps-sdk/jsx';
 import {
   Address,
   Box,
@@ -11,6 +10,7 @@ import {
   Heading,
   Input,
   Row,
+  type SnapComponent,
   Spinner,
   Text,
 } from '@metamask/snaps-sdk/jsx';
