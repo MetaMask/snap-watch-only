@@ -11,7 +11,7 @@ export const mockGetNetwork = jest.fn(async () => {
 
 // eslint-disable-next-line import/unambiguous
 jest.mock('ethers', () => {
-  const BrowserProvider = jest.fn().mockImplementation((_ethereum) => ({
+  const Web3Provider = jest.fn().mockImplementation((_ethereum) => ({
     getNetwork: mockGetNetwork,
     getCode: jest.fn().mockImplementation(async (address) => {
       return Promise.resolve(
@@ -32,7 +32,9 @@ jest.mock('ethers', () => {
 
   return {
     ethers: {
-      BrowserProvider,
+      providers: {
+        Web3Provider,
+      },
     },
   };
 });
