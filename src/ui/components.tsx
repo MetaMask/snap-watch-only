@@ -53,14 +53,14 @@ export function generateWatchFormComponent(): SnapComponent {
             type="text"
             placeholder={WATCH_FORM_INPUT_PLACEHOLDER}
           />
+          <Button
+            name={WatchFormNames.SubmitButton}
+            type={ButtonType.Submit}
+            variant={ButtonVariant.Primary}
+          >
+            Watch account
+          </Button>
         </Field>
-        <Button
-          name={WatchFormNames.SubmitButton}
-          type={ButtonType.Submit}
-          variant={ButtonVariant.Primary}
-        >
-          Watch account
-        </Button>
       </Form>
     </Box>
   );
@@ -79,44 +79,17 @@ export function generateSuccessMessageComponent(
   message?: string,
   withSpinner?: boolean,
 ): SnapComponent {
-  if (value && (isValidHexAddress(value as Hex) || isValidAddress(value))) {
-    if (withSpinner) {
-      return (
-        <Box>
-          <Heading>Success</Heading>
-          <Divider />
-          <Text>{message}</Text>
-          <Address address={getChecksumAddress(add0x(value)) as Hex} />
-          <Spinner />
-        </Box>
-      );
-    }
-    return (
-      <Box>
-        <Heading>Success</Heading>
-        <Divider />
-        <Text>{message}</Text>
-        <Address address={getChecksumAddress(add0x(value)) as Hex} />
-      </Box>
-    );
-  }
-  if (withSpinner) {
-    return (
-      <Box>
-        <Heading>Success</Heading>
-        <Divider />
-        <Text>{message}</Text>
-        <Text>{value}</Text>
-        <Spinner />
-      </Box>
-    );
-  }
   return (
     <Box>
       <Heading>Success</Heading>
       <Divider />
       <Text>{message}</Text>
-      <Text>{value}</Text>
+      {value && (isValidHexAddress(value as Hex) || isValidAddress(value)) ? (
+        <Address address={getChecksumAddress(add0x(value)) as Hex} />
+      ) : (
+        <Text>{value}</Text>
+      )}
+      {withSpinner && <Spinner />}
     </Box>
   );
 }
@@ -142,20 +115,11 @@ export function generateErrorMessageComponent(message: string): SnapComponent {
  * @returns The spinner component to display.
  */
 export function generateSpinnerComponent(message?: string): SnapComponent {
-  if (!message) {
-    return (
-      <Box>
-        <Heading>Processing</Heading>
-        <Divider />
-        <Spinner />
-      </Box>
-    );
-  }
   return (
     <Box>
       <Heading>Processing</Heading>
       <Divider />
-      <Text>{message}</Text>
+      {message && <Text>{message}</Text>}
       <Spinner />
     </Box>
   );
