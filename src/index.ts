@@ -88,9 +88,9 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     event.type === UserInputEventType.FormSubmitEvent &&
     event.name === WatchFormNames.AddressForm
   ) {
-    const inputValue = event.value[WatchFormNames.AddressInput];
+    const inputValue = event.value[WatchFormNames.AddressInput]?.toString();
 
-    if (!inputValue || inputValue !== typeof 'string') {
+    if (!inputValue) {
       const onMainnet = await isMainnet();
       const emptyInputMessage = onMainnet
         ? 'Address or ENS is required'

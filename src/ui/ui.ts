@@ -5,6 +5,7 @@ import {
   generateWatchFormComponent,
 } from './components';
 import type { SuccessMessageProps } from './components/SuccessMessage';
+import { isMainnet } from './ui-utils';
 
 /**
  * Initiate a new interface with the starting screen.
@@ -15,7 +16,7 @@ export async function createInterface(): Promise<string> {
   return await snap.request({
     method: 'snap_createInterface',
     params: {
-      ui: generateWatchFormComponent(),
+      ui: generateWatchFormComponent(await isMainnet()),
     },
   });
 }
@@ -30,7 +31,7 @@ export async function showForm(id: string) {
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: generateWatchFormComponent(),
+      ui: generateWatchFormComponent(await isMainnet()),
     },
   });
 }

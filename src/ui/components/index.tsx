@@ -9,10 +9,11 @@ import { WatchForm } from './WatchForm';
 /**
  * Generate the watch form component.
  *
+ * @param onMainnet - Whether the user is on the mainnet.
  * @returns The watch form component to display.
  */
-export function generateWatchFormComponent(): SnapComponent {
-  return <WatchForm />;
+export function generateWatchFormComponent(onMainnet: boolean): SnapComponent {
+  return <WatchForm onMainnet={onMainnet} />;
 }
 
 /**
