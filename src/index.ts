@@ -9,7 +9,7 @@ import type { OnKeyringRequestHandler } from '@metamask/snaps-types';
 import { WatchOnlyKeyring } from './keyring';
 import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
-import { WatchFormNames } from './ui/components';
+import { WatchFormNames } from './ui/components/WatchForm';
 import { createInterface, showErrorMessage } from './ui/ui';
 import { isMainnet, validateUserInput } from './ui/ui-utils';
 

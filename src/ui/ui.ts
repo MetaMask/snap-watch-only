@@ -4,6 +4,7 @@ import {
   generateSuccessMessageComponent,
   generateWatchFormComponent,
 } from './components';
+import type { SuccessMessageProps } from './components/SuccessMessage';
 
 /**
  * Initiate a new interface with the starting screen.
@@ -52,7 +53,11 @@ export async function showSuccess(
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: generateSuccessMessageComponent(value, message, withSpinner),
+      ui: generateSuccessMessageComponent({
+        value,
+        message,
+        withSpinner,
+      } as SuccessMessageProps),
     },
   });
 }
