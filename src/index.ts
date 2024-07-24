@@ -123,4 +123,11 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
       await showErrorMessage(id, validation.message);
     }
   }
+  // TODO: Future snaps release will allow routing to extension home page
+  // if (
+  //   event.type === UserInputEventType.ButtonClickEvent &&
+  //   event.name === WatchFormNames.CancelButton
+  // ) {
+  //   await showErrorMessage(id, 'Watch-only account creation canceled');
+  // }
 };

@@ -1,4 +1,4 @@
-import { ButtonType, ButtonVariant } from '@metamask/snaps-sdk';
+import { ButtonType } from '@metamask/snaps-sdk';
 import type { SnapComponent } from '@metamask/snaps-sdk/jsx';
 import {
   Box,
@@ -24,6 +24,7 @@ export enum WatchFormNames {
   AddressForm = 'address-form',
   AddressInput = 'address-input',
   SubmitButton = 'submit',
+  CancelButton = 'cancel',
 }
 
 export type WatchFormProps = {
@@ -52,13 +53,23 @@ export const WatchForm: SnapComponent<WatchFormProps> = ({
             }
           />
         </Field>
-        <Button
-          name={WatchFormNames.SubmitButton}
-          type={ButtonType.Submit}
-          variant={ButtonVariant.Primary}
-        >
-          Watch account
-        </Button>
+        <Box direction="horizontal" alignment="space-around">
+          {/* TODO: Future snaps release will allow routing to extension home page */}
+          {/* <Button*/}
+          {/*  name={WatchFormNames.CancelButton}*/}
+          {/*  type={ButtonType.Button}*/}
+          {/*  variant="destructive"*/}
+          {/* >*/}
+          {/*  Cancel*/}
+          {/* </Button>*/}
+          <Button
+            name={WatchFormNames.SubmitButton}
+            type={ButtonType.Submit}
+            variant="primary"
+          >
+            Watch
+          </Button>
+        </Box>
       </Form>
     </Box>
   );
