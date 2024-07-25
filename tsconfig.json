@@ -17,11 +17,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "baseUrl": "./",
-    "paths": {
-      "@metamask/*": [
-        "../../../*/src"
-      ]
-    },
     "types": [
       "jest"
     ],
@@ -30,6 +25,6 @@
   },
   "include": [
     "src",
-    "snap.config.ts",
+    "snap.config.ts"
   ]
 }
