@@ -3,10 +3,7 @@
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "ES2020",
-      "DOM"
-    ],
+    "lib": ["ES2020", "DOM"],
     "module": "CommonJS",
     "moduleResolution": "node",
     "noEmit": true,
@@ -17,14 +14,9 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "baseUrl": "./",
-    "types": [
-      "jest"
-    ],
+    "types": ["jest"],
     "jsx": "react-jsx",
     "jsxImportSource": "@metamask/snaps-sdk"
   },
-  "include": [
-    "src",
-    "snap.config.ts"
-  ]
+  "include": ["src", "snap.config.ts"]
 }

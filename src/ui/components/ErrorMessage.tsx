@@ -9,6 +9,8 @@ export type ErrorMessageProps = {
 export const ErrorMessage: SnapComponent<ErrorMessageProps> = ({
   message,
 }: ErrorMessageProps) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore - TS doesn't know about SnapComponent props
   return (
     <Row label="Error" variant={RowVariant.Critical}>
       <Text>{message}</Text>
