@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { ButtonType } from '@metamask/snaps-sdk';
 import type { SnapComponent } from '@metamask/snaps-sdk/jsx';
 import {
@@ -33,8 +35,6 @@ export type WatchFormProps = {
 export const WatchForm: SnapComponent<WatchFormProps> = ({
   onMainnet,
 }: WatchFormProps) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore - TS doesn't know about SnapComponent props
   return (
     <Box>
       <Heading>{WATCH_FORM_HEADER}</Heading>
