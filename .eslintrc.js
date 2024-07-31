@@ -1,6 +1,10 @@
 module.exports = {
   root: true,
 
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+  },
+
   extends: ['@metamask/eslint-config'],
 
   overrides: [

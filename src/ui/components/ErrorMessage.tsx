@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { RowVariant } from '@metamask/snaps-sdk';
 import type { SnapComponent } from '@metamask/snaps-sdk/jsx';
 import { Row, Text } from '@metamask/snaps-sdk/jsx';
