@@ -14,10 +14,9 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "baseUrl": "./",
-    "paths": {
-      "@metamask/*": ["../../../*/src"]
-    },
-    "types": ["jest"]
+    "types": ["jest"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "@metamask/snaps-sdk"
   },
   "include": ["src", "snap.config.ts"]
 }

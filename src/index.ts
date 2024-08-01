@@ -9,7 +9,7 @@ import type { OnKeyringRequestHandler } from '@metamask/snaps-types';
 import { WatchOnlyKeyring } from './keyring';
 import { originPermissions } from './permissions';
 import { getState } from './stateManagement';
-import { WatchFormNames } from './ui/components';
+import { WatchFormNames } from './ui/components/WatchForm';
 import { createInterface, showErrorMessage } from './ui/ui';
 import { isMainnet, validateUserInput } from './ui/ui-utils';
 
@@ -88,7 +88,7 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     event.type === UserInputEventType.FormSubmitEvent &&
     event.name === WatchFormNames.AddressForm
   ) {
-    const inputValue = event.value[WatchFormNames.AddressInput];
+    const inputValue = event.value[WatchFormNames.AddressInput]?.toString();
 
     if (!inputValue) {
       const onMainnet = await isMainnet();

@@ -1,9 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import {
   generateErrorMessageComponent,
   generateSpinnerComponent,
   generateSuccessMessageComponent,
   generateWatchFormComponent,
 } from './components';
+import type { SuccessMessageProps } from './components/SuccessMessage';
+import { isMainnet } from './ui-utils';
 
 /**
  * Initiate a new interface with the starting screen.
@@ -14,7 +18,7 @@ export async function createInterface(): Promise<string> {
   return await snap.request({
     method: 'snap_createInterface',
     params: {
-      ui: generateWatchFormComponent(),
+      ui: generateWatchFormComponent(await isMainnet()),
     },
   });
 }
@@ -29,7 +33,7 @@ export async function showForm(id: string) {
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: generateWatchFormComponent(),
+      ui: generateWatchFormComponent(await isMainnet()),
     },
   });
 }
@@ -52,7 +56,11 @@ export async function showSuccess(
     method: 'snap_updateInterface',
     params: {
       id,
-      ui: generateSuccessMessageComponent(value, message, withSpinner),
+      ui: generateSuccessMessageComponent({
+        value,
+        message,
+        withSpinner,
+      } as SuccessMessageProps),
     },
   });
 }

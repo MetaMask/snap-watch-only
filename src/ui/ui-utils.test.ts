@@ -1,9 +1,9 @@
+import { mockGetNetwork, TEST_VALUES } from '../test/setup';
 import {
   formatAddress,
   isSmartContractAddress,
   validateUserInput,
 } from './ui-utils';
-import { mockGetNetwork, TEST_VALUES } from '../test/setup';
 
 // @ts-expect-error Mocking ethereum global object
 global.ethereum = {
