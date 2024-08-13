@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { isValidAddress } from '@ethereumjs/util';
 import type { SnapComponent } from '@metamask/snaps-sdk/jsx';
 import {
@@ -24,17 +22,22 @@ export const SuccessMessage: SnapComponent<SuccessMessageProps> = ({
   message,
   withSpinner,
 }: SuccessMessageProps) => {
+  const renderAddressOrValueText = () => {
+    if (value && (isValidHexAddress(value as Hex) || isValidAddress(value))) {
+      return <Address address={getChecksumAddress(add0x(value)) as Hex} />;
+    } else if (value) {
+      return <Text>{value}</Text>;
+    }
+    return null;
+  };
+
   return (
     <Box>
       <Heading>Success</Heading>
       <Divider />
-      <Text>{message}</Text>
-      {value && (isValidHexAddress(value as Hex) || isValidAddress(value)) ? (
-        <Address address={getChecksumAddress(add0x(value)) as Hex} />
-      ) : (
-        <Text>{value}</Text>
-      )}
-      {withSpinner && <Spinner />}
+      {message ? <Text>{message}</Text> : null}
+      {renderAddressOrValueText()}
+      {withSpinner ? <Spinner /> : null}
     </Box>
   );
 };

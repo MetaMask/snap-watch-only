@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "baseUrl": "./",
-    "types": ["jest"],
+    "types": ["jest", "react", "react-dom"],
     "jsx": "react-jsx",
     "jsxImportSource": "@metamask/snaps-sdk"
   },
