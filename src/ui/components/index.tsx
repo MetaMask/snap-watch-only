@@ -1,5 +1,3 @@
-import type { SnapComponent } from '@metamask/snaps-sdk/jsx';
-
 import { ErrorMessage } from './ErrorMessage';
 import { SpinnerWithMessage } from './SpinnerWithMessage';
 import type { SuccessMessageProps } from './SuccessMessage';
@@ -12,7 +10,7 @@ import { WatchForm } from './WatchForm';
  * @param onMainnet - Whether the user is on the mainnet.
  * @returns The watch form component to display.
  */
-export function generateWatchFormComponent(onMainnet: boolean): SnapComponent {
+export function generateWatchFormComponent(onMainnet: boolean): JSX.Element {
   return <WatchForm onMainnet={onMainnet} />;
 }
 
@@ -24,7 +22,7 @@ export function generateWatchFormComponent(onMainnet: boolean): SnapComponent {
  */
 export function generateSuccessMessageComponent(
   props?: SuccessMessageProps,
-): SnapComponent {
+): JSX.Element {
   return <SuccessMessage {...props} />;
 }
 
@@ -34,7 +32,7 @@ export function generateSuccessMessageComponent(
  * @param message - The error message to display.
  * @returns The error message component to display.
  */
-export function generateErrorMessageComponent(message: string): SnapComponent {
+export function generateErrorMessageComponent(message: string): JSX.Element {
   return <ErrorMessage message={message} />;
 }
 
@@ -44,6 +42,6 @@ export function generateErrorMessageComponent(message: string): SnapComponent {
  * @param message - The message to display.
  * @returns The spinner component to display.
  */
-export function generateSpinnerComponent(message?: string): SnapComponent {
+export function generateSpinnerComponent(message?: string): JSX.Element {
   return <SpinnerWithMessage message={message ?? ''} />;
 }
