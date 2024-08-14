@@ -58,7 +58,7 @@ export const WatchForm: SnapComponent<WatchFormProps> = ({
             type={ButtonType.Submit}
             variant="primary"
           >
-            Watch
+            Watch account
           </Button>
         </Box>
       </Form>
