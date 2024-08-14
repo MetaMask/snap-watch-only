@@ -1,6 +1,6 @@
 {
   "name": "@metamask/account-watcher",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Keep an eye on Ethereum accounts right in MetaMask",
   "keywords": [
     "metamask",
