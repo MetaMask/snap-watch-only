@@ -1,5 +1,5 @@
 {
-  "version": "4.0.3",
+  "version": "4.1.0",
   "description": "Keep an eye on Ethereum addresses or ENS domains right in MetaMask",
   "proposedName": "Account Watcher",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "aAgL3VYNcIwe6Q0odpMOX1zbbpXDyF+D+0DFRWlzqdg=",
+    "shasum": "GJ83dOQVJCYPnH1z5hKmfTlRiX8O2hu7d1Rs+LC8nHQ=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
