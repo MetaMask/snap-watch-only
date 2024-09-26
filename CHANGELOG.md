@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.1]
+
+### Uncategorized
+
+- chore: bump keyring-api to ^8.1.3
+
 ## [4.1.0]
 
 ### Added
@@ -77,15 +83,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/metamask/snap-watch-only/compare/v4.1.0...HEAD
-[4.1.0]: https://github.com/metamask/snap-watch-only/compare/v4.0.3...v4.1.0
-[4.0.3]: https://github.com/metamask/snap-watch-only/compare/v4.0.2...v4.0.3
-[4.0.2]: https://github.com/metamask/snap-watch-only/compare/v4.0.1...v4.0.2
-[4.0.1]: https://github.com/metamask/snap-watch-only/compare/v4.0.0...v4.0.1
-[4.0.0]: https://github.com/metamask/snap-watch-only/compare/v3.2.0...v4.0.0
-[3.2.0]: https://github.com/metamask/snap-watch-only/compare/v3.1.1...v3.2.0
-[3.1.1]: https://github.com/metamask/snap-watch-only/compare/v3.1.0...v3.1.1
-[3.1.0]: https://github.com/metamask/snap-watch-only/compare/v3.0.0...v3.1.0
-[3.0.0]: https://github.com/metamask/snap-watch-only/compare/v2.0.0...v3.0.0
-[2.0.0]: https://github.com/metamask/snap-watch-only/compare/v1.0.0...v2.0.0
-[1.0.0]: https://github.com/metamask/snap-watch-only/releases/tag/v1.0.0
+[Unreleased]: https://github.com/MetaMask/snap-watch-only/compare/v4.1.1...HEAD
+[4.1.1]: https://github.com/MetaMask/snap-watch-only/compare/v4.1.0...v4.1.1
+[4.1.0]: https://github.com/MetaMask/snap-watch-only/compare/v4.0.3...v4.1.0
+[4.0.3]: https://github.com/MetaMask/snap-watch-only/compare/v4.0.2...v4.0.3
+[4.0.2]: https://github.com/MetaMask/snap-watch-only/compare/v4.0.1...v4.0.2
+[4.0.1]: https://github.com/MetaMask/snap-watch-only/compare/v4.0.0...v4.0.1
+[4.0.0]: https://github.com/MetaMask/snap-watch-only/compare/v3.2.0...v4.0.0
+[3.2.0]: https://github.com/MetaMask/snap-watch-only/compare/v3.1.1...v3.2.0
+[3.1.1]: https://github.com/MetaMask/snap-watch-only/compare/v3.1.0...v3.1.1
+[3.1.0]: https://github.com/MetaMask/snap-watch-only/compare/v3.0.0...v3.1.0
+[3.0.0]: https://github.com/MetaMask/snap-watch-only/compare/v2.0.0...v3.0.0
+[2.0.0]: https://github.com/MetaMask/snap-watch-only/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/MetaMask/snap-watch-only/releases/tag/v1.0.0
