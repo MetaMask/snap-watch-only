@@ -9,9 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.1.1]
 
-### Uncategorized
+### Changed
 
-- chore: bump keyring-api to ^8.1.3
+- Bump `@metamask/keyring-api` from `^4.0.1` to `^8.1.3` ([#51](https://github.com/MetaMask/snap-watch-only/pull/51))
+  - This version is now built slightly differently and is part of the [accounts monorepo](https://github.com/MetaMask/accounts).
 
 ## [4.1.0]
 
