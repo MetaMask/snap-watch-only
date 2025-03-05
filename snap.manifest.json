@@ -7,7 +7,7 @@
     "url": "https://github.com/metamask/snap-watch-only.git"
   },
   "source": {
-    "shasum": "4wf4DvOGZa3J83EisO3LYZZxXjzX2ko99TJlpe6vMHQ=",
+    "shasum": "2oeQZTpv4uI6tH6SkBHhNHlhWPm6m1mwVJ6wXbyZNHU=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -20,19 +20,16 @@
   "initialPermissions": {
     "snap_dialog": {},
     "endowment:keyring": {
-      "allowedOrigins": [
-        "https://snaps.metamask.io"
-      ]
+      "allowedOrigins": ["https://snaps.metamask.io"]
     },
     "endowment:rpc": {
-      "allowedOrigins": [
-        "https://snaps.metamask.io"
-      ]
+      "allowedOrigins": ["https://snaps.metamask.io"]
     },
     "snap_manageAccounts": {},
     "endowment:page-home": {},
     "snap_manageState": {},
     "endowment:ethereum-provider": {}
   },
+  "platformVersion": "6.19.0",
   "manifestVersion": "0.1"
 }
