@@ -1,10 +1,11 @@
 import { handleKeyringRequest } from '@metamask/keyring-api';
+import { UserInputEventType } from '@metamask/snaps-sdk';
 import type {
   OnHomePageHandler,
   OnUserInputHandler,
+  OnKeyringRequestHandler,
+  Json,
 } from '@metamask/snaps-sdk';
-import { UserInputEventType } from '@metamask/snaps-sdk';
-import type { OnKeyringRequestHandler } from '@metamask/snaps-types';
 
 import { WatchOnlyKeyring } from './keyring';
 import { originPermissions } from './permissions';
@@ -58,7 +59,7 @@ export const onKeyringRequest: OnKeyringRequestHandler = async ({
   }
 
   // Handle keyring methods.
-  return handleKeyringRequest(await getKeyring(), request);
+  return (await handleKeyringRequest(await getKeyring(), request)) as Json;
 };
 
 /**
