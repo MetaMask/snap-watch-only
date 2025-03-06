@@ -4,7 +4,6 @@ import type {
   OnHomePageHandler,
   OnUserInputHandler,
   OnKeyringRequestHandler,
-  Json,
 } from '@metamask/snaps-sdk';
 
 import { WatchOnlyKeyring } from './keyring';
@@ -59,7 +58,7 @@ export const onKeyringRequest: OnKeyringRequestHandler = async ({
   }
 
   // Handle keyring methods.
-  return (await handleKeyringRequest(await getKeyring(), request)) as Json;
+  return (await handleKeyringRequest(await getKeyring(), request)) ?? null;
 };
 
 /**
