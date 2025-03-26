@@ -9,12 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.1.3]
 
-### Uncategorized
+### Changed
 
-- fix: use `displayConfirmation: false` ([#58](https://github.com/MetaMask/snap-watch-only/pull/58))
-- fix: fix preinstalled build ([#57](https://github.com/MetaMask/snap-watch-only/pull/57))
-- fix: returns `null` if `handleKeyringRequest` returns `undefined`/`void` ([#56](https://github.com/MetaMask/snap-watch-only/pull/56))
-- chore: bump `ethers@^5.8.0` + `snaps-*` ([#55](https://github.com/MetaMask/snap-watch-only/pull/55))
+- Bump `ethers` from `^5.7.2` to `^5.8.0` ([#55](https://github.com/MetaMask/snap-watch-only/pull/55))
+- Bump `snaps-*` packages ([#55](https://github.com/MetaMask/snap-watch-only/pull/55))
+
+### Fixed
+
+- Use explicit `displayConfirmation: false` ([#58](https://github.com/MetaMask/snap-watch-only/pull/58))
+  - This flag was defaulting to `false` already on the Snap bridge side, but this was a mistake, so it has to be explicitly set to `false` now.
+- Fix preinstalled Snap builds ([#57](https://github.com/MetaMask/snap-watch-only/pull/57))
+  - The `preinstalled-snap.json` was not properly re-built, thus we were using an outdated version.
+- Now returns `null` if `handleKeyringRequest` returns `undefined`/`void` ([#56](https://github.com/MetaMask/snap-watch-only/pull/56))
+  - This is required to comply with JSON serializable values, since `undefined` is not valid in JSON.
 
 ## [4.1.2]
 
@@ -99,18 +106,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/MetaMask/snap-watch-only/compare/v4.1.3...HEAD
-[4.1.3]: https://github.com/MetaMask/snap-watch-only/compare/v4.1.2...v4.1.3
-[4.1.2]: https://github.com/MetaMask/snap-watch-only/compare/v4.1.1...v4.1.2
-[4.1.1]: https://github.com/MetaMask/snap-watch-only/compare/v4.1.0...v4.1.1
-[4.1.0]: https://github.com/MetaMask/snap-watch-only/compare/v4.0.3...v4.1.0
-[4.0.3]: https://github.com/MetaMask/snap-watch-only/compare/v4.0.2...v4.0.3
-[4.0.2]: https://github.com/MetaMask/snap-watch-only/compare/v4.0.1...v4.0.2
-[4.0.1]: https://github.com/MetaMask/snap-watch-only/compare/v4.0.0...v4.0.1
-[4.0.0]: https://github.com/MetaMask/snap-watch-only/compare/v3.2.0...v4.0.0
-[3.2.0]: https://github.com/MetaMask/snap-watch-only/compare/v3.1.1...v3.2.0
-[3.1.1]: https://github.com/MetaMask/snap-watch-only/compare/v3.1.0...v3.1.1
-[3.1.0]: https://github.com/MetaMask/snap-watch-only/compare/v3.0.0...v3.1.0
-[3.0.0]: https://github.com/MetaMask/snap-watch-only/compare/v2.0.0...v3.0.0
-[2.0.0]: https://github.com/MetaMask/snap-watch-only/compare/v1.0.0...v2.0.0
-[1.0.0]: https://github.com/MetaMask/snap-watch-only/releases/tag/v1.0.0
+[Unreleased]: https://github.com/metamask/snap-watch-only/compare/v4.1.3...HEAD
+[4.1.3]: https://github.com/metamask/snap-watch-only/compare/v4.1.2...v4.1.3
+[4.1.2]: https://github.com/metamask/snap-watch-only/compare/v4.1.1...v4.1.2
+[4.1.1]: https://github.com/metamask/snap-watch-only/compare/v4.1.0...v4.1.1
+[4.1.0]: https://github.com/metamask/snap-watch-only/compare/v4.0.3...v4.1.0
+[4.0.3]: https://github.com/metamask/snap-watch-only/compare/v4.0.2...v4.0.3
+[4.0.2]: https://github.com/metamask/snap-watch-only/compare/v4.0.1...v4.0.2
+[4.0.1]: https://github.com/metamask/snap-watch-only/compare/v4.0.0...v4.0.1
+[4.0.0]: https://github.com/metamask/snap-watch-only/compare/v3.2.0...v4.0.0
+[3.2.0]: https://github.com/metamask/snap-watch-only/compare/v3.1.1...v3.2.0
+[3.1.1]: https://github.com/metamask/snap-watch-only/compare/v3.1.0...v3.1.1
+[3.1.0]: https://github.com/metamask/snap-watch-only/compare/v3.0.0...v3.1.0
+[3.0.0]: https://github.com/metamask/snap-watch-only/compare/v2.0.0...v3.0.0
+[2.0.0]: https://github.com/metamask/snap-watch-only/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/metamask/snap-watch-only/releases/tag/v1.0.0
