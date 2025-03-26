@@ -78,7 +78,12 @@ export class WatchOnlyKeyring implements Keyring {
         eventData.accountNameSuggestion = options.accountNameSuggestion;
       }
 
-      await this.#emitEvent(KeyringEvent.AccountCreated, { ...eventData });
+      await this.#emitEvent(KeyringEvent.AccountCreated, {
+        ...eventData,
+        // Since this will be used as preinstalled Snap, we don't want to show the
+        // intermediate confirmations.
+        displayConfirmation: false,
+      });
       this.#state.wallets[account.id] = {
         account,
         privateKey: '', // Store an empty privateKey for watch-only accounts.
